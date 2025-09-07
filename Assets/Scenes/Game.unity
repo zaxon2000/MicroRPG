@@ -31362,7 +31362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curHp: 10
   maxHp: 10
-  moveSpeed: 2
+  moveSpeed: 4
   damage: 1
   interactRange: 1
   inventory: []
@@ -31380,7 +31380,7 @@ MonoBehaviour:
     type: 3}
   rightSprite: {fileID: 3208027462701797463, guid: 9d2fef81000f5d3499f8ee2969737d52,
     type: 3}
-  climbSpeed: 2.6
+  climbSpeed: 2
   isClimbing: 0
 --- !u!212 &415783342
 SpriteRenderer:
@@ -31483,8 +31483,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.6, y: 0.78}
+  m_Offset: {x: 0.0029980838, y: 0.0005995035}
+  m_Size: {x: 0.6995365, y: 0.86754394}
   m_Direction: 0
 --- !u!1 &484625276
 GameObject:
@@ -32031,6 +32031,7 @@ GameObject:
   - component: {fileID: 835332988}
   - component: {fileID: 835332991}
   - component: {fileID: 835332990}
+  - component: {fileID: 835332992}
   m_Layer: 11
   m_Name: MountainLedge_Tilemap
   m_TagString: Untagged
@@ -34113,12 +34114,86 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 835332992}
+    m_ColliderPaths:
+    - - X: 220000000
+        Y: 400000000
+      - X: 70000000
+        Y: 400000000
+      - X: 70000000
+        Y: 390000000
+      - X: 60000000
+        Y: 390000000
+      - X: 60000000
+        Y: 350000000
+      - X: 70000000
+        Y: 350000000
+      - X: 70000000
+        Y: 320000000
+      - X: 220000000
+        Y: 320000000
+    - - X: -70000000
+        Y: 200000000
+      - X: -60000000
+        Y: 200000000
+      - X: -60000000
+        Y: 230000000
+      - X: -70000000
+        Y: 230000000
+      - X: -70000000
+        Y: 240000000
+      - X: -170000000
+        Y: 240000000
+      - X: -170000000
+        Y: 190000000
+      - X: -70000000
+        Y: 190000000
+    - - X: 70000000
+        Y: 120000000
+      - X: 80000000
+        Y: 120000000
+      - X: 80000000
+        Y: 130000000
+      - X: 10000000
+        Y: 130000000
+      - X: 10000000
+        Y: 120000000
+      - X: 0
+        Y: 120000000
+      - X: 0
+        Y: 110000000
+      - X: 70000000
+        Y: 110000000
   m_CompositePaths:
-    m_Paths: []
+    m_Paths:
+    - - {x: 21.999971, y: 32}
+      - {x: 21.999971, y: 40}
+      - {x: 7, y: 39.999973}
+      - {x: 6.9999704, y: 39}
+      - {x: 6, y: 38.999973}
+      - {x: 6.000029, y: 35}
+      - {x: 7, y: 34.999973}
+      - {x: 7.0000296, y: 32}
+    - - {x: -7.0000296, y: 19}
+      - {x: -6.9999704, y: 20}
+      - {x: -6, y: 20.000029}
+      - {x: -6.000029, y: 23}
+      - {x: -7, y: 23.000029}
+      - {x: -7.0000296, y: 24}
+      - {x: -17, y: 23.999971}
+      - {x: -16.999971, y: 19}
+    - - {x: 6.9999704, y: 11}
+      - {x: 7.0000296, y: 12}
+      - {x: 8, y: 12.00003}
+      - {x: 7.9999704, y: 13}
+      - {x: 1, y: 12.99997}
+      - {x: 0.9999706, y: 12}
+      - {x: 0, y: 11.99997}
+      - {x: 0.000029300001, y: 11}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -34150,6 +34225,42 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!19719996 &835332992
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835332986}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 1
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &861629659
 GameObject:
   m_ObjectHideFlags: 0

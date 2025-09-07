@@ -46,9 +46,6 @@ public class Player : MonoBehaviour
     private PlayerUI ui;
     private ParticleSystem hitEffect;
     
-    // [SerializeField] private float inputDeadzone = 0.15f;
-
-
     void Awake ()
     {
         // get components
@@ -238,16 +235,26 @@ public class Player : MonoBehaviour
         ui.UpdateInventoryText();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)  { HandleSurface(other); }
+    private void OnTriggerStay2D(Collider2D other)   { HandleSurface(other); }
+    
+    private void HandleSurface(Collider2D other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Climbable"))
-        {
-            isClimbing = true;
-        }
+        int layer = other.gameObject.layer;
+
+        Debug.Log("[Player] HandleSurfaace: Player touched layer: " + LayerMask.LayerToName(layer));
         
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        // If touching Ground at all, prefer Ground (drop out of climb).
+        if (layer == LayerMask.NameToLayer("Ground"))
         {
             isClimbing = false;
+            return;
+        }
+
+        // Otherwise, Climbable puts us in climb.
+        if (layer == LayerMask.NameToLayer("Climbable"))
+        {
+            isClimbing = true;
         }
     }
 }
