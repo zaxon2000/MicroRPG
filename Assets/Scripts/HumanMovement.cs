@@ -31,6 +31,9 @@ public class HumanMovement : MonoBehaviour
     // Drop state
     [SerializeField] private bool isDropping;
     private float _dropTimer;
+    private float _dropCooldownTimer = 0f;
+    [SerializeField] private const float DROP_COOLDOWN = 0.5f; // Half second delay before can drop again
+
     // how long we drop after falling while climbing
 
     [Header("Stamina")]
@@ -137,17 +140,23 @@ public class HumanMovement : MonoBehaviour
             _staminaRegenTimer = 0f; // Reset regen timer when climbing upwards
         }
         
-        // Check if player should fall while climbing
-        if (isClimbing && curStamina <= staminaThresholdFallWhileClimbing && !isDropping)
+        // Check if player should fall while climbing - only when actively moving upwards
+        if (isClimbing && MoveInput.y > 0f && curStamina <= staminaThresholdFallWhileClimbing && 
+            !_isDropping && _dropCooldownTimer <= 0f)
         {
             StartDropping();
         }
-
     }
     
     private void HandleDropping()
     {
-        if (isDropping)
+        // Update drop cooldown timer
+        if (_dropCooldownTimer > 0f)
+        {
+            _dropCooldownTimer -= Time.deltaTime;
+        }
+        
+        if (_isDropping)
         {
             _dropTimer += Time.deltaTime;
             
@@ -161,13 +170,15 @@ public class HumanMovement : MonoBehaviour
     
     private void StartDropping()
     {
-        isDropping = true;
+        _isDropping = true;
         _dropTimer = 0f;
         
-        // Enable gravity for falling
+        // Enable gravity for falling with higher scale for faster drop
         if (_rig != null)
         {
-            _rig.gravityScale = 1f;
+            _rig.gravityScale = 3f; // Increased from 1f for faster falling
+            // Clear any existing velocity to ensure clean fall
+            _rig.velocity = Vector2.zero;
         }
         
         // Force player out of climbing state
@@ -176,8 +187,9 @@ public class HumanMovement : MonoBehaviour
     
     private void StopDropping()
     {
-        isDropping = false;
+        _isDropping = false;
         _dropTimer = 0f;
+        _dropCooldownTimer = DROP_COOLDOWN; // Start cooldown period
         
         // Disable gravity back to normal 2D top-down
         if (_rig != null)
@@ -190,7 +202,7 @@ public class HumanMovement : MonoBehaviour
     private void HandleStaminaRegeneration()
     {
         // Only regenerate stamina if not currently sprinting
-        if (!_isSprinting && !isClimbing)
+        if (!_isSprinting && !isClimbing && !_isDropping)
         {
             _staminaRegenTimer += Time.deltaTime;
             
@@ -209,6 +221,12 @@ public class HumanMovement : MonoBehaviour
 
     private void Move()
     {
+        // Don't process movement input while dropping
+        if (isDropping)
+        {
+            return;
+        }
+
         // --- INPUT ---
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
