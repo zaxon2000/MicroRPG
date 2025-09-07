@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,29 +37,17 @@ public class Player : MonoBehaviour
     [Header("Climbing")]
     [Tooltip("Speed while climbing on the MountainFace_Tilemap (Climbable layer). Must be < moveSpeed.")]
     public float climbSpeed = 2.6f;
-
-    [Tooltip("Tiny inputs are ignored (gamepad stick noise).")]
-    public float inputDeadzone = 0.05f;
-
-    [Tooltip("LayerMask for BaseVillage_Tilemap and MountainLedge_Tilemap.")]
-    public LayerMask groundMask;
-
-    [Tooltip("LayerMask for MountainFace_Tilemap (the wall).")]
-    public LayerMask climbableMask;
-
-    [Tooltip("Probe to decide if we are overlapping the climbable wall.")]
-    public float overlapRadius = 0.15f;
-
-    [Tooltip("Offset for the overlap probe (usually a little below center toward the feet).")]
-    public Vector2 overlapOffset = new Vector2(0f, -0.1f);
-
-    private bool isClimbing;
+    
+    public bool isClimbing;
 
     // components
     private Rigidbody2D rig;
     private SpriteRenderer sr;
     private PlayerUI ui;
     private ParticleSystem hitEffect;
+    
+    // [SerializeField] private float inputDeadzone = 0.15f;
+
 
     void Awake ()
     {
@@ -113,11 +102,10 @@ public class Player : MonoBehaviour
         // normalize diagonals for consistent speed
         if (moveInput.sqrMagnitude > 1f) moveInput.Normalize();
 
-        // deadzone
-        if (moveInput.sqrMagnitude < (inputDeadzone * inputDeadzone)) moveInput = Vector2.zero;
-
-        // --- STATE: CLIMB OR GROUND ---
-        isClimbing = CheckClimbableOverlap();
+        // DEADZONE: ignore tiny joystick drift (adjust threshold to taste)
+        const float deadzone = 0.1f;
+        if (Mathf.Abs(moveInput.x) < deadzone) moveInput.x = 0f;
+        if (Mathf.Abs(moveInput.y) < deadzone) moveInput.y = 0f;
 
         // --- FACING + SPRITE ---
         if (isClimbing)
@@ -161,12 +149,7 @@ public class Player : MonoBehaviour
         else if (facingDirection == Vector2.right) sr.sprite = rightSprite;
     }
 
-    // Overlap check to detect we are "on" the MountainFace (Climbable)
-    bool CheckClimbableOverlap()
-    {
-        Vector2 p = (Vector2)transform.position + overlapOffset;
-        return Physics2D.OverlapCircle(p, overlapRadius, climbableMask) != null;
-    }
+
 
     // shoot a raycast and deal damage if we hit an enemy
     void Attack ()
@@ -255,12 +238,16 @@ public class Player : MonoBehaviour
         ui.UpdateInventoryText();
     }
 
-#if UNITY_EDITOR
-    void OnDrawGizmosSelected()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Gizmos.color = Color.cyan;
-        Vector3 p = transform.position + (Vector3)overlapOffset;
-        Gizmos.DrawWireSphere(p, overlapRadius);
+        if(other.gameObject.layer == LayerMask.NameToLayer("Climbable"))
+        {
+            isClimbing = true;
+        }
+        
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            isClimbing = false;
+        }
     }
-#endif
 }
