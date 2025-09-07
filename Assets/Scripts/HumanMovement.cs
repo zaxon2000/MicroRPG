@@ -34,7 +34,6 @@ public class HumanMovement : MonoBehaviour
     private float _dropCooldownTimer = 0f;
     [SerializeField] private const float DROP_COOLDOWN = 0.5f; // Half second delay before can drop again
 
-    // how long we drop after falling while climbing
 
     [Header("Stamina")]
     public float curStamina;                // our current stamina
@@ -142,7 +141,7 @@ public class HumanMovement : MonoBehaviour
         
         // Check if player should fall while climbing - only when actively moving upwards
         if (isClimbing && MoveInput.y > 0f && curStamina <= staminaThresholdFallWhileClimbing && 
-            !_isDropping && _dropCooldownTimer <= 0f)
+            !isDropping && _dropCooldownTimer <= 0f)
         {
             StartDropping();
         }
@@ -156,7 +155,7 @@ public class HumanMovement : MonoBehaviour
             _dropCooldownTimer -= Time.deltaTime;
         }
         
-        if (_isDropping)
+        if (isDropping)
         {
             _dropTimer += Time.deltaTime;
             
@@ -170,7 +169,7 @@ public class HumanMovement : MonoBehaviour
     
     private void StartDropping()
     {
-        _isDropping = true;
+        isDropping = true;
         _dropTimer = 0f;
         
         // Enable gravity for falling with higher scale for faster drop
@@ -187,7 +186,7 @@ public class HumanMovement : MonoBehaviour
     
     private void StopDropping()
     {
-        _isDropping = false;
+        isDropping = false;
         _dropTimer = 0f;
         _dropCooldownTimer = DROP_COOLDOWN; // Start cooldown period
         
@@ -202,7 +201,7 @@ public class HumanMovement : MonoBehaviour
     private void HandleStaminaRegeneration()
     {
         // Only regenerate stamina if not currently sprinting
-        if (!_isSprinting && !isClimbing && !_isDropping)
+        if (!_isSprinting && !isClimbing && !isDropping)
         {
             _staminaRegenTimer += Time.deltaTime;
             

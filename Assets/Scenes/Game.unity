@@ -31519,7 +31519,8 @@ MonoBehaviour:
   staminaDegenRateClimbing: 15
   staminaThresholdFallWhileClimbing: 0
   staminaThresholdStartClimbing: 5
-  dropDuration: 2
+  dropDuration: 0.75
+  isDropping: 0
   curStamina: 100
   maxStamina: 100
   staminaRegenRate: 15
