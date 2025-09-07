@@ -31503,6 +31503,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 4
   climbSpeed: 2
+  sprintMultiplier: 2
+  staminaThresholdStartSprinting: 20
+  staminaThresholdStopSprinting: 10
+  staminaDegenRateSprinting: 15
   downSprite: {fileID: -6979919878118274778, guid: 9d2fef81000f5d3499f8ee2969737d52,
     type: 3}
   upSprite: {fileID: 2154720983746436306, guid: 9d2fef81000f5d3499f8ee2969737d52,
@@ -31512,6 +31516,13 @@ MonoBehaviour:
   rightSprite: {fileID: 3208027462701797463, guid: 9d2fef81000f5d3499f8ee2969737d52,
     type: 3}
   isClimbing: 0
+  staminaDegenRateClimbing: 0
+  staminaThresholdFallWhileClmbing: 0
+  staminaThresholdStartClimbing: 0
+  curStamina: 0
+  maxStamina: 0
+  staminaRegenRate: 10
+  staminaRegenDelay: 2
 --- !u!1 &484625276
 GameObject:
   m_ObjectHideFlags: 0
@@ -31635,6 +31646,9 @@ MonoBehaviour:
   inventoryText: {fileID: 49255031}
   healthBarFill: {fileID: 153888160}
   xpBarFill: {fileID: 667177081}
+  staminaBarFill: {fileID: 0}
+  player: {fileID: 415783341}
+  movement: {fileID: 415783346}
 --- !u!1 &532113214
 GameObject:
   m_ObjectHideFlags: 0
@@ -32019,7 +32033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.23800004, g: 1, b: 0.27069062, a: 1}
+  m_Color: {r: 0.23921567, g: 0.45389113, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -34871,14 +34885,15 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 153888159}
+  - {fileID: 1400425992}
   - {fileID: 667177080}
   - {fileID: 1672471356}
   m_Father: {fileID: 484625280}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 60}
-  m_SizeDelta: {x: 500, y: 70}
+  m_AnchoredPosition: {x: 0, y: 84}
+  m_SizeDelta: {x: 500, y: 107.8199}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1264020063
 MonoBehaviour:
@@ -34917,6 +34932,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264020061}
+  m_CullTransparentMesh: 0
+--- !u!1 &1400425991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1400425992}
+  - component: {fileID: 1400425994}
+  - component: {fileID: 1400425993}
+  m_Layer: 5
+  m_Name: StaminaBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1400425992
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400425991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1264020062}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 33.18, y: 48}
+  m_SizeDelta: {x: 423.63, y: 21.16}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1400425993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400425991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.23921567, g: 1, b: 0.3050077, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 74bf423d868b9d04cb5cf8f7a24325c9, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 0
+  m_FillAmount: 0.543
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1400425994
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400425991}
   m_CullTransparentMesh: 0
 --- !u!1 &1417267562
 GameObject:

@@ -11,13 +11,18 @@ public class PlayerUI : MonoBehaviour
     public TextMeshProUGUI inventoryText;   // text showing what the player has in their inventory
     public Image healthBarFill;             // image fill for the health bar
     public Image xpBarFill;                 // image fill for the xp bar
+    public Image staminaBarFill;            // image fill for the stamina bar
 
-    private Player player;
+    [SerializeField] private Player player;
+    [SerializeField] private HumanMovement movement;
 
     void Awake ()
     {
-        // get the player
-        player = FindObjectOfType<Player>();
+        if (movement == null)
+            movement = FindObjectOfType<HumanMovement>();
+       
+        if (player == null)
+            player = FindObjectOfType<Player>();
     }
 
     // update the level text
@@ -36,6 +41,12 @@ public class PlayerUI : MonoBehaviour
     public void UpdateXpBar ()
     {
         xpBarFill.fillAmount = (float)player.curXp / (float)player.xpToNextLevel;
+    }
+    
+    // update the stamina bar fill amount
+    public void UpdateStaminaBar ()
+    {
+        staminaBarFill.fillAmount = (float)movement.curStamina / (float)movement.maxStamina;
     }
 
     // displays the player's inventory on screen
