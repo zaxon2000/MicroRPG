@@ -26,6 +26,12 @@ public class HumanMovement : MonoBehaviour
     public float staminaDegenRateClimbing;           // how fast we degenerate stamina while climbing
     public float staminaThresholdFallWhileClimbing;          // how low stamina must be to stop sprinting
     public float staminaThresholdStartClimbing;            // how high stamina must be to start sprinting
+    public float dropDuration;  
+    
+    // Drop state
+    [SerializeField] private bool isDropping;
+    private float _dropTimer;
+    // how long we drop after falling while climbing
 
     [Header("Stamina")]
     public float curStamina;                // our current stamina
@@ -73,6 +79,7 @@ public class HumanMovement : MonoBehaviour
     {
         HandleSprint();
         HandleClimbing();
+        HandleDropping();
         HandleStaminaRegeneration();
         Move();
         _playerUI.UpdateStaminaBar();
@@ -129,7 +136,56 @@ public class HumanMovement : MonoBehaviour
             curStamina = Mathf.Max(curStamina, 0f);
             _staminaRegenTimer = 0f; // Reset regen timer when climbing upwards
         }
+        
+        // Check if player should fall while climbing
+        if (isClimbing && curStamina <= staminaThresholdFallWhileClimbing && !isDropping)
+        {
+            StartDropping();
+        }
+
     }
+    
+    private void HandleDropping()
+    {
+        if (isDropping)
+        {
+            _dropTimer += Time.deltaTime;
+            
+            // Stop dropping when duration passes
+            if (_dropTimer >= dropDuration)
+            {
+                StopDropping();
+            }
+        }
+    }
+    
+    private void StartDropping()
+    {
+        isDropping = true;
+        _dropTimer = 0f;
+        
+        // Enable gravity for falling
+        if (_rig != null)
+        {
+            _rig.gravityScale = 1f;
+        }
+        
+        // Force player out of climbing state
+        isClimbing = false;
+    }
+    
+    private void StopDropping()
+    {
+        isDropping = false;
+        _dropTimer = 0f;
+        
+        // Disable gravity back to normal 2D top-down
+        if (_rig != null)
+        {
+            _rig.gravityScale = 0f;
+        }
+    }
+
     
     private void HandleStaminaRegeneration()
     {
