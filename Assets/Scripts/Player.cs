@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     [Header("Stats")]
     public int curHp;                   // our current health
     public int maxHp;                   // our maximum health
-    public float moveSpeed;             // how fast we move
+    public float moveSpeed;             // ground speed (regular)
     public int damage;                  // damage we deal
     public float interactRange;         // range at which we can interact
     public List<string> inventory = new List<string>();
@@ -23,13 +23,36 @@ public class Player : MonoBehaviour
     public float attackRate;            // minimum time between attacks
     private float lastAttackTime;       // last time we attacked
 
-    private Vector2 facingDirection;    // direction we're facing
+    // Movement / Facing
+    private Vector2 facingDirection;    // direction we're facing (used by attack & interact)
+    private Vector2 moveInput;          // raw input this frame
 
     [Header("Sprites")]
     public Sprite downSprite;
     public Sprite upSprite;
     public Sprite leftSprite;
     public Sprite rightSprite;
+
+    [Header("Climbing")]
+    [Tooltip("Speed while climbing on the MountainFace_Tilemap (Climbable layer). Must be < moveSpeed.")]
+    public float climbSpeed = 2.6f;
+
+    [Tooltip("Tiny inputs are ignored (gamepad stick noise).")]
+    public float inputDeadzone = 0.05f;
+
+    [Tooltip("LayerMask for BaseVillage_Tilemap and MountainLedge_Tilemap.")]
+    public LayerMask groundMask;
+
+    [Tooltip("LayerMask for MountainFace_Tilemap (the wall).")]
+    public LayerMask climbableMask;
+
+    [Tooltip("Probe to decide if we are overlapping the climbable wall.")]
+    public float overlapRadius = 0.15f;
+
+    [Tooltip("Offset for the overlap probe (usually a little below center toward the feet).")]
+    public Vector2 overlapOffset = new Vector2(0f, -0.1f);
+
+    private bool isClimbing;
 
     // components
     private Rigidbody2D rig;
@@ -44,6 +67,17 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         ui = FindObjectOfType<PlayerUI>();
         hitEffect = gameObject.GetComponentInChildren<ParticleSystem>();
+
+        // 2D top-down defaults
+        if (rig != null)
+        {
+            rig.gravityScale = 0f;
+            rig.freezeRotation = true;
+        }
+
+        // default facing
+        facingDirection = Vector2.down;
+        sr.sprite = downSprite;
     }
 
     void Start ()
@@ -71,34 +105,67 @@ public class Player : MonoBehaviour
 
     void Move ()
     {
-        // get horizontal and vertical keyboard inputs
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        // --- INPUT ---
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+        moveInput = new Vector2(x, y);
 
-        // calculate the velocity we're going to move at
-        Vector2 vel = new Vector2(x, y);
+        // normalize diagonals for consistent speed
+        if (moveInput.sqrMagnitude > 1f) moveInput.Normalize();
 
-        // calculate the facing direction
-        if(vel.magnitude != 0)
-            facingDirection = vel;
+        // deadzone
+        if (moveInput.sqrMagnitude < (inputDeadzone * inputDeadzone)) moveInput = Vector2.zero;
 
-        UpdateSpriteDirection();
+        // --- STATE: CLIMB OR GROUND ---
+        isClimbing = CheckClimbableOverlap();
 
-        // set the velocity
-        rig.velocity = vel * moveSpeed;
+        // --- FACING + SPRITE ---
+        if (isClimbing)
+        {
+            // While climbing: always face "up" (into wall)
+            facingDirection = Vector2.up;
+            sr.sprite = upSprite;
+        }
+        else
+        {
+            // Ground: 4-way Zelda style facing (snap to dominant axis) while still allowing diagonal movement
+            if (moveInput != Vector2.zero)
+            {
+                if (Mathf.Abs(moveInput.x) > Mathf.Abs(moveInput.y))
+                {
+                    facingDirection = (moveInput.x > 0f) ? Vector2.right : Vector2.left;
+                }
+                else
+                {
+                    facingDirection = (moveInput.y > 0f) ? Vector2.up : Vector2.down;
+                }
+            }
+
+            UpdateSpriteDirection(); // uses facingDirection to pick one of the 4 sprites
+        }
+
+        // --- SPEED ---
+        float speed = isClimbing ? Mathf.Min(climbSpeed, moveSpeed) : moveSpeed;
+
+        // --- APPLY VELOCITY ---
+        rig.velocity = moveInput * speed;
     }
 
-    // change player sprite depending on where we're looking
+    // change player sprite depending on where we're looking (strict 4-dir)
     void UpdateSpriteDirection ()
     {
-        if (facingDirection == Vector2.up)
-            sr.sprite = upSprite;
-        else if (facingDirection == Vector2.down)
-            sr.sprite = downSprite;
-        else if (facingDirection == Vector2.left)
-            sr.sprite = leftSprite;
-        else if (facingDirection == Vector2.right)
-            sr.sprite = rightSprite;
+        // Choose sprite by facingDirection (one of 4 unit vectors)
+        if      (facingDirection == Vector2.up)    sr.sprite = upSprite;
+        else if (facingDirection == Vector2.down)  sr.sprite = downSprite;
+        else if (facingDirection == Vector2.left)  sr.sprite = leftSprite;
+        else if (facingDirection == Vector2.right) sr.sprite = rightSprite;
+    }
+
+    // Overlap check to detect we are "on" the MountainFace (Climbable)
+    bool CheckClimbableOverlap()
+    {
+        Vector2 p = (Vector2)transform.position + overlapOffset;
+        return Physics2D.OverlapCircle(p, overlapRadius, climbableMask) != null;
     }
 
     // shoot a raycast and deal damage if we hit an enemy
@@ -187,4 +254,13 @@ public class Player : MonoBehaviour
         inventory.Add(item);
         ui.UpdateInventoryText();
     }
+
+#if UNITY_EDITOR
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Vector3 p = transform.position + (Vector3)overlapOffset;
+        Gizmos.DrawWireSphere(p, overlapRadius);
+    }
+#endif
 }
