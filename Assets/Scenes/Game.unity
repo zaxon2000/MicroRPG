@@ -31505,8 +31505,8 @@ MonoBehaviour:
   climbSpeed: 2
   sprintMultiplier: 2
   staminaThresholdStartSprinting: 20
-  staminaThresholdStopSprinting: 10
-  staminaDegenRateSprinting: 15
+  staminaThresholdStopSprinting: 5
+  staminaDegenRateSprinting: 20
   downSprite: {fileID: -6979919878118274778, guid: 9d2fef81000f5d3499f8ee2969737d52,
     type: 3}
   upSprite: {fileID: 2154720983746436306, guid: 9d2fef81000f5d3499f8ee2969737d52,
@@ -31516,12 +31516,12 @@ MonoBehaviour:
   rightSprite: {fileID: 3208027462701797463, guid: 9d2fef81000f5d3499f8ee2969737d52,
     type: 3}
   isClimbing: 0
-  staminaDegenRateClimbing: 0
-  staminaThresholdFallWhileClmbing: 0
-  staminaThresholdStartClimbing: 0
-  curStamina: 0
-  maxStamina: 0
-  staminaRegenRate: 10
+  staminaDegenRateClimbing: 15
+  staminaThresholdFallWhileClimbing: 0
+  staminaThresholdStartClimbing: 5
+  curStamina: 100
+  maxStamina: 100
+  staminaRegenRate: 15
   staminaRegenDelay: 2
 --- !u!1 &484625276
 GameObject:
@@ -31646,7 +31646,7 @@ MonoBehaviour:
   inventoryText: {fileID: 49255031}
   healthBarFill: {fileID: 153888160}
   xpBarFill: {fileID: 667177081}
-  staminaBarFill: {fileID: 0}
+  staminaBarFill: {fileID: 1400425993}
   player: {fileID: 415783341}
   movement: {fileID: 415783346}
 --- !u!1 &532113214

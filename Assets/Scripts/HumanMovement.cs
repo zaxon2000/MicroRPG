@@ -12,7 +12,7 @@ public class HumanMovement : MonoBehaviour
     [Header("Sprint")]
     public float sprintMultiplier = 2f;             // multiplier for sprint speed
     public float staminaThresholdStartSprinting = 20f; // minimum stamina to start sprinting
-    public float staminaThresholdStopSprinting = 10f;  // stamina level that stops sprinting
+    public float staminaThresholdStopSprinting = 5f;  // stamina level that stops sprinting
     public float staminaDegenRateSprinting = 15f;      // stamina drain per second while sprinting
     
     [Header("Sprites")]
@@ -24,7 +24,7 @@ public class HumanMovement : MonoBehaviour
     [Header("Climb State")]
     public bool isClimbing;
     public float staminaDegenRateClimbing;           // how fast we degenerate stamina while climbing
-    public float staminaThresholdFallWhileClmbing;          // how low stamina must be to stop sprinting
+    public float staminaThresholdFallWhileClimbing;          // how low stamina must be to stop sprinting
     public float staminaThresholdStartClimbing;            // how high stamina must be to start sprinting
 
     [Header("Stamina")]
@@ -72,8 +72,10 @@ public class HumanMovement : MonoBehaviour
     private void Update()
     {
         HandleSprint();
+        HandleClimbing();
         HandleStaminaRegeneration();
         Move();
+        _playerUI.UpdateStaminaBar();
     }
 
     private void HandleSprint()
@@ -117,11 +119,22 @@ public class HumanMovement : MonoBehaviour
             _canSprint = true;
         }
     }
+
+    private void HandleClimbing()
+    {
+        // Handle climbing stamina drain
+        if (isClimbing && MoveInput.y > 0f) // Moving upwards while climbing
+        {
+            curStamina -= staminaDegenRateClimbing * Time.deltaTime;
+            curStamina = Mathf.Max(curStamina, 0f);
+            _staminaRegenTimer = 0f; // Reset regen timer when climbing upwards
+        }
+    }
     
     private void HandleStaminaRegeneration()
     {
         // Only regenerate stamina if not currently sprinting
-        if (!_isSprinting)
+        if (!_isSprinting && !isClimbing)
         {
             _staminaRegenTimer += Time.deltaTime;
             
@@ -138,7 +151,7 @@ public class HumanMovement : MonoBehaviour
         }
     }
 
-    public void Move()
+    private void Move()
     {
         // --- INPUT ---
         float x = Input.GetAxisRaw("Horizontal");
