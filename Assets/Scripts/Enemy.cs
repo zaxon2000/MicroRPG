@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     public float attackRange;           // range at which we attack the player
     private Player player;
 
-    [Header("Attack")]
+    [Header("PlayerAttack")]
     public int damage;                  // damage we deal to the player
     public float attackRate;            // minimum time between attacks
     private float lastAttackTime;       // last time we attacked the player

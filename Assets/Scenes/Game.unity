@@ -31312,6 +31312,8 @@ GameObject:
   - component: {fileID: 415783343}
   - component: {fileID: 415783342}
   - component: {fileID: 415783341}
+  - component: {fileID: 415783346}
+  - component: {fileID: 415783345}
   - component: {fileID: 415783340}
   - component: {fileID: 415783344}
   m_Layer: 7
@@ -31362,26 +31364,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curHp: 10
   maxHp: 10
-  moveSpeed: 4
-  damage: 1
   interactRange: 1
   inventory: []
   curLevel: 1
   curXp: 0
   xpToNextLevel: 10
   levelXpModifier: 1.1
-  attackRange: 1.5
-  attackRate: 0.2
-  downSprite: {fileID: -6979919878118274778, guid: 9d2fef81000f5d3499f8ee2969737d52,
-    type: 3}
-  upSprite: {fileID: 2154720983746436306, guid: 9d2fef81000f5d3499f8ee2969737d52,
-    type: 3}
-  leftSprite: {fileID: 8450905250360956143, guid: 9d2fef81000f5d3499f8ee2969737d52,
-    type: 3}
-  rightSprite: {fileID: 3208027462701797463, guid: 9d2fef81000f5d3499f8ee2969737d52,
-    type: 3}
-  climbSpeed: 2
-  isClimbing: 0
 --- !u!212 &415783342
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -31486,6 +31474,44 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0029980838, y: 0.0005995035}
   m_Size: {x: 0.6995365, y: 0.86754394}
   m_Direction: 0
+--- !u!114 &415783345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415783339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5980d7374309a843b247e43076adcf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 2
+  attackRate: 0.5
+  damage: 2
+--- !u!114 &415783346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415783339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dca619481b47324ba584d9b23b4098f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 4
+  climbSpeed: 2
+  downSprite: {fileID: -6979919878118274778, guid: 9d2fef81000f5d3499f8ee2969737d52,
+    type: 3}
+  upSprite: {fileID: 2154720983746436306, guid: 9d2fef81000f5d3499f8ee2969737d52,
+    type: 3}
+  leftSprite: {fileID: 8450905250360956143, guid: 9d2fef81000f5d3499f8ee2969737d52,
+    type: 3}
+  rightSprite: {fileID: 3208027462701797463, guid: 9d2fef81000f5d3499f8ee2969737d52,
+    type: 3}
+  isClimbing: 0
 --- !u!1 &484625276
 GameObject:
   m_ObjectHideFlags: 0
