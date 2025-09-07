@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -11,9 +12,6 @@ public class HumanMovement : MonoBehaviour
     
     [Header("Sprint")]
     public float sprintMultiplier = 2f;             // multiplier for sprint speed
-    public float staminaThresholdStartSprinting = 20f; // minimum stamina to start sprinting
-    public float staminaThresholdStopSprinting = 5f;  // stamina level that stops sprinting
-    public float staminaDegenRateSprinting = 15f;      // stamina drain per second while sprinting
     
     [Header("Sprites")]
     public Sprite downSprite;
@@ -23,23 +21,32 @@ public class HumanMovement : MonoBehaviour
 
     [Header("Climb State")]
     public bool isClimbing;
-    public float staminaDegenRateClimbing;           // how fast we degenerate stamina while climbing
-    public float staminaThresholdFallWhileClimbing;          // how low stamina must be to stop sprinting
-    public float staminaThresholdStartClimbing;            // how high stamina must be to start sprinting
-    public float dropDuration;  
+
+    public float dropDuration; 
+    [SerializeField] private float layerTransitionDelay = 1f;
     
     // Drop state
     [SerializeField] private bool isDropping;
-    private float _dropTimer;
+    private float _dropDurationElapsed;
     private float _dropCooldownTimer = 0f;
     [SerializeField] private const float DROP_COOLDOWN = 0.5f; // Half second delay before can drop again
-
-
-    [Header("Stamina")]
+    
+    [Header("General Stamina")]
     public float curStamina;                // our current stamina
     public float maxStamina;                // our maximum stamina
     public float staminaRegenRate = 10f;               // stamina regen per second
     public float staminaRegenDelay = 2f;               // delay before stamina starts regenerating after stopping sprint
+    
+    [Header("Climbing Stamina")]
+    public float staminaDegenRateClimbing;           // how fast we degenerate stamina while climbing
+    public float staminaThresholdFallWhileClimbing;          // how low stamina must be to stop sprinting
+    public float staminaThresholdStartClimbing;            // how high stamina must be to start sprinting
+    public float staminaRecoveryWhileDropping = 30f;    // how much stamina we recover while dropping
+    
+    [Header("Sprint Stamina")]
+    public float staminaThresholdStartSprinting = 20f; // minimum stamina to start sprinting
+    public float staminaThresholdStopSprinting = 5f;  // stamina level that stops sprinting
+    public float staminaDegenRateSprinting = 15f;      // stamina drain per second while sprinting
     
     // Sprint state
     private bool _isSprinting = false;
@@ -157,10 +164,10 @@ public class HumanMovement : MonoBehaviour
         
         if (isDropping)
         {
-            _dropTimer += Time.deltaTime;
+            _dropDurationElapsed += Time.deltaTime;
             
             // Stop dropping when duration passes
-            if (_dropTimer >= dropDuration)
+            if (_dropDurationElapsed >= dropDuration)
             {
                 StopDropping();
             }
@@ -170,7 +177,7 @@ public class HumanMovement : MonoBehaviour
     private void StartDropping()
     {
         isDropping = true;
-        _dropTimer = 0f;
+        _dropDurationElapsed = 0f;
         
         // Enable gravity for falling with higher scale for faster drop
         if (_rig != null)
@@ -187,7 +194,7 @@ public class HumanMovement : MonoBehaviour
     private void StopDropping()
     {
         isDropping = false;
-        _dropTimer = 0f;
+        _dropDurationElapsed = 0f;
         _dropCooldownTimer = DROP_COOLDOWN; // Start cooldown period
         
         // Disable gravity back to normal 2D top-down
@@ -195,6 +202,9 @@ public class HumanMovement : MonoBehaviour
         {
             _rig.gravityScale = 0f;
         }
+        
+        // Recover some stamina while dropping
+        curStamina += staminaRecoveryWhileDropping;
     }
 
     
@@ -284,10 +294,29 @@ public class HumanMovement : MonoBehaviour
         else if (FacingDirection == Vector2.right) _spriteRendererComponent.sprite = rightSprite;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) { HandleSurface(other); }
-    private void OnTriggerStay2D(Collider2D other)  { HandleSurface(other); }
+    private void OnTriggerEnter2D(Collider2D other) { StartCoroutine(HandleEnterSurface(other)); }
+    private void OnTriggerStay2D(Collider2D other)  { HandleContinuousSurface(other); }
 
-    private void HandleSurface(Collider2D other)
+    private IEnumerator HandleEnterSurface(Collider2D other)
+    {
+        yield return new WaitForSeconds(layerTransitionDelay);
+        
+        int layer = other.gameObject.layer;
+        if (layer == LayerMask.NameToLayer("Ground"))
+        {
+            isClimbing = false;
+            if(isDropping)
+                StopDropping();
+            
+            yield break; // exits the whole coroutine early
+        }
+        if (layer == LayerMask.NameToLayer("Climbable"))
+        {
+            isClimbing = true;
+        }
+    }
+    
+    private void HandleContinuousSurface(Collider2D other)
     {
         int layer = other.gameObject.layer;
         if (layer == LayerMask.NameToLayer("Ground"))

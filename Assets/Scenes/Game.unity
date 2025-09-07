@@ -31504,9 +31504,6 @@ MonoBehaviour:
   moveSpeed: 4
   climbSpeed: 2
   sprintMultiplier: 2
-  staminaThresholdStartSprinting: 20
-  staminaThresholdStopSprinting: 5
-  staminaDegenRateSprinting: 20
   downSprite: {fileID: -6979919878118274778, guid: 9d2fef81000f5d3499f8ee2969737d52,
     type: 3}
   upSprite: {fileID: 2154720983746436306, guid: 9d2fef81000f5d3499f8ee2969737d52,
@@ -31516,15 +31513,20 @@ MonoBehaviour:
   rightSprite: {fileID: 3208027462701797463, guid: 9d2fef81000f5d3499f8ee2969737d52,
     type: 3}
   isClimbing: 0
-  staminaDegenRateClimbing: 15
-  staminaThresholdFallWhileClimbing: 0
-  staminaThresholdStartClimbing: 5
   dropDuration: 0.75
+  layerTransitionDelay: 0.075
   isDropping: 0
   curStamina: 100
   maxStamina: 100
   staminaRegenRate: 15
   staminaRegenDelay: 2
+  staminaDegenRateClimbing: 15
+  staminaThresholdFallWhileClimbing: 0
+  staminaThresholdStartClimbing: 5
+  staminaRecoveryWhileDropping: 30
+  staminaThresholdStartSprinting: 20
+  staminaThresholdStopSprinting: 5
+  staminaDegenRateSprinting: 20
 --- !u!1 &484625276
 GameObject:
   m_ObjectHideFlags: 0
