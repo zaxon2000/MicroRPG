@@ -5,6 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class HumanMovement : MonoBehaviour
 {
+    [Header("Debug Logging")] [SerializeField]
+    private bool runDebugs;
+    
+    [Header("Reference Components")]
+    [SerializeField] private Rigidbody2D rig;
+    [SerializeField] private SpriteRenderer spriteRendererComponent;
+    [SerializeField] private PlayerUI playerUI;
+    [SerializeField] private Player player;
+    
     [Header("Movement")]
     public float moveSpeed = 5f;
     [Tooltip("Speed while climbing on the MountainFace_Tilemap (Climbable layer). Must be < moveSpeed.")]
@@ -21,15 +30,17 @@ public class HumanMovement : MonoBehaviour
 
     [Header("Climb State")]
     public bool isClimbing;
-
-    public float dropDuration; 
+    public float timeToRecoverGripWhileDropping = 2.0f; 
     [SerializeField] private float layerTransitionDelay = 1f;
     
     // Drop state
     [SerializeField] private bool isDropping;
     private float _dropDurationElapsed;
     private float _dropCooldownTimer = 0f;
-    [SerializeField] private const float DROP_COOLDOWN = 0.5f; // Half second delay before can drop again
+    [SerializeField] private const float DropCooldown = 0.5f; // Half second delay before can drop again
+    [SerializeField] private float dropDurationDamageThreshold = 0.5f;
+    [SerializeField] private float baselineDropDamage = 10.0f;
+    [SerializeField] private float dropDamageExponent = 2.0f;
     
     [Header("General Stamina")]
     public float curStamina;                // our current stamina
@@ -57,28 +68,32 @@ public class HumanMovement : MonoBehaviour
     public Vector2 FacingDirection { get; private set; } = Vector2.down;
     public Vector2 MoveInput { get; private set; }
 
-    // components
-    private Rigidbody2D _rig;
-    private SpriteRenderer _spriteRendererComponent;
-    private PlayerUI _playerUI;
-
     private void Awake()
     {
-        _rig = GetComponent<Rigidbody2D>();
-        _spriteRendererComponent = GetComponent<SpriteRenderer>();
-        _playerUI = FindObjectOfType<PlayerUI>();
+        // get components
+        if(player == null)
+            player = FindObjectOfType<Player>();
+        
+        if(rig == null)
+            rig = GetComponent<Rigidbody2D>();
+        
+        if(spriteRendererComponent == null)
+            spriteRendererComponent = GetComponent<SpriteRenderer>();
+        
+        if(playerUI == null)
+            playerUI = FindObjectOfType<PlayerUI>();
 
         // 2D top-down defaults
-        if (_rig != null)
+        if (rig != null)
         {
-            _rig.gravityScale = 0f;
-            _rig.freezeRotation = true;
+            rig.gravityScale = 0f;
+            rig.freezeRotation = true;
         }
 
         // default facing
         FacingDirection = Vector2.down;
-        if (_spriteRendererComponent != null && downSprite != null)
-            _spriteRendererComponent.sprite = downSprite;
+        if (spriteRendererComponent != null && downSprite != null)
+            spriteRendererComponent.sprite = downSprite;
             
         // Initialize stamina
         curStamina = maxStamina;
@@ -91,7 +106,7 @@ public class HumanMovement : MonoBehaviour
         HandleDropping();
         HandleStaminaRegeneration();
         Move();
-        _playerUI.UpdateStaminaBar();
+        playerUI.UpdateStaminaBar();
     }
 
     private void HandleSprint()
@@ -167,7 +182,7 @@ public class HumanMovement : MonoBehaviour
             _dropDurationElapsed += Time.deltaTime;
             
             // Stop dropping when duration passes
-            if (_dropDurationElapsed >= dropDuration)
+            if (_dropDurationElapsed >= timeToRecoverGripWhileDropping)
             {
                 StopDropping();
             }
@@ -180,11 +195,11 @@ public class HumanMovement : MonoBehaviour
         _dropDurationElapsed = 0f;
         
         // Enable gravity for falling with higher scale for faster drop
-        if (_rig != null)
+        if (rig != null)
         {
-            _rig.gravityScale = 3f; // Increased from 1f for faster falling
+            rig.gravityScale = 3f; // Increased from 1f for faster falling
             // Clear any existing velocity to ensure clean fall
-            _rig.velocity = Vector2.zero;
+            rig.velocity = Vector2.zero;
         }
         
         // Force player out of climbing state
@@ -195,16 +210,38 @@ public class HumanMovement : MonoBehaviour
     {
         isDropping = false;
         _dropDurationElapsed = 0f;
-        _dropCooldownTimer = DROP_COOLDOWN; // Start cooldown period
+        _dropCooldownTimer = DropCooldown; // Start cooldown period
         
         // Disable gravity back to normal 2D top-down
-        if (_rig != null)
+        if (rig != null)
         {
-            _rig.gravityScale = 0f;
+            rig.gravityScale = 0f;
         }
         
         // Recover some stamina while dropping
         curStamina += staminaRecoveryWhileDropping;
+    }
+
+    private void CauseFallDamage()
+    {
+        // Use actual fall duration instead of the max drop duration
+        // The damage increases exponentially based on how long they actually fell
+        float fallDamage = baselineDropDamage * Mathf.Pow(_dropDurationElapsed, dropDamageExponent);
+        
+        if(runDebugs) Debug.Log($"[HumanMovement] CauseFallDamage: fallDamage = {fallDamage}, _dropDurationElapsed = {_dropDurationElapsed}, player = {player}");
+        
+        if (player != null)
+        {
+            player.TakeDamage(fallDamage);
+            if(runDebugs) Debug.Log($"[HumanMovement] Damage applied successfully. Player HP: {player.curHp}");
+        }
+        else
+        {
+            Debug.LogError("[HumanMovement] Player reference is null! Cannot apply fall damage.");
+        }
+        
+        StopDropping();
+        isClimbing = false;
     }
 
     
@@ -256,7 +293,7 @@ public class HumanMovement : MonoBehaviour
         {
             // While climbing: always face "up"
             FacingDirection = Vector2.up;
-            if (_spriteRendererComponent) _spriteRendererComponent.sprite = upSprite ? upSprite : _spriteRendererComponent.sprite;
+            if (spriteRendererComponent) spriteRendererComponent.sprite = upSprite ? upSprite : spriteRendererComponent.sprite;
         }
         else
         {
@@ -280,18 +317,18 @@ public class HumanMovement : MonoBehaviour
         }
 
         // --- APPLY VELOCITY ---
-        if (_rig)
-            _rig.velocity = MoveInput * speed;
+        if (rig)
+            rig.velocity = MoveInput * speed;
     }
 
     // change sprite depending on facing
     private void UpdateSpriteDirection()
     {
-        if (_spriteRendererComponent == null) return;
-        if      (FacingDirection == Vector2.up)    _spriteRendererComponent.sprite = upSprite;
-        else if (FacingDirection == Vector2.down)  _spriteRendererComponent.sprite = downSprite;
-        else if (FacingDirection == Vector2.left)  _spriteRendererComponent.sprite = leftSprite;
-        else if (FacingDirection == Vector2.right) _spriteRendererComponent.sprite = rightSprite;
+        if (spriteRendererComponent == null) return;
+        if      (FacingDirection == Vector2.up)    spriteRendererComponent.sprite = upSprite;
+        else if (FacingDirection == Vector2.down)  spriteRendererComponent.sprite = downSprite;
+        else if (FacingDirection == Vector2.left)  spriteRendererComponent.sprite = leftSprite;
+        else if (FacingDirection == Vector2.right) spriteRendererComponent.sprite = rightSprite;
     }
 
     private void OnTriggerEnter2D(Collider2D other) { StartCoroutine(HandleEnterSurface(other)); }
@@ -299,15 +336,35 @@ public class HumanMovement : MonoBehaviour
 
     private IEnumerator HandleEnterSurface(Collider2D other)
     {
+        if(runDebugs) Debug.Log($"[HumanMovement] HandleEnterSurface: Entering surface with layer: {other.gameObject.layer}, isDropping: {isDropping}, _dropDurationElapsed: {_dropDurationElapsed}");
+        
         yield return new WaitForSeconds(layerTransitionDelay);
         
         int layer = other.gameObject.layer;
         if (layer == LayerMask.NameToLayer("Ground"))
         {
-            isClimbing = false;
-            if(isDropping)
-                StopDropping();
+            if(runDebugs) Debug.Log($"[HumanMovement] Ground collision - isDropping: {isDropping}, _dropDurationElapsed: {_dropDurationElapsed}, threshold: {dropDurationDamageThreshold}");
             
+            if (isDropping)
+            {
+                // Damage player if they fall too long - use actual elapsed time, not max duration
+                if(_dropDurationElapsed > dropDurationDamageThreshold)
+                {
+                    if(runDebugs) Debug.Log($"[HumanMovement] Calling CauseFallDamage - fall duration: {_dropDurationElapsed}");
+                    CauseFallDamage();
+                }
+                else
+                {
+                    if(runDebugs) Debug.Log($"[HumanMovement] Fall too short for damage: {_dropDurationElapsed} <= {dropDurationDamageThreshold}");
+                    StopDropping(); // Still need to stop dropping even without damage
+                }
+            }
+            else
+            {
+                if(runDebugs) Debug.Log("[HumanMovement] Player hit ground but wasn't dropping");
+            }
+            
+            isClimbing = false;
             yield break; // exits the whole coroutine early
         }
         if (layer == LayerMask.NameToLayer("Climbable"))

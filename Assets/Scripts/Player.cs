@@ -6,8 +6,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("Stats")]
-    public int curHp;                   // our current health
-    public int maxHp;                   // our maximum health
+    public float curHp;                   // our current health
+    public float maxHp;                   // our maximum health
     public float interactRange;         // range at which we can interact
     public List<string> inventory = new List<string>();
 
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
     }
 
     // called when an enemy attacks us
-    public void TakeDamage (int damageTaken)
+    public void TakeDamage (float damageTaken)
     {
         curHp -= damageTaken;
 

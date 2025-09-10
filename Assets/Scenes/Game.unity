@@ -31501,6 +31501,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dca619481b47324ba584d9b23b4098f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rig: {fileID: 0}
+  spriteRendererComponent: {fileID: 415783342}
+  playerUI: {fileID: 484625281}
+  player: {fileID: 415783341}
   moveSpeed: 4
   climbSpeed: 2
   sprintMultiplier: 2
@@ -31513,9 +31517,12 @@ MonoBehaviour:
   rightSprite: {fileID: 3208027462701797463, guid: 9d2fef81000f5d3499f8ee2969737d52,
     type: 3}
   isClimbing: 0
-  dropDuration: 0.75
+  timeToRecoverGripWhileDropping: 2
   layerTransitionDelay: 0.075
   isDropping: 0
+  dropDurationDamageThreshold: 0.5
+  baselineDropDamage: 10
+  dropDamageExponent: 2
   curStamina: 100
   maxStamina: 100
   staminaRegenRate: 15
