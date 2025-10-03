@@ -21,6 +21,10 @@ public class FallingRock : MonoBehaviour
     [Tooltip("Rocks self-destruct when touching these layers (e.g., Ground).")]
     public LayerMask groundLayers;
 
+    [Header("Ground Hit")]
+    [Tooltip("Delay before destroying after touching ground.")]
+    [SerializeField] private float destroyDelayOnGround = 0.15f;
+    
     private Rigidbody2D _fallingRockRigidbody;
     private float _life;
     private bool _destroyed;
@@ -85,11 +89,16 @@ public class FallingRock : MonoBehaviour
 
     private void HandleHit(GameObject hitObj, int hitLayer)
     {
-        // If we hit ground layers, destroy immediately
+        // If we hit ground layers, destroy after slight delay
         if (IsInLayerMask(hitLayer, groundLayers))
         {
+            if (_destroyed) return;
             _destroyed = true;
-            Destroy(gameObject);
+            
+            if (destroyDelayOnGround > 0f)
+                StartCoroutine(DestroyAfterDelay(destroyDelayOnGround));
+            else
+                Destroy(gameObject);
             return;
         }
 
@@ -103,6 +112,21 @@ public class FallingRock : MonoBehaviour
             _destroyed = true;
             Destroy(gameObject);
         }
+    }
+    
+    private System.Collections.IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        // Optional: damp motion so it doesn't bounce around during delay
+        if (_fallingRockRigidbody != null)
+        {
+            _fallingRockRigidbody.velocity = Vector2.zero;
+            _fallingRockRigidbody.angularVelocity = 0f;
+            _fallingRockRigidbody.isKinematic = true;
+        }
+        
+        Destroy(gameObject);
     }
 
     private static bool IsInLayerMask(int layer, LayerMask mask)
