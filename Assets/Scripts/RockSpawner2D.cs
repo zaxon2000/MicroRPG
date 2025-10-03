@@ -132,12 +132,9 @@ public class RockSpawner2D : MonoBehaviour
 
     private static Vector2 GetRandomPointInBox(BoxCollider2D box)
     {
-        var size = box.size;
-        var center = (Vector2)box.transform.TransformPoint(box.offset);
-
-        float boxX = Random.Range(center.x - size.x * 0.5f, center.x + size.x * 0.5f);
-        float boxY = Random.Range(center.y - size.y * 0.5f, center.y + size.y * 0.5f);
-
-        return new Vector2(boxX, boxY);
+        Bounds boxBounds = box.bounds; // world-space AABB
+        float pointX = Random.Range(boxBounds.min.x, boxBounds.max.x);
+        float pointY = Random.Range(boxBounds.min.y, boxBounds.max.y);
+        return new Vector2(pointX, pointY);
     }
 }
