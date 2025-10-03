@@ -30569,7 +30569,7 @@ PrefabInstance:
     - target: {fileID: 305240333953387334, guid: 875c192e79360bc409d2b74e049508e4,
         type: 3}
       propertyPath: runDebugs
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3241523730407946147, guid: 875c192e79360bc409d2b74e049508e4,
         type: 3}
@@ -30631,6 +30631,26 @@ PrefabInstance:
       propertyPath: playerUI
       value: 
       objectReference: {fileID: 484625281}
+    - target: {fileID: 7504601072832340730, guid: 875c192e79360bc409d2b74e049508e4,
+        type: 3}
+      propertyPath: runDebugs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7504601072832340730, guid: 875c192e79360bc409d2b74e049508e4,
+        type: 3}
+      propertyPath: climbJumpKey
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 7504601072832340730, guid: 875c192e79360bc409d2b74e049508e4,
+        type: 3}
+      propertyPath: climbJumpStaminaCost
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7504601072832340730, guid: 875c192e79360bc409d2b74e049508e4,
+        type: 3}
+      propertyPath: climbJumpRecoveryTime
+      value: 0.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

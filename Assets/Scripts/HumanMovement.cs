@@ -50,8 +50,8 @@ public class HumanMovement : MonoBehaviour
     
     [Header("Climbing Stamina")]
     public float staminaDegenRateClimbing;           // how fast we degenerate stamina while climbing
-    public float staminaThresholdFallWhileClimbing;          // how low stamina must be to stop sprinting
-    public float staminaThresholdStartClimbing;            // how high stamina must be to start sprinting
+    public float staminaThresholdFallWhileClimbing;          // how low stamina must be to stop climbing
+    // public float staminaThresholdStartClimbing;            // how high stamina must be to start climbing
     public float staminaRecoveryWhileDropping = 30f;    // how much stamina we recover while dropping
     
     [Header("Sprint Stamina")]
@@ -75,10 +75,11 @@ public class HumanMovement : MonoBehaviour
     public float climbJumpHeight = 2.5f;      // world units up
     public float climbJumpDuration = 0.25f;   // seconds
     public float climbJumpStaminaCost = 10f;  // consumed on jump
+    public float climbJumpRecoveryTime = 0.75f; 
     private bool _isClimbJumping;
     private float _climbJumpTimer = 0f;
     private Vector2 _climbJumpVel;            // computed constant velocity for jump arc
-
+    private float _climbJumpCooldown = 0f; 
     private void Awake()
     {
         // get components
@@ -115,6 +116,10 @@ public class HumanMovement : MonoBehaviour
         HandleSprint();
         HandleClimbing();
         HandleDropping();
+        
+        if (_climbJumpCooldown > 0f)
+            _climbJumpCooldown -= Time.deltaTime;
+        
         HandleClimbJumpInput();   
         HandleClimbJumpTick();
         HandleStaminaRegeneration();
@@ -126,7 +131,7 @@ public class HumanMovement : MonoBehaviour
     private void HandleClimbJumpInput()
     {
         // Only from a climb, pressing up, not dropping, enough stamina
-        if (isClimbing && !isDropping && !_isClimbJumping &&
+        if (isClimbing && !isDropping && !_isClimbJumping && _climbJumpCooldown <= 0f &&  
             (Input.GetKeyDown(climbJumpKey)) && MoveInput.y > 0f &&
             curStamina >= climbJumpStaminaCost)
         {
@@ -170,6 +175,9 @@ public class HumanMovement : MonoBehaviour
             // stop vertical motion; remain in climb
             if (rig != null) rig.velocity = Vector2.zero;
 
+            // start cooldown
+            _climbJumpCooldown = climbJumpRecoveryTime;
+            
             if (runDebugs) Debug.Log("[HumanMovement] ClimbJump ended");
         }
     }
