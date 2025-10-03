@@ -150,7 +150,7 @@ public class HumanMovement : MonoBehaviour
             if (rig != null)
             {
                 rig.gravityScale = 0f;        // keep top-down behaviour
-                rig.velocity = Vector2.zero;  // clear old velocity
+                rig.linearVelocity = Vector2.zero;  // clear old velocity
             }
 
             if (runDebugs) Debug.Log("[HumanMovement] ClimbJump started");
@@ -165,7 +165,7 @@ public class HumanMovement : MonoBehaviour
 
         // drive the body upward at constant speed
         if (rig != null)
-            rig.velocity = _climbJumpVel;
+            rig.linearVelocity = _climbJumpVel;
 
         // end after duration
         if (_climbJumpTimer >= climbJumpDuration)
@@ -173,7 +173,7 @@ public class HumanMovement : MonoBehaviour
             _isClimbJumping = false;
 
             // stop vertical motion; remain in climb
-            if (rig != null) rig.velocity = Vector2.zero;
+            if (rig != null) rig.linearVelocity = Vector2.zero;
 
             // start cooldown
             _climbJumpCooldown = climbJumpRecoveryTime;
@@ -274,7 +274,7 @@ public class HumanMovement : MonoBehaviour
         {
             rig.gravityScale = 3f; // Increased from 1f for faster falling
             // Clear any existing velocity to ensure clean fall
-            rig.velocity = Vector2.zero;
+            rig.linearVelocity = Vector2.zero;
         }
         
         // Force player out of climbing state
@@ -396,7 +396,7 @@ public class HumanMovement : MonoBehaviour
                 return;
             }
 
-            rig.velocity = MoveInput * speed;   // normal path
+            rig.linearVelocity = MoveInput * speed;   // normal path
         }
         
     }

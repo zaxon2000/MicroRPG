@@ -121,7 +121,7 @@ public class RockSpawner2D : MonoBehaviour
         if (rb && initialDownwardVelocityRange.y > 0f)
         {
             float downwardVelocity = Random.Range(initialDownwardVelocityRange.x, initialDownwardVelocityRange.y);
-            rb.velocity = new Vector2(0f, -downwardVelocity);
+            rb.linearVelocity = new Vector2(0f, -downwardVelocity);
             // if(runDebugs) Debug.Log($"[RockSpawner2D] SpawnOne: initial downward velocity set to {-downwardVelocity:0.00} on {rock.name}");
         }
         else if(runDebugs)

@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Text;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI;           // UGUI (Images, etc.)
 using TMPro;
 
 public class PlayerUI : MonoBehaviour

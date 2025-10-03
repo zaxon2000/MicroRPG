@@ -43,13 +43,13 @@ public class Enemy : MonoBehaviour
             if(Time.time - lastAttackTime >= attackRate)
                 Attack();
 
-            rig.velocity = Vector2.zero;
+            rig.linearVelocity = Vector2.zero;
         }
         // if we're in the chase range, chase after the player
         else if(playerDist <= chaseRange)
             Chase();
         else
-            rig.velocity = Vector2.zero;
+            rig.linearVelocity = Vector2.zero;
     }
 
     // move towards the player
@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
         // calculate direction between us and the player
         Vector2 dir = (player.transform.position - transform.position).normalized;
 
-        rig.velocity = dir * moveSpeed;
+        rig.linearVelocity = dir * moveSpeed;
     }
 
     // damage the player

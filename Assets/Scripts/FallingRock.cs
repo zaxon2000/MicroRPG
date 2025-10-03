@@ -44,7 +44,7 @@ public class FallingRock : MonoBehaviour
         if (gravityScaleRange.x > 0f && gravityScaleRange.y > 0f)
             _fallingRockRigidbody.gravityScale = Random.Range(gravityScaleRange.x, gravityScaleRange.y);
 
-        _fallingRockRigidbody.velocity = Vector2.zero;
+        _fallingRockRigidbody.linearVelocity = Vector2.zero;
         _fallingRockRigidbody.angularVelocity = 0f;
     }
 
@@ -53,11 +53,11 @@ public class FallingRock : MonoBehaviour
     {
         if (_fallingRockRigidbody == null) return;
 
-        var rigidbodyVelocity = _fallingRockRigidbody.velocity;
+        var rigidbodyVelocity = _fallingRockRigidbody.linearVelocity;
         if (rigidbodyVelocity.y < maxFallSpeed)
             rigidbodyVelocity.y = maxFallSpeed;
 
-        _fallingRockRigidbody.velocity = rigidbodyVelocity;
+        _fallingRockRigidbody.linearVelocity = rigidbodyVelocity;
     }
     
     private void Update()
@@ -121,7 +121,7 @@ public class FallingRock : MonoBehaviour
         // Optional: damp motion so it doesn't bounce around during delay
         if (_fallingRockRigidbody != null)
         {
-            _fallingRockRigidbody.velocity = Vector2.zero;
+            _fallingRockRigidbody.linearVelocity = Vector2.zero;
             _fallingRockRigidbody.angularVelocity = 0f;
             _fallingRockRigidbody.isKinematic = true;
         }
