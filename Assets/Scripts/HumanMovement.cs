@@ -66,7 +66,11 @@ public class HumanMovement : MonoBehaviour
     
     // Runtime state
     public Vector2 FacingDirection { get; private set; } = Vector2.down;
-    public Vector2 MoveInput { get; private set; }
+    private Vector2 MoveInput { get; set; }
+    
+    // Public properties for other scripts to access sprint state
+    // public bool IsSprinting => _isSprinting;
+    // public bool CanSprint => _canSprint;
 
     private void Awake()
     {
@@ -340,6 +344,9 @@ public class HumanMovement : MonoBehaviour
         
         yield return new WaitForSeconds(layerTransitionDelay);
         
+        if(other == null)
+            yield break;
+        
         int layer = other.gameObject.layer;
         if (layer == LayerMask.NameToLayer("Ground"))
         {
@@ -387,7 +394,28 @@ public class HumanMovement : MonoBehaviour
         }
     }
     
-    // Public properties for other scripts to access sprint state
-    public bool IsSprinting => _isSprinting;
-    public bool CanSprint => _canSprint;
+    // Add to HumanMovement.cs (public helper to be called by external hazards)
+    public void ApplyRockHit(float rockDamage, float? overrideFallThreshold = null)
+    {
+        // 1) Apply damage to Player
+        if (player != null && rockDamage > 0f)
+            player.TakeDamage(rockDamage);
+
+        // 2) Drop stamina to (just below) the threshold that causes a fall
+        // Use the class threshold unless an override is provided.
+        float target = overrideFallThreshold ?? staminaThresholdFallWhileClimbing;
+
+        // Put stamina a hair below the threshold to ensure any threshold checks trigger.
+        curStamina = Mathf.Min(curStamina, Mathf.Max(0f, target - 0.1f));
+
+        // 3) If we’re climbing (or in the “wall contact” state), force the drop immediately.
+        // Your existing HandleClimbing() only triggers when moving up, so we call StartDropping() directly.
+        if (isClimbing && !isDropping && _dropCooldownTimer <= 0f)
+        {
+            // Reuse the existing fall logic
+            // (StartDropping is private; since this method is in the same class, it can call it.)
+            StartDropping();
+        }
+    }
+    
 }

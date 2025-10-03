@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Debug Logging")] [SerializeField]
+    private bool runDebugs;
+    
     [Header("Stats")]
     public float curHp;                   // our current health
     public float maxHp;                   // our maximum health
@@ -54,6 +57,9 @@ public class Player : MonoBehaviour
         if(hit.collider != null)
         {
             Interactable interactable = hit.collider.GetComponent<Interactable>();
+            
+            if(interactable == null) return;
+            
             _playerUI.SetInteractText(hit.collider.transform.position, interactable.interactDescription);
 
             if(Input.GetKeyDown(KeyCode.Space))
@@ -94,11 +100,15 @@ public class Player : MonoBehaviour
     {
         curHp -= damageTaken;
 
+        if (runDebugs)
+            Debug.Log($"[Player] TakeDamage: damageTaken={damageTaken}, curHp={curHp}");
+        
         if(curHp <= 0)
             Die();
 
         // update health bar UI
         _playerUI.UpdateHealthBar();
+        
     }
 
     // called when our hp reaches 0
