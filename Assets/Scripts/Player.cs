@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public float curHp;                   // our current health
     public float maxHp;                   // our maximum health
     public float interactRange;         // range at which we can interact
-    public List<string> inventory = new List<string>();
+    public List<string> inventory = new();
 
     [Header("Experience")]
     public int curLevel;                // our current level
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
             
             _playerUI.SetInteractText(hit.collider.transform.position, interactable.interactDescription);
 
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.E))
                 interactable.Interact();
         }
         else

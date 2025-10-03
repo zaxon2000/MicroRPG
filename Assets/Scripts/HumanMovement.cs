@@ -68,9 +68,16 @@ public class HumanMovement : MonoBehaviour
     public Vector2 FacingDirection { get; private set; } = Vector2.down;
     private Vector2 MoveInput { get; set; }
     
-    // Public properties for other scripts to access sprint state
-    // public bool IsSprinting => _isSprinting;
-    // public bool CanSprint => _canSprint;
+    // --- New: Climb Jump ---
+    [Header("Climb Jump")]
+    [Tooltip("Key used to trigger a climb jump.")]
+    public KeyCode climbJumpKey = KeyCode.Space;
+    public float climbJumpHeight = 2.5f;      // world units up
+    public float climbJumpDuration = 0.25f;   // seconds
+    public float climbJumpStaminaCost = 10f;  // consumed on jump
+    private bool _isClimbJumping;
+    private float _climbJumpTimer = 0f;
+    private Vector2 _climbJumpVel;            // computed constant velocity for jump arc
 
     private void Awake()
     {
@@ -108,9 +115,63 @@ public class HumanMovement : MonoBehaviour
         HandleSprint();
         HandleClimbing();
         HandleDropping();
+        HandleClimbJumpInput();   
+        HandleClimbJumpTick();
+        HandleStaminaRegeneration();
         HandleStaminaRegeneration();
         Move();
         playerUI.UpdateStaminaBar();
+    }
+
+    private void HandleClimbJumpInput()
+    {
+        // Only from a climb, pressing up, not dropping, enough stamina
+        if (isClimbing && !isDropping && !_isClimbJumping &&
+            (Input.GetKeyDown(climbJumpKey)) && MoveInput.y > 0f &&
+            curStamina >= climbJumpStaminaCost)
+        {
+            // spend stamina
+            curStamina -= climbJumpStaminaCost;
+
+            // compute constant velocity needed to travel 'climbJumpHeight' in 'climbJumpDuration'
+            float vy = climbJumpHeight / climbJumpDuration; // gravityScale==0 outside drops, so constant
+            _climbJumpVel = new Vector2(0f, vy);
+
+            // start state
+            _isClimbJumping = true;
+            _climbJumpTimer = 0f;
+
+            // ensure physics doesn’t fight us
+            if (rig != null)
+            {
+                rig.gravityScale = 0f;        // keep top-down behaviour
+                rig.velocity = Vector2.zero;  // clear old velocity
+            }
+
+            if (runDebugs) Debug.Log("[HumanMovement] ClimbJump started");
+        }
+    }
+
+    private void HandleClimbJumpTick()
+    {
+        if (!_isClimbJumping) return;
+
+        _climbJumpTimer += Time.deltaTime;
+
+        // drive the body upward at constant speed
+        if (rig != null)
+            rig.velocity = _climbJumpVel;
+
+        // end after duration
+        if (_climbJumpTimer >= climbJumpDuration)
+        {
+            _isClimbJumping = false;
+
+            // stop vertical motion; remain in climb
+            if (rig != null) rig.velocity = Vector2.zero;
+
+            if (runDebugs) Debug.Log("[HumanMovement] ClimbJump ended");
+        }
     }
 
     private void HandleSprint()
@@ -157,6 +218,8 @@ public class HumanMovement : MonoBehaviour
 
     private void HandleClimbing()
     {
+        if (_isClimbJumping) return; // skip drain & fall checks during jump
+        
         // Handle climbing stamina drain
         if (isClimbing && MoveInput.y > 0f) // Moving upwards while climbing
         {
@@ -272,11 +335,8 @@ public class HumanMovement : MonoBehaviour
     private void Move()
     {
         // Don't process movement input while dropping
-        if (isDropping)
-        {
-            return;
-        }
-
+        if (isDropping) return;
+        
         // --- INPUT ---
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
@@ -320,9 +380,17 @@ public class HumanMovement : MonoBehaviour
             speed *= sprintMultiplier;
         }
 
-        // --- APPLY VELOCITY ---
         if (rig)
-            rig.velocity = MoveInput * speed;
+        {
+            if (_isClimbJumping)
+            {
+                // Do nothing here; jump tick controls velocity this frame.
+                return;
+            }
+
+            rig.velocity = MoveInput * speed;   // normal path
+        }
+        
     }
 
     // change sprite depending on facing

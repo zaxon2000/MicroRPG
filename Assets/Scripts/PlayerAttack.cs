@@ -8,7 +8,8 @@ public class PlayerAttack : MonoBehaviour
     public float attackRate;            // minimum time between attacks
     private float _lastAttackTime;       // last time we attacked
     public int damage;                  // damage we deal
-    
+    public KeyCode attackKey = KeyCode.Space;
+
     private HumanMovement _movement;
     private ParticleSystem _hitEffect;
 
@@ -23,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
     private void Update()
     {
         // when we press the attack button
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(attackKey))
         {
             // can we attack?
             if(Time.time - _lastAttackTime >= attackRate)
