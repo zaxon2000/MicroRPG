@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 947953ac052cf8345a9240e0e5f29fb8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Core/Inventory/Grid/GridBag.cs
+  uploadId: 864274

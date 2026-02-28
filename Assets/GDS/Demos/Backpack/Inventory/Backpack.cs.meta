@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4b92e022e061c1d4e909355c65fe1eaf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Backpack/Inventory/Backpack.cs
+  uploadId: 864274

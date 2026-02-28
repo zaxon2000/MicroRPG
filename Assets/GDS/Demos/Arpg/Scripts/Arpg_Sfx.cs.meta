@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: da1a4b0ec2ed4434c84a1dbe990ea70f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Arpg/Scripts/Arpg_Sfx.cs
+  uploadId: 864274

@@ -1,0 +1,16 @@
+{
+    "name": "GDS.Demos.Backpack",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e63e70b93c9c9e54cbf88e4637951ec2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

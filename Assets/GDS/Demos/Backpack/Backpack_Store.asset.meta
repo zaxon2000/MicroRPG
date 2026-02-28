@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8c9ac8755ea58e649a78051561840bcd
+labels:
+- ResetOnEnterPlay
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Backpack/Backpack_Store.asset
+  uploadId: 864274

@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/GDS/Demos/Arpg/Views/Resources/ArpgTooltipStyles.uss?fileID=7433441132597879392&amp;guid=d596668d144e772488be61ac69f3a119&amp;type=3#ArpgTooltipStyles" />
+    <ui:VisualElement name="Root" class="Magic tooltip">
+        <ui:VisualElement class="tooltip-header">
+            <ui:Label tabindex="-1" text="Magic Gladiator Helmet" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Name" />
+        </ui:VisualElement>
+        <ui:VisualElement class="tooltip-body">
+            <ui:VisualElement name="WeaponGroup">
+                <ui:VisualElement name="Damage" class="row place-items-center">
+                    <ui:Label tabindex="-1" text="Physical Damage: " parse-escape-sequences="true" display-tooltip-when-elided="true" class="tooltip-item-text" />
+                    <ui:Label tabindex="-1" text="150-250" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PhysicalDamage" class="tooltip-field-value" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Speed" class="row place-items-center">
+                    <ui:Label tabindex="-1" text="Attacks per Second: " parse-escape-sequences="true" display-tooltip-when-elided="true" class="tooltip-item-text" />
+                    <ui:Label tabindex="-1" text="1.25" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AttacksPerSecond" class="tooltip-field-value" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="ShieldGroup">
+                <ui:VisualElement name="ShieldContainer" class="row place-items-center">
+                    <ui:Label tabindex="-1" text="Chance to Block: " parse-escape-sequences="true" display-tooltip-when-elided="true" class="tooltip-item-text" />
+                    <ui:Label tabindex="-1" text="25%" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ChanceToBlock" class="tooltip-field-value" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="ArmorGroup">
+                <ui:VisualElement name="ArmorContainer" class="row place-items-center">
+                    <ui:Label tabindex="-1" text="Armor: " parse-escape-sequences="true" display-tooltip-when-elided="true" class="tooltip-item-text" />
+                    <ui:Label tabindex="-1" text="150-250" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Armor" class="tooltip-field-value" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

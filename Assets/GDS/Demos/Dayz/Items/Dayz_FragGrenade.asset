@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05249a10a6cfe5640b274ba60cedccb4, type: 3}
+  m_Name: Dayz_FragGrenade
+  m_EditorClassIdentifier: 
+  Name: Frag Grenade
+  Icon: {fileID: 21300000, guid: 4948e1e08b6c6d844951f90814206929, type: 3}
+  Stackable: 0
+  MaxStackSize: 100
+  Tags:
+  - {fileID: 11400000, guid: b1217a668851500458458a7884d77a23, type: 2}
+  Shape: {fileID: 11400000, guid: da1e67ca313cb704a9cfeb5a9d404144, type: 2}
+  Weight: 1

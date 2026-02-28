@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5371b918da7378f4d8bafb94a0be59e2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Arpg/Scripts/StashScript.cs
+  uploadId: 864274

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: adc4f375f3f210c4697fea47bf3e2530
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Arpg/Items/Arpg_GladiatorHelmet.asset
+  uploadId: 864274

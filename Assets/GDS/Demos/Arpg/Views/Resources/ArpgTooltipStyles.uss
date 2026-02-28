@@ -1,0 +1,159 @@
+:root {
+  --color-unmet: rgb(210, 0, 0);
+  --color-unique: rgb(175, 96, 37);
+  --color-rare: rgb(255, 255, 119);
+  --color-magic: rgb(136, 136, 255);
+  --color-normal: rgb(200, 200, 200);
+  --color-affix: rgb(136, 136, 255);
+  --color-crafted: rgb(184, 218, 242);
+  --color-default: rgb(127, 127, 127);
+  --color-white: rgb(255, 255, 255);
+  --color-tooltip-body: rgba(0, 0, 0, 0.85);
+}
+
+.tooltip {
+  -unity-font-definition: url("project://database/Assets/GDS/Common/Fonts/Fontin-SmallCaps%20SDF.asset?fileID=11400000&guid=785ab8b721e2ed24a973f0c4d0c63107&type=2#Fontin-SmallCaps SDF");
+  position: absolute;
+  /* min-width: 280px; */
+  padding: 0;
+  border-width: 0;
+}
+
+.tooltip-header {
+  align-items: center;
+  justify-content: center;
+  padding: 4px 30px;
+}
+
+.tooltip-header Label {
+  font-size: 20px;
+  flex-shrink: 1;
+}
+
+.NoRarity .tooltip-header {
+  height: 34px;
+  -unity-slice-right: 29;
+  -unity-slice-left: 29;
+  flex-direction: row;
+}
+
+.Common .tooltip-header {
+  height: 34px;
+  -unity-slice-right: 29;
+  -unity-slice-left: 29;
+  flex-direction: row;
+}
+
+.Magic .tooltip-header {
+  height: 34px;
+  -unity-slice-right: 29;
+  -unity-slice-left: 29;
+  flex-direction: row;
+}
+
+.Magic .tooltip-header {
+  background-image: url("project://database/Assets/GDS/Demos/Arpg/Sprites/Tooltip/header-magic.png?fileID=2800000&guid=221655f9449e91c4ba5dc44b017d73d3&type=3#header-magic");
+}
+
+.Magic .tooltip-header Label {
+  color: var(--color-magic);
+}
+
+.NoRarity .tooltip-header {
+  background-image: url("project://database/Assets/GDS/Demos/Arpg/Sprites/Tooltip/header-common.png?fileID=2800000&guid=98d2c3e89b01f894593caf1e21fce2b9&type=3#header-common");
+}
+
+.Common .tooltip-header {
+  background-image: url("project://database/Assets/GDS/Demos/Arpg/Sprites/Tooltip/header-common.png?fileID=2800000&guid=98d2c3e89b01f894593caf1e21fce2b9&type=3#header-common");
+}
+
+.NoRarity .tooltip-header Label {
+  color: var(--color-normal);
+}
+
+.Common .tooltip-header Label {
+  color: var(--color-normal);
+}
+
+.Rare .tooltip-header {
+  height: 54px;
+  -unity-slice-right: 44;
+  -unity-slice-left: 44;
+  flex-direction: column;
+  padding-bottom: 8px;
+}
+
+.Unique .tooltip-header {
+  height: 54px;
+  -unity-slice-right: 44;
+  -unity-slice-left: 44;
+  flex-direction: column;
+  padding-bottom: 8px;
+}
+
+.Rare .tooltip-header {
+  background-image: url("project://database/Assets/GDS/Demos/Arpg/Sprites/Tooltip/header-rare.png?fileID=2800000&guid=e16a96f1c589095459ec117b167c18e4&type=3#header-rare");
+}
+
+.Rare .tooltip-header Label {
+  color: var(--color-rare);
+}
+
+.Unique .tooltip-header {
+  background-image: url("project://database/Assets/GDS/Demos/Arpg/Sprites/Tooltip/header-unique.png?fileID=2800000&guid=4b9c488bcbd169a4b986e81a487f0182&type=3#header-unique");
+}
+
+.Unique .tooltip-header Label {
+  color: var(--color-unique);
+}
+
+.tooltip-body {
+  padding: 8px;
+  background-color: var(--color-tooltip-body);
+}
+
+.tooltip-item-text {
+  font-size: 18px;
+  color: var(--color-default);
+}
+
+.tooltip-field-value {
+  font-size: 18px;
+  color: var(--color-white);
+}
+
+.tooltip-item-cost {
+  -unity-text-align: middle-center;
+  font-size: 18px;
+  color: var(--color-affix);
+}
+
+.tooltip-item-affix {
+  -unity-text-align: middle-center;
+  font-size: 18px;
+  color: var(--color-affix);
+}
+
+.tooltip-item-affix.crafted {
+  color: var(--color-crafted);
+}
+
+.tooltip-separator {
+  width: 225px;
+  height: 3px;
+  background-size: 100% 27px;
+  margin: 6px auto 10px auto;
+  background-image: resource("Arpg/Tooltip/Item-ui-separators");
+}
+
+.Magic .tooltip-separator {
+  background-position-y: -3px;
+}
+
+.Rare .tooltip-separator {
+  background-position-y: -6px;
+}
+
+.Unique .tooltip-separator {
+  background-position-y: -9px;
+}

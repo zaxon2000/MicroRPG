@@ -1,0 +1,127 @@
+.debug-label {
+  display: none;
+}
+.debug-label-grid {
+  position: absolute;
+  color: rgb(185, 185, 185);
+  opacity: 0.5;
+  display: none;
+}
+
+.ghost-item {
+  width: auto;
+  height: auto;
+  opacity: 0.85;
+}
+
+.ghost-item .item-view {
+  border-width: 0;
+}
+
+.item-view {
+  transform-origin: -50% -50%;
+  border-width: 0px;
+}
+
+.item-image-transition {
+  transition: rotate;
+  transition-duration: 250ms;
+}
+
+.item-view .item-image {
+  width: 64px;
+  height: 64px;
+  transform-origin: 0 0;
+  position: absolute;
+  /* border-width: 2px;
+  border-color: blue; */
+}
+
+/* .item-shape {
+  background-color: #00a;
+  opacity: 0.05;
+  width: 100%;
+  height: 100%;
+} */
+
+.big-text {
+  font-size: 75px;
+}
+
+.slot {
+  border-width: 0;
+  background-image: url("Sprites/grunge-cell.png");
+  -unity-background-image-tint-color: rgba(255, 255, 255, 0.2);
+}
+
+.list-bag .slot:hover {
+  scale: 1.1;
+  transition: scale 0.1s;
+}
+
+.shape-cell {
+  background-image: url("Sprites/grunge-cell.png");
+  opacity: 0.2;
+  -unity-background-image-tint-color: #8f8;
+}
+
+.grid-ghost-view .shape-cell {
+  background-image: url("Sprites/grunge-cell-border.png");
+  opacity: 0.75;
+  -unity-background-image-tint-color: #8f8;
+}
+
+.illegal.grid-ghost-view .shape-cell {
+  background-image: url("Sprites/grunge-cell-border.png");
+  -unity-background-image-tint-color: #f33;
+  opacity: 0.7;
+}
+
+.hovered .shape-cell {
+  background-image: url("Sprites/grunge-cell.png");
+  opacity: 0.5;
+}
+
+.overlapping .shape-cell {
+  background-image: url("Sprites/grunge-cell-border.png");
+  opacity: 0.75;
+  -unity-background-image-tint-color: #ff8;
+}
+
+.section-border {
+  border-width: 2px;
+  border-color: rgba(255, 196, 0, 0.25);
+}
+
+.section-border:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.has-transition {
+  transition: all 0.1s ease-out-cubic;
+}
+
+.scale-150 {
+  scale: 1.5;
+}
+
+.shop-bag .slot-container {
+  flex-direction: column-reverse;
+}
+
+.shop-slot.empty .price-container,
+.shop-slot.empty .item-container {
+  display: none;
+}
+
+.shop-slot .shop-item-shape {
+  display: none;
+}
+.shop-slot:hover .shop-item-shape {
+  display: flex;
+}
+.shop-item-shape .shape-cell {
+  background-image: url("Sprites/grunge-cell-border.png");
+  opacity: 0.2;
+  -unity-background-image-tint-color: #fff;
+}

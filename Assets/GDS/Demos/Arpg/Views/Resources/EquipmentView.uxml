@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement class="row" style="align-items: flex-end; justify-content: space-around;">
+        <ui:VisualElement>
+            <GDS.Core.SlotView name="Weapon1" class="equipment-slot" style="background-image: url(&quot;project://database/Assets/GDS/Demos/Arpg/Sprites/ui/weapon.png?fileID=2800000&amp;guid=09fbbadf55e808446b255df2147f0eb4&amp;type=3#weapon&quot;); width: 148px; height: 276px; -unity-background-scale-mode: scale-and-crop;" />
+            <GDS.Core.SlotView name="Gloves" class="equipment-slot" style="background-image: url(&quot;project://database/Assets/GDS/Demos/Arpg/Sprites/ui/gloves.png?fileID=2800000&amp;guid=f660ae2b14b8df84a89382cf44327a21&amp;type=3#gloves&quot;); width: 148px; height: 148px; -unity-background-scale-mode: scale-to-fit;" />
+        </ui:VisualElement>
+        <GDS.Core.SlotView name="RingLeft" class="equipment-slot" style="background-image: url(&quot;project://database/Assets/GDS/Demos/Arpg/Sprites/ui/ring.png?fileID=2800000&amp;guid=57e72e9818a9b5d4fa7bca69961b67fb&amp;type=3#ring&quot;); width: 82px; height: 82px; -unity-background-scale-mode: scale-to-fit;" />
+        <ui:VisualElement>
+            <GDS.Core.SlotView name="Helmet" class="equipment-slot" style="background-image: url(&quot;project://database/Assets/GDS/Demos/Arpg/Sprites/ui/helmet.png?fileID=2800000&amp;guid=3d61919abcec6da4899017d59212832d&amp;type=3#helmet&quot;); width: 148px; height: 148px; -unity-background-scale-mode: scale-to-fit;" />
+            <GDS.Core.SlotView name="Body" class="equipment-slot" style="background-image: url(&quot;project://database/Assets/GDS/Demos/Arpg/Sprites/ui/body.png?fileID=2800000&amp;guid=5c63c8a7201e19d41a4728af97ed16da&amp;type=3#body&quot;); width: 148px; height: 214px; -unity-background-scale-mode: stretch-to-fill;" />
+        </ui:VisualElement>
+        <GDS.Core.SlotView name="RingRight" class="equipment-slot" style="background-image: url(&quot;project://database/Assets/GDS/Demos/Arpg/Sprites/ui/ring.png?fileID=2800000&amp;guid=57e72e9818a9b5d4fa7bca69961b67fb&amp;type=3#ring&quot;); width: 82px; height: 82px; -unity-background-scale-mode: scale-to-fit;" />
+        <ui:VisualElement>
+            <GDS.Core.SlotView name="Weapon2" class="equipment-slot" style="background-image: url(&quot;project://database/Assets/GDS/Demos/Arpg/Sprites/ui/weapon.png?fileID=2800000&amp;guid=09fbbadf55e808446b255df2147f0eb4&amp;type=3#weapon&quot;); width: 148px; height: 276px; -unity-background-scale-mode: scale-and-crop;" />
+            <GDS.Core.SlotView name="Boots" class="equipment-slot" style="background-image: url(&quot;project://database/Assets/GDS/Demos/Arpg/Sprites/ui/boots.png?fileID=2800000&amp;guid=d1ff58dad64b9de42b52fadd78607aa8&amp;type=3#boots&quot;); width: 148px; height: 148px; -unity-background-scale-mode: scale-to-fit;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

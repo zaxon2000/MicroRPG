@@ -1,0 +1,48 @@
+.slot.empty {
+  -unity-background-image-tint-color: rgba(255, 255, 255, 0.25);
+  background-size: 75%;
+}
+
+/* Equipment */
+.empty.Weapon1,
+.empty.Weapon2 {
+  background-image: url("../Sprites/SlotIcons/Icon_Rifle.png");
+}
+.empty.Back {
+  background-image: url("../Sprites/SlotIcons/Icon_Bag.png");
+}
+.empty.Vest {
+  background-image: url("../Sprites/SlotIcons/Icon_Vest.png");
+}
+.empty.Head {
+  background-image: url("../Sprites/SlotIcons/Icon_Cap.png");
+}
+.empty.Feet {
+  background-image: url("../Sprites/SlotIcons/boot.png");
+}
+.empty.Body {
+  background-image: url("../Sprites/SlotIcons/t-shirt.png");
+}
+
+/* Slot icons */
+.empty.Dayz_Scope {
+  background-image: url("../Sprites/SlotIcons/scope.png");
+}
+.empty.Dayz_Nozzle {
+  background-image: url("../Sprites/SlotIcons/silencer.png");
+}
+.empty.Dayz_Grip {
+  background-image: url("../Sprites/SlotIcons/grip.png");
+}
+.empty.Dayz_Magazine {
+  background-image: url("../Sprites/SlotIcons/Icon_Magazine.png");
+}
+.empty.Dayz_Grenade {
+  background-image: url("../Sprites/SlotIcons/Icon_Grenade.png");
+}
+.empty.Dayz_Knife {
+  background-image: url("../Sprites/SlotIcons/Icon_Knife.png");
+}
+.empty.Dayz_Radio {
+  background-image: url("../Sprites/SlotIcons/Icon_Radio.png");
+}

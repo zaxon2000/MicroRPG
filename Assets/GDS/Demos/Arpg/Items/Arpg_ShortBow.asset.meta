@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e5a45c3da1771ed428de13f1d4c7977a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Arpg/Items/Arpg_ShortBow.asset
+  uploadId: 864274

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f2f56dbe1085f5543949db76ba348932
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Arpg/Items/Arpg_FireArrowQuiver.asset
+  uploadId: 864274

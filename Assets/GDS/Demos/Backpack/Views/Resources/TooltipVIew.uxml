@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/GDS/Demos/Backpack/Resources/TooltipStyles.uss?fileID=7433441132597879392&amp;guid=42d37b33230f31747ab4d9cae3e442d5&amp;type=3#TooltipStyles" />
+    <ui:VisualElement class="tooltip-container">
+        <ui:Label tabindex="-1" text="Death Hammer" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemName" class="item-name" />
+        <ui:VisualElement name="WeaponGroup">
+            <ui:VisualElement name="DamageGroup" class="row place-items-center">
+                <ui:Label tabindex="-1" text="Damage:" parse-escape-sequences="true" display-tooltip-when-elided="true" class="field-label" />
+                <ui:Label tabindex="-1" text="6-10 (5.7/s)" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Damage" class="field-value" />
+            </ui:VisualElement>
+            <ui:VisualElement name="StaminaGroup" class="row place-items-center">
+                <ui:Label tabindex="-1" text="Stamina cost:" parse-escape-sequences="true" display-tooltip-when-elided="true" class="field-label" />
+                <ui:Label tabindex="-1" text="6-10 (5.7/s)" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Stamina" class="field-value" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AccuracyGroup" class="row place-items-center">
+                <ui:Label tabindex="-1" text="Accuracy:" parse-escape-sequences="true" display-tooltip-when-elided="true" class="field-label" />
+                <ui:Label tabindex="-1" text="6-10 (5.7/s)" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Accuracy" class="field-value" />
+            </ui:VisualElement>
+            <ui:VisualElement name="CooldownGroup" class="row place-items-center">
+                <ui:Label tabindex="-1" text="Cooldown:" parse-escape-sequences="true" display-tooltip-when-elided="true" class="field-label" />
+                <ui:Label tabindex="-1" text="6-10 (5.7/s)" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Cooldown" class="field-value" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Label tabindex="-1" text="Legendary Weapon" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemRarityAndType" class="item-rarity-and-type" />
+    </ui:VisualElement>
+</ui:UXML>

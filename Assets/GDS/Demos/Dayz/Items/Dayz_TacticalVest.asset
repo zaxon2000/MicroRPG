@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c09473566fccb84b9041691441326b5, type: 3}
+  m_Name: Dayz_TacticalVest
+  m_EditorClassIdentifier: 
+  Name: Tactical Vest
+  Icon: {fileID: 21300000, guid: 11afd9ed70e6bf84faf3cb9bc6ec8d8c, type: 3}
+  Stackable: 0
+  MaxStackSize: 100
+  Tags:
+  - {fileID: 11400000, guid: 96131416b05dd414e8f513704cee8a33, type: 2}
+  Shape: {fileID: 11400000, guid: b40c7808627f05b4990afa743a930f24, type: 2}
+  Weight: 3
+  ListCapacity:
+  - {fileID: 11400000, guid: b1217a668851500458458a7884d77a23, type: 2}
+  - {fileID: 11400000, guid: b1217a668851500458458a7884d77a23, type: 2}
+  - {fileID: 11400000, guid: b1217a668851500458458a7884d77a23, type: 2}
+  - {fileID: 11400000, guid: b1217a668851500458458a7884d77a23, type: 2}
+  GridCapacity:
+    W: 6
+    H: 5

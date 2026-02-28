@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8cd2cbf1992a2e247924b803b6fc75fc
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 13804, guid: 0000000000000000e000000000000000, type: 0}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Dayz/Views/Resources/DayzEquipmentView.uxml
+  uploadId: 864274

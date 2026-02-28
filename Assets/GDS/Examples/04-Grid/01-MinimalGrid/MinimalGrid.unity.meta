@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9490b0c5c3458b24b9e5eb4a8b719721
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Examples/04-Grid/01-MinimalGrid/MinimalGrid.unity
+  uploadId: 864274

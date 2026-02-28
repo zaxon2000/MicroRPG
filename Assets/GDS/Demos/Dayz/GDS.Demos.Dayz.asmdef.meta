@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 86306a63bbdb9e248a49099d6e68d734
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Dayz/GDS.Demos.Dayz.asmdef
+  uploadId: 864274

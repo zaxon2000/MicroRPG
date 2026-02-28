@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 96467c5e68c0bcb4bbb6d55504a5a634
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Backpack/Items/Backpack_LeatherArmor.asset
+  uploadId: 864274

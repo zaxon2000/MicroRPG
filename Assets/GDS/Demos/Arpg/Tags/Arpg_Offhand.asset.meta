@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bd313f162a78f2d4aa42454636332a2d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Arpg/Tags/Arpg_Offhand.asset
+  uploadId: 864274

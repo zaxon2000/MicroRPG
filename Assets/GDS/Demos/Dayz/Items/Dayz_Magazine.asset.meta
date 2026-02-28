@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f56c114c8ce037f418a64c81afbdb0d6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Dayz/Items/Dayz_Magazine.asset
+  uploadId: 864274

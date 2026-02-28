@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f26ce723ef19a494983f3f92a6c0f5c2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Arpg/Inventory/Arpg_ArmorBase.cs
+  uploadId: 864274

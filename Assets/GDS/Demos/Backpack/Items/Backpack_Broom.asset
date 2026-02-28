@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed595219578e444da1572df69b21e51, type: 3}
+  m_Name: Backpack_Broom
+  m_EditorClassIdentifier: 
+  Name: Broom
+  Icon: {fileID: 21300000, guid: a596c315a156fed4484face81e7ba470, type: 3}
+  Stackable: 0
+  MaxStackSize: 100
+  Tags: []
+  Shape: {fileID: 11400000, guid: d1afd285294061a4ba0955d52d9d102a, type: 2}
+  Rarity: 0
+  ItemType: 1
+  Cost: 4
+  Damage:
+    Min: 2
+    Max: 4
+  Stamina: 1.2
+  Accuracy: 0.95
+  Cooldown: 1.7

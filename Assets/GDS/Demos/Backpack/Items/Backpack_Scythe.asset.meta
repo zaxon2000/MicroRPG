@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e20b083c1fca54b45a94ed82ddc820eb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Backpack/Items/Backpack_Scythe.asset
+  uploadId: 864274

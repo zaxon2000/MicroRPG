@@ -1,0 +1,49 @@
+.item-name {
+  -unity-text-align: middle-center;
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.item-rarity-and-type {
+  -unity-text-align: middle-center;
+  font-size: 20px;
+  margin-top: 16px;
+  color: #888;
+}
+
+.field-label {
+  color: #888;
+  font-size: 18px;
+}
+
+.field-value {
+  color: #fe0;
+  font-size: 20px;
+}
+
+.tooltip.Legendary,
+.tooltip.Unique {
+  background-color: #180e0a;
+  border-color: #af5f1c;
+}
+
+.tooltip.Epic {
+  background-color: #3b0634;
+  border-color: #af1c96;
+}
+
+.tooltip.Rare {
+  background-color: #160642;
+  border-color: #4022ac;
+}
+
+.tooltip.Magic {
+  background-color: #182224;
+  border-color: #424a67;
+}
+
+.tooltip.NoRarity,
+.tooltip.Common {
+  background-color: #2e2e2e;
+  border-color: #908380;
+}

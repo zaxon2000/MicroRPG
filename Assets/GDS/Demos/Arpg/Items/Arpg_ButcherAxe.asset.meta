@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 76712aa071591464caba1769d6590db5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Arpg/Items/Arpg_ButcherAxe.asset
+  uploadId: 864274

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3b8b67ab5ffff634e8694a5cdabec3d8
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Backpack/GDS.Demos.Backpack.asmdef
+  uploadId: 864274

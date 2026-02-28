@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 418d6f93bf7d45a439aba9057c330bfc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Backpack/Shapes/Backpack_Banana.asset
+  uploadId: 864274

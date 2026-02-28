@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e39a6391c5d076e418787c1f62528f51
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Dayz/Tags/Dayz_Backpack.asset
+  uploadId: 864274

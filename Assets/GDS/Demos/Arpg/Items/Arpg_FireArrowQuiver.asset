@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 358e5dad126a4164d83d14ebf66c6a71, type: 3}
+  m_Name: Arpg_FireArrowQuiver
+  m_EditorClassIdentifier: 
+  Name: Fire Arrow Quiver
+  Icon: {fileID: 21300000, guid: fe002fec06f2df842b63a119899a67fd, type: 3}
+  Stackable: 0
+  MaxStackSize: 100
+  Tags:
+  - {fileID: 11400000, guid: bd313f162a78f2d4aa42454636332a2d, type: 2}
+  Shape: {fileID: 11400000, guid: 319f6bce0b3ddfe40a4460acaaf61ae5, type: 2}

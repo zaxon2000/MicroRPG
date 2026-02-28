@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="InventoryWindow" src="project://database/Assets/GDS/Demos/Arpg/Views/Resources/InventoryWindow.uxml?fileID=9197481963319205126&amp;guid=35f18c03d7e75ba4e8faa056d5da981e&amp;type=3#InventoryWindow" />
+    <ui:VisualElement class="cover row">
+        <ui:VisualElement name="Backdrop" class="cover" />
+        <ui:VisualElement name="Left" picking-mode="Ignore" style="flex-basis: 0; flex-grow: 1; justify-content: center; align-items: flex-end; padding-right: 5%;" />
+        <ui:VisualElement name="Right" picking-mode="Ignore" style="flex-basis: 0; flex-grow: 1; justify-content: center; align-items: flex-start; padding-left: 5%;">
+            <ui:Instance template="InventoryWindow" name="InventoryWindow" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

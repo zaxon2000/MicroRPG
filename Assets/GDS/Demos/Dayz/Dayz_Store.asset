@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63bca579bf1188a49a744797a0138010, type: 3}
+  m_Name: Dayz_Store
+  m_EditorClassIdentifier: 
+  ghostItem: 'SwordWithPrefab { Id: nE71Bl }'
+  Equipment:
+    Name: Equipment
+    Slots:
+    - rid: 2687988232476426363
+    - rid: 2687988232476426364
+  references:
+    version: 2
+    RefIds:
+    - rid: 2687988232476426363
+      type: {class: SetSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: 2687988232476426365
+        Tags: []
+        Key: Helmet
+    - rid: 2687988232476426364
+      type: {class: SetSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: 2687988232476426366
+        Tags: []
+        Key: Weapon
+    - rid: 2687988232476426365
+      type: {class: Item, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Base: {fileID: 11400000, guid: 3ba10d75e0a8291439048f41813981d1, type: 2}
+        Id: OkGpga
+        Name: HelmetWithPrefab
+        StackSize: 100
+    - rid: 2687988232476426366
+      type: {class: Item, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Base: {fileID: 11400000, guid: 2d3a70777c76dbd40a1f42d1ef27259b, type: 2}
+        Id: nE71Bl
+        Name: SwordWithPrefab
+        StackSize: 100

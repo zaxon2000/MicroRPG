@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1ba07ab4536e80c4f8f266d983a70d89
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Demos/Arpg/Tags/Arpg_Weapon2H.asset
+  uploadId: 864274

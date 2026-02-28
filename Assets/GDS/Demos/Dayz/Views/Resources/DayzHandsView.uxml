@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:ScrollView class="panel" style="flex-grow: 0; flex-shrink: 0; height: 100%;">
+        <ui:Label tabindex="-1" text="Hands" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="panel-title" />
+        <GDS.Core.ListBagView name="Slots" preview-slots="1" show-preview-items="false" class="hands-bag" />
+        <ui:VisualElement name="Container" />
+    </ui:ScrollView>
+</ui:UXML>

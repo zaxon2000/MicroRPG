@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement class="window">
+        <ui:Label tabindex="-1" text="Inventory" parse-escape-sequences="true" display-tooltip-when-elided="true" name="WindowTitle" class="window-title" />
+        <ui:VisualElement name="Container" class="window-container justify-center">
+            <GDS.Demos.Arpg.EquipmentView name="EquipmentView" style="margin-bottom: 24px;" />
+            <GDS.Core.GridBagView name="InventoryView" PreviewCellSize="64" PreviewGridWidth="10" PreviewGridHeight="6" ShowPreviewItems="false" preview-grid-width="12" preview-grid-height="6" show-preview-items="false" />
+        </ui:VisualElement>
+        <ui:Button text="X" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CloseButton" class="close-button" />
+        <ui:VisualElement name="PlayerGoldGroup" class="absolute row" style="top: 19px; right: 45px; align-items: center;">
+            <ui:VisualElement name="PlayerGoldIcon" style="background-image: url(&quot;project://database/Assets/GDS/Common/Sprites/ui/icon_coins.png?fileID=2800000&amp;guid=215af4b4c17fb9f4199284fb7ebb386d&amp;type=3#icon_coins&quot;); width: 32px; height: 32px;" />
+            <ui:Label tabindex="-1" text="999" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PlayerGoldLabel" style="color: rgb(245, 147, 0); font-size: 24px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

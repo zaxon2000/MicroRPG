@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d1fd2a406d778bc499d015d9bca43412
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework v2 PRO (UI Toolkit)
+  packageVersion: 2.0
+  assetPath: Assets/GDS/Examples/04-Grid/02-MoveItemsGrid/MoveItemsGrid.unity
+  uploadId: 864274
