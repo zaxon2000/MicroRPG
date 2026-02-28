@@ -97,25 +97,3 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
-/Packages/com.bezi.sidekick
-/Packages/com.bezi.sidekick
-/Packages/com.bezi.sidekick
-Packages/com.bezi.sidekick/Editor/BeziSidekickInternal.dll
-Packages/com.bezi.sidekick/Editor/BeziSidekickInternal.dll.meta
-Packages/com.bezi.sidekick/package.json
-Packages/com.bezi.sidekick/Plugins.meta
-Packages/com.bezi.sidekick/Plugins/bezi-websocket-sharp.dll
-Packages/com.bezi.sidekick/Plugins/bezi-websocket-sharp.dll.meta
-Packages/com.bezi.sidekick/Plugins/Microsoft.CodeAnalysis.CSharp.dll
-Packages/com.bezi.sidekick/Plugins/Microsoft.CodeAnalysis.CSharp.dll.meta
-Packages/com.bezi.sidekick/Plugins/Microsoft.CodeAnalysis.dll
-Packages/com.bezi.sidekick/Plugins/Microsoft.CodeAnalysis.dll.meta
-Packages/com.bezi.sidekick/Plugins/SharpToken.dll
-Packages/com.bezi.sidekick/Plugins/SharpToken.dll.meta
-Packages/com.bezi.sidekick/Plugins/System.Collections.Immutable.dll
-Packages/com.bezi.sidekick/Plugins/System.Collections.Immutable.dll.meta
-Packages/com.bezi.sidekick/Plugins/System.Reflection.Metadata.dll
-Packages/com.bezi.sidekick/Plugins/System.Reflection.Metadata.dll.meta
-Packages/com.bezi.sidekick/Plugins/System.Runtime.CompilerServices.Unsafe.dll
-Packages/com.bezi.sidekick/Plugins/System.Runtime.CompilerServices.Unsafe.dll.meta
-Packages/com.bezi.sidekick/README.md
