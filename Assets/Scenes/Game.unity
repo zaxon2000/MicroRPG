@@ -16433,6 +16433,7 @@ GameObject:
   - component: {fileID: 389638970}
   - component: {fileID: 389638973}
   - component: {fileID: 389638974}
+  - component: {fileID: 389638975}
   m_Layer: 11
   m_Name: BaseVIllage_Tilemap
   m_TagString: Untagged
@@ -26417,12 +26418,83 @@ TilemapCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_CompositeOperation: 0
+  m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!66 &389638975
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389638968}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 1
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 389638974}
+    m_ColliderPaths:
+    - - X: 220000000
+        Y: 60000000
+      - X: -170000000
+        Y: 60000000
+      - X: -170000000
+        Y: -140000000
+      - X: 220000000
+        Y: -140000000
+    - - X: 470000000
+        Y: 40000000
+      - X: 360000000
+        Y: 40000000
+      - X: 360000000
+        Y: -40000000
+      - X: 470000000
+        Y: -40000000
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 21.999971, y: -14}
+      - {x: 21.999971, y: 6}
+      - {x: -17, y: 5.999971}
+      - {x: -16.999971, y: -14}
+    - - {x: 46.999973, y: -4}
+      - {x: 46.999973, y: 4}
+      - {x: 36, y: 3.999971}
+      - {x: 36.00003, y: -4}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 389638968}
 --- !u!1 &415783339 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3241523730407946147, guid: 875c192e79360bc409d2b74e049508e4,
@@ -26453,6 +26525,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dca619481b47324ba584d9b23b4098f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!70 &415783352
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415783339}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.003, y: 0.0006}
+  m_Size: {x: 0.6995, y: 0.8676}
+  m_Direction: 0
 --- !u!1 &484625276
 GameObject:
   m_ObjectHideFlags: 0
@@ -30730,7 +30839,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3241523730407946147, guid: 875c192e79360bc409d2b74e049508e4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 415783352}
   m_SourcePrefab: {fileID: 100100000, guid: 875c192e79360bc409d2b74e049508e4, type: 3}
 --- !u!1001 &8156041511351832573
 PrefabInstance:
