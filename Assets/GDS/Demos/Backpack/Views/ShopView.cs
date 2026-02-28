@@ -25,10 +25,11 @@ namespace GDS.Demos.Backpack {
         Button rerollButton;
         List<ShopSlotView> slots;
         Shop Shop;
-        Backpack_Store Store;
+        Store Store;
         int CellSize = 80;
 
-        public void Init(Shop shop, Backpack_Store store) {
+        /// <summary>Initialises the shop view. Accepts any Store subclass so the view can be reused outside the Backpack demo.</summary>
+        public void Init(Shop shop, Store store) {
             Shop = shop;
             Store = store;
 

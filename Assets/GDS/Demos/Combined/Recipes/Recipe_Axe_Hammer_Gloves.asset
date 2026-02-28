@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5207daac6684ebc41a4cf2dff68fa0ac, type: 3}
+  m_Name: Recipe_Axe_Hammer_Gloves
+  m_EditorClassIdentifier: GDS.Demos.Basic::GDS.Demos.Basic.Recipe
+  Outcome: {fileID: 11400000, guid: 6dbd37106b38c5a4aa595553a8d5f980, type: 2}
+  Ingredients:
+  - {fileID: 11400000, guid: 3510c84c90008034da5d2de6314c3b99, type: 2}
+  - {fileID: 11400000, guid: d2061948fc9fae346bbae350725b5e89, type: 2}
+  - {fileID: 11400000, guid: 5341f70a2dc839f44b1e4574d204a097, type: 2}

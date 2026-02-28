@@ -4,10 +4,11 @@ using GDS.Core;
 namespace GDS.Demos.Basic {
 
     [Serializable]
-    public class Inventory : ListBag {
+    public class Inventory : GridBag {
         public Inventory() {
             Name = "Inventory";
-            Size = 40;
+            Size = new Size(10, 4);
+            CellSize = 48;
         }
     }
 

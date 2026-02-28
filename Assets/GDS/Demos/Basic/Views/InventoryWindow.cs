@@ -18,7 +18,10 @@ namespace GDS.Demos.Basic {
             var goldLabel = goldView.Q<Label>("GoldLabel");
 
             var equipmentView = new SetBagView().Init(bag.Equipment, bag.Equipment.Name);
-            var inventoryView = new ListBagView().Init(bag.Inventory, 10, bag.Inventory.Name);
+
+            var inventoryView = new GridBagView();
+            inventoryView.CreateItemView = () => new IrregularGridItemView();
+            inventoryView.Init(bag.Inventory, store.Ghost);
             inventoryView.WithClass("mt-16");
 
             Container.Add(equipmentView, inventoryView, goldView);

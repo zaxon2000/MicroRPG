@@ -17,5 +17,6 @@ MonoBehaviour:
   Stackable: 0
   MaxStackSize: 100
   Tags: []
+  Shape: {fileID: 11400000, guid: eba04baf7718e49939b385a5d1ef6f87, type: 2}
   Weight: 1
   Cost: 1

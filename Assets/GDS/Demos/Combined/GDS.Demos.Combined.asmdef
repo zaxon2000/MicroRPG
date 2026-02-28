@@ -1,0 +1,20 @@
+{
+    "name": "GDS.Demos.Combined",
+    "rootNamespace": "",
+    "references": [
+        "GDS.Core",
+        "GDS.Common",
+        "GDS.Examples",
+        "GDS.Demos.Backpack",
+        "GDS.Demos.Basic"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

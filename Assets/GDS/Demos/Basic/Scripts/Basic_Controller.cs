@@ -19,7 +19,8 @@ namespace GDS.Demos.Basic {
             Store.Init(playerInventory);
 
             var root = GetComponent<UIDocument>().rootVisualElement;
-            root.AddManipulator(new DragDropManipulator(Store));
+            root.AddManipulator(new DragDropManipulator(Store, new GhostItemWithRotation() { CellSize = 48 }));
+            root.AddManipulator(new RotateGhostManipulator(Store));
             root.AddManipulator(new HighlightSlotManipulator(Store));
             root.AddManipulator(new TooltipManipulator(new BasicTooltipView(TooltipViewAsset)));
 
