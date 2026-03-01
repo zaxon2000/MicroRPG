@@ -6,7 +6,8 @@
         "GDS.Common",
         "GDS.Examples",
         "GDS.Demos.Backpack",
-        "GDS.Demos.Basic"
+        "GDS.Demos.Basic",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

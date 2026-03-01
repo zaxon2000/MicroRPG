@@ -5,6 +5,7 @@ using GDS.Demos.Basic;
 using GDS.Demos.Backpack;
 using GDS.Examples;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using BasicRecipe = GDS.Demos.Basic.Recipe;
 using BasicCraftingBench = GDS.Demos.Basic.CraftingBench;
@@ -17,55 +18,100 @@ namespace GDS.Demos.Combined {
         [Required, InlineEditor]
         public BackpackCrafting_Store Store;
 
-        void Awake() {
-            var root = GetComponent<UIDocument>().rootVisualElement;
+        VisualElement _root;
+        VisualElement _inventoryUI;
+        VisualElement _hudBar;
+        bool _uiVisible = false;
 
-            // Tetris-style drag with rotation support, same settings as the Backpack demo.
-            root.AddManipulator(new DragDropManipulator(Store, new GhostItemWithRotation() { CellSize = 80 }));
-            root.AddManipulator(new RotateGhostManipulator(Store));
-            root.AddManipulator(new TooltipManipulator(new BackpackTooltipView()));
+        void Awake() {
+            _root = GetComponent<UIDocument>().rootVisualElement;
+            _inventoryUI = _root.Q<VisualElement>("InventoryUI");
+            _hudBar = _root.Q<VisualElement>("HUDBar");
+
+            // Manipulators sit on the full root so drag continues outside panel bounds.
+            _root.AddManipulator(new DragDropManipulator(Store, new GhostItemWithRotation() { CellSize = 80 }));
+            _root.AddManipulator(new RotateGhostManipulator(Store));
+            _root.AddManipulator(new TooltipManipulator(new BackpackTooltipView()));
+
+            // HUD inventory button opens the UI.
+            _root.Q<Button>("InventoryBtn").RegisterCallback<ClickEvent>(_ => ToggleUI());
 
             // Backpack tetris grid (left panel, top).
-            var backpackView = root.Q<GridBagView>("BackpackView");
+            var backpackView = _root.Q<GridBagView>("BackpackView");
             backpackView.CreateItemView = () => new IrregularGridItemView();
             backpackView.Init(Store.Backpack, Store.Ghost);
 
             // Storage flat grid (left panel, bottom).
-            var storageView = root.Q<ListBagView>("StorageView");
+            var storageView = _root.Q<ListBagView>("StorageView");
             storageView.Init(Store.Storage, 10);
 
             // Right panel: tab buttons + swappable SidePanel.
-            var sidePanel = root.Q<VisualElement>("SidePanel");
-            var shopTabBtn = root.Q<Button>("ShopTabBtn");
-            var craftTabBtn = root.Q<Button>("CraftTabBtn");
+            var sidePanel = _root.Q<VisualElement>("SidePanel");
+            _root.Q<Button>("ShopTabBtn").RegisterCallback<ClickEvent>(_ => Store.CraftingActive.SetValue(false));
+            _root.Q<Button>("CraftTabBtn").RegisterCallback<ClickEvent>(_ => Store.CraftingActive.SetValue(true));
 
-            shopTabBtn.RegisterCallback<ClickEvent>(_ => Store.CraftingActive.SetValue(false));
-            craftTabBtn.RegisterCallback<ClickEvent>(_ => Store.CraftingActive.SetValue(true));
-
-            // Rebuild the SidePanel whenever the active tab changes.
-            root.Observe(Store.CraftingActive, active => {
+            _root.Observe(Store.CraftingActive, active => {
                 sidePanel.Clear();
                 if (active) BuildCraftingPanel(sidePanel, Store.CraftingBench);
                 else BuildShopPanel(sidePanel);
             });
 
+            // Per-panel close buttons — each hides only its own section.
+            WireCloseButton("CloseBackpackBtn", "Backpack");
+            WireCloseButton("CloseStorageBtn",  "Storage");
+            WireCloseButton("CloseCenterBtn",   "Center");
+            WireCloseButton("CloseRightBtn",    "Right");
+
             // Sell drop zone (right panel, bottom).
-            var piggyIcon = root.Q<VisualElement>("PiggyIcon");
-            var sellArea = root.Q<VisualElement>("SellArea");
-            sellArea.RegisterCallback<PointerUpEvent>(_ => {
+            var piggyIcon = _root.Q<VisualElement>("PiggyIcon");
+            _root.Q<VisualElement>("SellArea").RegisterCallback<PointerUpEvent>(_ => {
                 if (Store.Ghost.Value == null) return;
                 Store.Bus.Publish(new SellCurrenItem());
                 piggyIcon.TriggerClassAnimation("scale-150");
             });
 
-            // Gold display + reset button (center / character sheet area).
-            var goldLabel = root.Q<Label>("PlayerGoldText");
-            var resetBtn = root.Q<Button>("ResetPlayerGoldButton");
-            resetBtn.RegisterCallback<ClickEvent>(_ => Store.ResetPlayerGold());
-            root.Observe(Store.PlayerGold, value => {
+            // Gold display + reset button.
+            var goldLabel = _root.Q<Label>("PlayerGoldText");
+            _root.Q<Button>("ResetPlayerGoldButton").RegisterCallback<ClickEvent>(_ => Store.ResetPlayerGold());
+            _root.Observe(Store.PlayerGold, value => {
                 goldLabel.text = value.ToString();
                 goldLabel.TriggerClassAnimation("scale-150");
             });
+
+            // Apply the initial closed state set by _uiVisible = false.
+            SyncUIVisibility();
+        }
+
+        /// <summary>Pressing I toggles the entire inventory UI open or closed.</summary>
+        void Update() {
+            if (Keyboard.current.iKey.wasPressedThisFrame) ToggleUI();
+        }
+
+        void ToggleUI() {
+            _uiVisible = !_uiVisible;
+            SyncUIVisibility();
+            if (_uiVisible) RestoreAllPanels();
+        }
+
+        /// <summary>Syncs InventoryUI and HUDBar visibility to the current _uiVisible state.</summary>
+        void SyncUIVisibility() {
+            _inventoryUI.style.display = _uiVisible ? DisplayStyle.Flex : DisplayStyle.None;
+            _hudBar.style.display      = _uiVisible ? DisplayStyle.None : DisplayStyle.Flex;
+        }
+
+        /// <summary>Resets all four panel sections to visible. Called whenever the inventory is reopened.</summary>
+        void RestoreAllPanels() {
+            foreach (var name in new[] { "Backpack", "Storage", "Center", "Right" })
+                SetPanelVisible(name, true);
+        }
+
+        void WireCloseButton(string buttonName, string panelName) =>
+            _root.Q<Button>(buttonName)?.RegisterCallback<ClickEvent>(_ => SetPanelVisible(panelName, false));
+
+        void SetPanelVisible(string panelName, bool visible) {
+            var panel = _root.Q<VisualElement>(panelName);
+            if (panel != null)
+                panel.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         /// <summary>Populates the side panel with the shop view.</summary>
@@ -75,7 +121,7 @@ namespace GDS.Demos.Combined {
             container.Add(shopView);
         }
 
-        /// <summary>Populates the side panel with the crafting bench view, wiring up ingredient slots and the outcome slot.</summary>
+        /// <summary>Populates the side panel with the crafting bench, wiring ingredient and outcome slots.</summary>
         void BuildCraftingPanel(VisualElement container, BasicCraftingBench bench) {
             var vta = Resources.Load<VisualTreeAsset>("CraftingBenchView");
             if (vta == null) { Debug.LogError("[BackpackCrafting] CraftingBenchView not found in Resources."); return; }
@@ -83,7 +129,7 @@ namespace GDS.Demos.Combined {
             container.Add(vta.Instantiate());
             container.Add(BuildRecipeList(bench.Recipes));
 
-            var outcomeSlot = container.Q<SlotView>("OutcomeSlot");
+            var outcomeSlot    = container.Q<SlotView>("OutcomeSlot");
             var ingredientView = container.Q<ListBagView>("ListBagView");
 
             ingredientView.Init(bench);
