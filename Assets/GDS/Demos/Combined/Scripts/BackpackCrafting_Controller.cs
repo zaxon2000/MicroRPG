@@ -28,7 +28,7 @@ namespace GDS.Demos.Combined {
             _inventoryUI = _root.Q<VisualElement>("InventoryUI");
             _hudBar = _root.Q<VisualElement>("HUDBar");
 
-            // Manipulators sit on the full root so drag continues outside panel bounds.
+            // Manipulators sit on the full root so item drag continues outside window bounds.
             _root.AddManipulator(new DragDropManipulator(Store, new GhostItemWithRotation() { CellSize = 80 }));
             _root.AddManipulator(new RotateGhostManipulator(Store));
             _root.AddManipulator(new TooltipManipulator(new BackpackTooltipView()));
@@ -36,16 +36,16 @@ namespace GDS.Demos.Combined {
             // HUD inventory button opens the UI.
             _root.Q<Button>("InventoryBtn").RegisterCallback<ClickEvent>(_ => ToggleUI());
 
-            // Backpack tetris grid (left panel, top).
+            // Backpack tetris grid.
             var backpackView = _root.Q<GridBagView>("BackpackView");
             backpackView.CreateItemView = () => new IrregularGridItemView();
             backpackView.Init(Store.Backpack, Store.Ghost);
 
-            // Storage flat grid (left panel, bottom).
+            // Storage flat grid.
             var storageView = _root.Q<ListBagView>("StorageView");
             storageView.Init(Store.Storage, 10);
 
-            // Right panel: tab buttons + swappable SidePanel.
+            // Shop / Craft tab buttons + swappable SidePanel.
             var sidePanel = _root.Q<VisualElement>("SidePanel");
             _root.Q<Button>("ShopTabBtn").RegisterCallback<ClickEvent>(_ => Store.CraftingActive.SetValue(false));
             _root.Q<Button>("CraftTabBtn").RegisterCallback<ClickEvent>(_ => Store.CraftingActive.SetValue(true));
@@ -56,13 +56,19 @@ namespace GDS.Demos.Combined {
                 else BuildShopPanel(sidePanel);
             });
 
-            // Per-panel close buttons — each hides only its own section.
-            WireCloseButton("CloseBackpackBtn", "Backpack");
-            WireCloseButton("CloseStorageBtn",  "Storage");
-            WireCloseButton("CloseCenterBtn",   "Center");
-            WireCloseButton("CloseRightBtn",    "Right");
+            // Close buttons hide the entire floating window (background included).
+            WireCloseButton("CloseBackpackBtn", "BackpackWindow");
+            WireCloseButton("CloseStorageBtn",  "StorageWindow");
+            WireCloseButton("CloseCenterBtn",   "CenterWindow");
+            WireCloseButton("CloseRightBtn",    "RightWindow");
 
-            // Sell drop zone (right panel, bottom).
+            // Window drag — each header drags its parent window element.
+            AttachDragManipulator("BackpackHeader", "BackpackWindow");
+            AttachDragManipulator("StorageHeader",  "StorageWindow");
+            AttachDragManipulator("CenterHeader",   "CenterWindow");
+            AttachDragManipulator("RightHeader",    "RightWindow");
+
+            // Sell drop zone.
             var piggyIcon = _root.Q<VisualElement>("PiggyIcon");
             _root.Q<VisualElement>("SellArea").RegisterCallback<PointerUpEvent>(_ => {
                 if (Store.Ghost.Value == null) return;
@@ -78,7 +84,7 @@ namespace GDS.Demos.Combined {
                 goldLabel.TriggerClassAnimation("scale-150");
             });
 
-            // Apply the initial closed state set by _uiVisible = false.
+            // Apply the initial closed state.
             SyncUIVisibility();
         }
 
@@ -99,14 +105,21 @@ namespace GDS.Demos.Combined {
             _hudBar.style.display      = _uiVisible ? DisplayStyle.None : DisplayStyle.Flex;
         }
 
-        /// <summary>Resets all four panel sections to visible. Called whenever the inventory is reopened.</summary>
+        /// <summary>Resets all four floating windows to visible. Called whenever the inventory is reopened.</summary>
         void RestoreAllPanels() {
-            foreach (var name in new[] { "Backpack", "Storage", "Center", "Right" })
+            foreach (var name in new[] { "BackpackWindow", "StorageWindow", "CenterWindow", "RightWindow" })
                 SetPanelVisible(name, true);
         }
 
-        void WireCloseButton(string buttonName, string panelName) =>
-            _root.Q<Button>(buttonName)?.RegisterCallback<ClickEvent>(_ => SetPanelVisible(panelName, false));
+        void WireCloseButton(string buttonName, string windowName) =>
+            _root.Q<Button>(buttonName)?.RegisterCallback<ClickEvent>(_ => SetPanelVisible(windowName, false));
+
+        void AttachDragManipulator(string headerName, string windowName) {
+            var header = _root.Q<VisualElement>(headerName);
+            var window = _root.Q<VisualElement>(windowName);
+            if (header != null && window != null)
+                header.AddManipulator(new WindowDragManipulator(header, window));
+        }
 
         void SetPanelVisible(string panelName, bool visible) {
             var panel = _root.Q<VisualElement>(panelName);
