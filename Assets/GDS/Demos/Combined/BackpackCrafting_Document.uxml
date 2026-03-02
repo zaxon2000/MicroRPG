@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="CharacterSheet" src="project://database/Assets/GDS/Demos/Backpack/Views/CharacterSheet.uxml?fileID=9197481963319205126&amp;guid=94c95b7e66bf3ea40b8f6159ce1689de&amp;type=3#CharacterSheet" />
+    <ui:Style src="/Assets/GDS/Demos/Combined/BackpackCrafting_Styles.uss" />
     <!-- Outermost cover: transparent passthrough so game input is not blocked -->
     <ui:VisualElement class="cover" picking-mode="Ignore">
 
@@ -21,7 +22,7 @@
                         <ui:Button name="CloseBackpackBtn" text="×" style="width: 28px; height: 28px; font-size: 18px; padding: 0; margin-left: 16px;" />
                     </ui:VisualElement>
                     <ui:VisualElement class="place-items-center" style="padding: 16px;">
-                        <GDS.Core.GridBagView name="BackpackView" PreviewCellSize="80" PreviewGridWidth="8" PreviewGridHeight="8" ShowPreviewItems="false" />
+                        <GDS.Core.GridBagView name="BackpackView" PreviewCellSize="27" PreviewGridWidth="8" PreviewGridHeight="8" ShowPreviewItems="false" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
@@ -29,14 +30,14 @@
             <!-- ═══════════════════════════════════════════
                  Storage Window  (drag by StorageHeader)
                  ═══════════════════════════════════════════ -->
-            <ui:VisualElement name="StorageWindow" style="position: absolute; left: 10px; top: 740px;">
+            <ui:VisualElement name="StorageWindow" style="position: absolute; left: 10px; top: 300px;">
                 <ui:VisualElement class="section-border" style="background-image: url(&quot;project://database/Assets/GDS/Demos/Backpack/Sprites/bg-paper-rustic.png?fileID=2800000&amp;guid=f5663806ddf4fa14f9830103b6c2d434&amp;type=3#bg-paper-rustic&quot;);">
                     <ui:VisualElement name="StorageHeader" class="row" style="justify-content: space-between; align-items: center; padding: 8px 8px 4px 16px; border-bottom-width: 1px; border-bottom-color: rgba(0, 0, 0, 0.25); cursor: move;">
                         <ui:Label tabindex="-1" text="Storage" class="big-text" style="color: rgba(213, 213, 213, 0.6);" />
                         <ui:Button name="CloseStorageBtn" text="×" style="width: 28px; height: 28px; font-size: 18px; padding: 0; margin-left: 16px;" />
                     </ui:VisualElement>
                     <ui:VisualElement class="place-items-center" style="padding: 16px;">
-                        <GDS.Core.ListBagView preview-slots="20" itemsPerRow="10" name="StorageView" />
+                        <GDS.Core.ListBagView preview-slots="20" itemsPerRow="7" name="StorageView" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
@@ -44,7 +45,7 @@
             <!-- ═══════════════════════════════════════════
                  Character Sheet Window  (drag by CenterHeader)
                  ═══════════════════════════════════════════ -->
-            <ui:VisualElement name="CenterWindow" style="position: absolute; left: 730px; top: 400px;">
+            <ui:VisualElement name="CenterWindow" style="position: absolute; left: 265px; top: 300px;">
                 <ui:VisualElement class="section-border" style="background-image: url(&quot;project://database/Assets/GDS/Demos/Backpack/Sprites/bg-paper-rustic.png?fileID=2800000&amp;guid=f5663806ddf4fa14f9830103b6c2d434&amp;type=3#bg-paper-rustic&quot;);">
                     <ui:VisualElement name="CenterHeader" class="row" style="justify-content: space-between; align-items: center; padding: 8px 8px 4px 16px; border-bottom-width: 1px; border-bottom-color: rgba(0, 0, 0, 0.25); cursor: move;">
                         <ui:Label tabindex="-1" text="Character Sheet" class="big-text" style="color: rgba(213, 213, 213, 0.6);" />
@@ -60,7 +61,7 @@
                  Shop / Craft Window  (drag by RightHeader)
                  ═══════════════════════════════════════════ -->
             <ui:VisualElement name="RightWindow" style="position: absolute; left: 1080px; top: 10px;">
-                <ui:VisualElement class="section-border" style="width: 460px; background-image: url(&quot;project://database/Assets/GDS/Demos/Backpack/Sprites/bg-paper-rustic.png?fileID=2800000&amp;guid=f5663806ddf4fa14f9830103b6c2d434&amp;type=3#bg-paper-rustic&quot;);">
+                <ui:VisualElement class="section-border" style="width: 280px; background-image: url(&quot;project://database/Assets/GDS/Demos/Backpack/Sprites/bg-paper-rustic.png?fileID=2800000&amp;guid=f5663806ddf4fa14f9830103b6c2d434&amp;type=3#bg-paper-rustic&quot;);">
                     <ui:VisualElement name="RightHeader" class="row" style="justify-content: space-between; align-items: center; padding: 8px 8px 4px 16px; border-bottom-width: 1px; border-bottom-color: rgba(0, 0, 0, 0.25); cursor: move;">
                         <ui:Label tabindex="-1" text="Shop / Craft" class="big-text" style="color: rgba(213, 213, 213, 0.6);" />
                         <ui:Button name="CloseRightBtn" text="×" style="width: 28px; height: 28px; font-size: 18px; padding: 0; margin-left: 16px;" />
@@ -69,10 +70,10 @@
                         <ui:Button name="ShopTabBtn" text="Shop" />
                         <ui:Button name="CraftTabBtn" text="Craft" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="SidePanel" class="place-items-center" style="min-height: 420px;" />
-                    <ui:VisualElement name="SellArea" class="place-items-center" style="min-height: 180px; background-color: rgba(34, 0, 10, 0.47);">
+                    <ui:VisualElement name="SidePanel" class="place-items-center" style="min-height: 160px;" />
+                    <ui:VisualElement name="SellArea" class="place-items-center" style="min-height: 90px; background-color: rgba(34, 0, 10, 0.47);">
                         <ui:Label tabindex="-1" text="Drop here to Sell" class="big-text" style="color: rgba(213, 213, 213, 0.39);" />
-                        <ui:VisualElement name="PiggyIcon" class="has-transition" style="width: 80px; height: 80px; background-image: url(&quot;project://database/Assets/GDS/Common/Sprites/ui/icon_piggy.png?fileID=2800000&amp;guid=6171f6a3d0934b8489c25cabf966723b&amp;type=3#icon_piggy&quot;);" />
+                        <ui:VisualElement name="PiggyIcon" class="has-transition" style="width: 50px; height: 50px; background-image: url(&quot;project://database/Assets/GDS/Common/Sprites/ui/icon_piggy.png?fileID=2800000&amp;guid=6171f6a3d0934b8489c25cabf966723b&amp;type=3#icon_piggy&quot;);" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

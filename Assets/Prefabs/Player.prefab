@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4649825598105366291}
   - component: {fileID: 2837799147170561389}
   - component: {fileID: 324285270788263432}
+  - component: {fileID: 6405685398061852429}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -40,6 +41,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4821336623805724684
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -55,6 +57,11 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -76,9 +83,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -967435153
   m_SortingLayer: 2
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -6979919878118274778, guid: 9d2fef81000f5d3499f8ee2969737d52,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -89,7 +98,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &305240333953387334
 MonoBehaviour:
@@ -103,8 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a86398fa77feb4a96eb5a4f28d1ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curHp: 10
-  maxHp: 10
+  runDebugs: 0
+  curHp: 20
+  maxHp: 20
   interactRange: 1
   inventory: []
   curLevel: 1
@@ -123,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dca619481b47324ba584d9b23b4098f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runDebugs: 0
+  runDebugs: 1
   rig: {fileID: 0}
   spriteRendererComponent: {fileID: 4821336623805724684}
   playerUI: {fileID: 0}
@@ -152,11 +161,15 @@ MonoBehaviour:
   staminaRegenDelay: 2
   staminaDegenRateClimbing: 15
   staminaThresholdFallWhileClimbing: 0
-  staminaThresholdStartClimbing: 5
   staminaRecoveryWhileDropping: 30
   staminaThresholdStartSprinting: 20
   staminaThresholdStopSprinting: 5
   staminaDegenRateSprinting: 20
+  climbJumpKey: 32
+  climbJumpHeight: 2.5
+  climbJumpDuration: 0.25
+  climbJumpStaminaCost: 10
+  climbJumpRecoveryTime: 0.75
 --- !u!114 &4649825598105366291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,9 +185,10 @@ MonoBehaviour:
   attackRange: 2
   attackRate: 0.5
   damage: 2
+  attackKey: 32
 --- !u!50 &2837799147170561389
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -185,8 +199,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -207,6 +221,7 @@ CapsuleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3241523730407946147}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -230,9 +245,47 @@ CapsuleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0.0029980838, y: 0.0005995035}
   m_Size: {x: 0.6995365, y: 0.86754394}
+  m_Direction: 0
+--- !u!70 &6405685398061852429
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3241523730407946147}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 1}
   m_Direction: 0
 --- !u!1 &8928971807238681608
 GameObject:
@@ -5062,7 +5115,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &8309787539904719868
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5078,6 +5131,11 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5099,9 +5157,11 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -967435153
   m_SortingLayer: 2
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 1
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -5133,4 +5193,3 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0

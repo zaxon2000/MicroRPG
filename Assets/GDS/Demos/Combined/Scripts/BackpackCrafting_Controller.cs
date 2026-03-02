@@ -29,7 +29,7 @@ namespace GDS.Demos.Combined {
             _hudBar = _root.Q<VisualElement>("HUDBar");
 
             // Manipulators sit on the full root so item drag continues outside window bounds.
-            _root.AddManipulator(new DragDropManipulator(Store, new GhostItemWithRotation() { CellSize = 80 }));
+            _root.AddManipulator(new DragDropManipulator(Store, new GhostItemWithRotation() { CellSize = 27 }));
             _root.AddManipulator(new RotateGhostManipulator(Store));
             _root.AddManipulator(new TooltipManipulator(new BackpackTooltipView()));
 
@@ -37,6 +37,9 @@ namespace GDS.Demos.Combined {
             _root.Q<Button>("InventoryBtn").RegisterCallback<ClickEvent>(_ => ToggleUI());
 
             // Backpack tetris grid.
+            // CellSize must be set on the bag before Init() so GridBagView picks it up.
+            const int CellSize = 27;
+            Store.Backpack.CellSize = CellSize;
             var backpackView = _root.Q<GridBagView>("BackpackView");
             backpackView.CreateItemView = () => new IrregularGridItemView();
             backpackView.Init(Store.Backpack, Store.Ghost);
