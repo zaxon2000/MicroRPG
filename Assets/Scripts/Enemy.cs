@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Enemy : MonoBehaviour
 {
     [Header("Stats")]
@@ -20,8 +22,19 @@ public class Enemy : MonoBehaviour
     public float attackRate;            // minimum time between attacks
     private float lastAttackTime;       // last time we attacked the player
 
+    [Header("Sprites")]
+    public Sprite downSprite;
+    public Sprite upSprite;
+    public Sprite leftSprite;
+    public Sprite rightSprite;
+
     // components
     private Rigidbody2D rig;
+    private SpriteRenderer spriteRendererComponent;
+
+    // runtime state
+    public Vector2 FacingDirection { get; private set; } = Vector2.down;
+    private bool isClimbing;
 
     void Awake ()
     {
@@ -30,6 +43,10 @@ public class Enemy : MonoBehaviour
 
         // get the rigidbody component
         rig = GetComponent<Rigidbody2D>();
+        spriteRendererComponent = GetComponent<SpriteRenderer>();
+
+        if (spriteRendererComponent != null && downSprite != null)
+            spriteRendererComponent.sprite = downSprite;
     }
 
     void Update ()
@@ -58,7 +75,60 @@ public class Enemy : MonoBehaviour
         // calculate direction between us and the player
         Vector2 dir = (player.transform.position - transform.position).normalized;
 
+        UpdateFacingDirection(dir);
+
         rig.linearVelocity = dir * moveSpeed;
+    }
+
+    void UpdateFacingDirection(Vector2 direction)
+    {
+        if (isClimbing)
+        {
+            FacingDirection = Vector2.up;
+
+            if (spriteRendererComponent != null && upSprite != null)
+                spriteRendererComponent.sprite = upSprite;
+
+            return;
+        }
+
+        if (direction.sqrMagnitude <= 0.0001f)
+            return;
+
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+            FacingDirection = (direction.x > 0f) ? Vector2.right : Vector2.left;
+        else
+            FacingDirection = (direction.y > 0f) ? Vector2.up : Vector2.down;
+
+        if (spriteRendererComponent == null)
+            return;
+
+        if (FacingDirection == Vector2.up && upSprite != null)
+            spriteRendererComponent.sprite = upSprite;
+        else if (FacingDirection == Vector2.down && downSprite != null)
+            spriteRendererComponent.sprite = downSprite;
+        else if (FacingDirection == Vector2.left && leftSprite != null)
+            spriteRendererComponent.sprite = leftSprite;
+        else if (FacingDirection == Vector2.right && rightSprite != null)
+            spriteRendererComponent.sprite = rightSprite;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Climbable"))
+            isClimbing = true;
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Climbable"))
+            isClimbing = true;
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Climbable"))
+            isClimbing = false;
     }
 
     // damage the player
