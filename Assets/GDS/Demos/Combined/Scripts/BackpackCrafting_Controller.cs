@@ -25,6 +25,9 @@ namespace GDS.Demos.Combined {
         /// <summary>Runtime-only store instance. Created fresh every Play session.</summary>
         BackpackCrafting_Store Store;
 
+        /// <summary>Exposes the runtime store to external systems such as world item pickup.</summary>
+        public BackpackCrafting_Store RuntimeStore => Store;
+
         VisualElement _root;
         VisualElement _inventoryUI;
         VisualElement _hudBar;

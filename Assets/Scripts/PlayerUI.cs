@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;           // UGUI (Images, etc.)
 using TMPro;
@@ -7,7 +7,6 @@ public class PlayerUI : MonoBehaviour
 {
     public TextMeshProUGUI levelText;       // text showing our current level
     public TextMeshProUGUI interactText;    // text showing what we can interact with currently
-    public TextMeshProUGUI inventoryText;   // text showing what the player has in their inventory
     public Image healthBarFill;             // image fill for the health bar
     public Image xpBarFill;                 // image fill for the xp bar
     public Image staminaBarFill;            // image fill for the stamina bar
@@ -46,17 +45,6 @@ public class PlayerUI : MonoBehaviour
     public void UpdateStaminaBar ()
     {
         staminaBarFill.fillAmount = (float)movement.curStamina / (float)movement.maxStamina;
-    }
-
-    // displays the player's inventory on screen
-    public void UpdateInventoryText ()
-    {
-        inventoryText.text = "";
-
-        foreach(string item in player.inventory)
-        {
-            inventoryText.text += item + "\n";
-        }
     }
 
     // called when we can interact with something

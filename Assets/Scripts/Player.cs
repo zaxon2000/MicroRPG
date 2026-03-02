@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     public float curHp;                   // our current health
     public float maxHp;                   // our maximum health
     public float interactRange;         // range at which we can interact
-    public List<string> inventory = new();
 
     [Header("Experience")]
     public int curLevel;                // our current level
@@ -115,13 +114,6 @@ public class Player : MonoBehaviour
     void Die ()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
-    }
-
-    // adds a new item to our inventory
-    public void AddItemToInventory (string item)
-    {
-        inventory.Add(item);
-        _playerUI.UpdateInventoryText();
     }
 
 }
