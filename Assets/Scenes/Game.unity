@@ -27052,43 +27052,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dca619481b47324ba584d9b23b4098f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!70 &415783352
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415783339}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
-  m_Direction: 0
 --- !u!1 &484625276
 GameObject:
   m_ObjectHideFlags: 0
@@ -30060,6 +30023,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8389584175991044420, guid: 0029806fc0a84467291437f0064e8d38,
+        type: 3}
+      propertyPath: _storeTemplate
+      value: 
+      objectReference: {fileID: 11400000, guid: 79dd4f94f08bf4e58bff2a853c386c24,
+        type: 2}
     - target: {fileID: 8942597791892091412, guid: 0029806fc0a84467291437f0064e8d38,
         type: 3}
       propertyPath: m_Name
@@ -31345,21 +31314,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 305240333953387334, guid: 875c192e79360bc409d2b74e049508e4,
-        type: 3}
-      propertyPath: curHp
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 305240333953387334, guid: 875c192e79360bc409d2b74e049508e4,
-        type: 3}
-      propertyPath: maxHp
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 305240333953387334, guid: 875c192e79360bc409d2b74e049508e4,
-        type: 3}
-      propertyPath: runDebugs
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3241523730407946147, guid: 875c192e79360bc409d2b74e049508e4,
         type: 3}
       propertyPath: m_Name
@@ -31420,34 +31374,10 @@ PrefabInstance:
       propertyPath: playerUI
       value: 
       objectReference: {fileID: 484625281}
-    - target: {fileID: 7504601072832340730, guid: 875c192e79360bc409d2b74e049508e4,
-        type: 3}
-      propertyPath: runDebugs
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7504601072832340730, guid: 875c192e79360bc409d2b74e049508e4,
-        type: 3}
-      propertyPath: climbJumpKey
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 7504601072832340730, guid: 875c192e79360bc409d2b74e049508e4,
-        type: 3}
-      propertyPath: climbJumpStaminaCost
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7504601072832340730, guid: 875c192e79360bc409d2b74e049508e4,
-        type: 3}
-      propertyPath: climbJumpRecoveryTime
-      value: 0.75
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3241523730407946147, guid: 875c192e79360bc409d2b74e049508e4,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 415783352}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 875c192e79360bc409d2b74e049508e4, type: 3}
 --- !u!1001 &8156041511351832573
 PrefabInstance:

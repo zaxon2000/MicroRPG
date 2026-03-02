@@ -15,8 +15,15 @@ namespace GDS.Demos.Combined {
     [RequireComponent(typeof(UIDocument))]
     public class BackpackCrafting_Controller : MonoBehaviour {
 
-        [Required, InlineEditor]
-        public BackpackCrafting_Store Store;
+        /// <summary>
+        /// Template asset assigned in the Inspector. Never mutated at runtime —
+        /// Awake() clones it into a transient instance so the asset on disk stays clean.
+        /// </summary>
+        [SerializeField]
+        BackpackCrafting_Store _storeTemplate;
+
+        /// <summary>Runtime-only store instance. Created fresh every Play session.</summary>
+        BackpackCrafting_Store Store;
 
         VisualElement _root;
         VisualElement _inventoryUI;
@@ -24,6 +31,11 @@ namespace GDS.Demos.Combined {
         bool _uiVisible = false;
 
         void Awake() {
+            // Clone the template into a transient, in-memory ScriptableObject.
+            // The original asset is never written to; state resets automatically each session.
+            Store = Instantiate(_storeTemplate);
+            Store.Reset();
+
             _root = GetComponent<UIDocument>().rootVisualElement;
             _inventoryUI = _root.Q<VisualElement>("InventoryUI");
             _hudBar = _root.Q<VisualElement>("HUDBar");
