@@ -1,6 +1,5 @@
 using GDS.Core.Events;
 using GDS.Demos.Backpack;
-using GDS.Demos.Combined;
 using UnityEngine;
 using GdsItem = GDS.Core.Item;
 
@@ -14,26 +13,26 @@ public class GroundItem : MonoBehaviour
 {
     [SerializeField] Backpack_ItemBase _itemBase;
 
-    BackpackCrafting_Controller _controller;
+    PlayerInventory _inventory;
 
     void Awake()
     {
-        _controller = FindFirstObjectByType<BackpackCrafting_Controller>();
+        _inventory = FindFirstObjectByType<PlayerInventory>();
 
-        if (_controller == null)
-            Debug.LogWarning("[GroundItem] BackpackCrafting_Controller not found in scene.");
+        if (_inventory == null)
+            Debug.LogWarning("[GroundItem] PlayerInventory not found in scene.");
 
         // Register pickup on the sibling Interactable — no Inspector wiring required.
         GetComponent<Interactable>().onInteract.AddListener(Pickup);
     }
 
-    /// <summary>Adds this item to the GDS backpack and removes it from the world.</summary>
+    /// <summary>Adds this item to the player's backpack and removes it from the world.</summary>
     public void Pickup()
     {
-        if (_controller == null || _itemBase == null) return;
+        if (_inventory == null || _itemBase == null) return;
 
-        GdsItem item = _itemBase.CreateItem();
-        Result result = _controller.RuntimeStore.Backpack.Add(item);
+        GdsItem item   = _itemBase.CreateItem();
+        Result  result = _inventory.Backpack.Add(item);
 
         if (result is Fail)
         {
