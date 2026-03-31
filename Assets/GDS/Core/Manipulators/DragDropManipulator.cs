@@ -15,6 +15,7 @@ namespace GDS.Core {
         Vector2 lastPos;
         IItemContext lastContext;
         Item lastContextItem;
+        bool loggedGhostMove;
 
 
         public DragDropManipulator(Store store, ItemView itemView = null) {
@@ -31,9 +32,10 @@ namespace GDS.Core {
 
             ghostView = Dom.Div("ghost-item absolute", itemView/*, square*/).PickIgnoreAll();
             ghostView.Observe(ghost, item => {
-                if (item == null) { ghostView.Hide(); return; }
+                if (item == null) { ghostView.Hide(); Debug.Log("[DragDrop] Ghost cleared"); return; }
                 itemView.Item = item;
                 ghostView.Show();
+                Debug.Log($"[DragDrop] Ghost SET to: {item.Name} (type={item.GetType().Name})");
             });
 
         }
@@ -73,18 +75,27 @@ namespace GDS.Core {
             //       resulting in item moving instead of being picked
             lastContext = null;
 
-            var context = (e.target as VisualElement).GetFirstOfType<IItemContext>();
+            var targetVE = e.target as VisualElement;
+            var context = targetVE.GetFirstOfType<IItemContext>();
+
+            Debug.Log($"[DragDrop] OnPointerUp: target={targetVE?.name}({targetVE?.GetType().Name}), " +
+                      $"context={context?.GetType().Name}, ghost={ghost.Value?.Name}, " +
+                      $"contextSlot={context?.Slot}, contextItem={context?.Item?.Name}");
+
             if (context == null) return;
 
             if (ghost.Value == null && context.Item != null) {
-                // Debug.Log($"should pick up item {context.Item.Name} from bag {context.Bag.name}");
                 bus.Publish(new PickItem(context.Bag, context.Slot, context.Item, e));
                 return;
             }
             if (ghost.Value != null && context.Slot != null) {
-                // Debug.Log($"should place item {ghost.Value.Name} into bag {context.Bag.Name} at slot {context.Slot}");
                 bus.Publish(new PlaceItem(context.Bag, context.Slot, ghost.Value, e));
                 return;
+            }
+
+            if (ghost.Value != null && context.Slot == null) {
+                Debug.Log($"[DragDrop] PlaceItem skipped: ghost={ghost.Value.Name} but context.Slot is null " +
+                          $"(context type={context.GetType().Name}, bag={context.Bag?.GetType().Name})");
             }
         }
 
@@ -92,7 +103,14 @@ namespace GDS.Core {
             ghostView.style.left = e.localPosition.x;
             ghostView.style.top = e.localPosition.y;
 
-            if (ghost.Value != null) return;
+            if (ghost.Value != null) {
+                if (!loggedGhostMove) {
+                    Debug.Log($"[DragDrop] OnPointerMove with ghost: target={((VisualElement)e.target)?.name}({((VisualElement)e.target)?.GetType().Name}), pos={e.localPosition}");
+                    loggedGhostMove = true;
+                }
+                return;
+            }
+            loggedGhostMove = false;
             if (lastContext == null) return;
             if (Math.Abs(lastPos.x - e.position.x) < MinDragDistance && Math.Abs(lastPos.y - e.position.y) < MinDragDistance) return;
 

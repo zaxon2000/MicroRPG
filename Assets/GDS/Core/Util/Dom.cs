@@ -110,7 +110,10 @@ namespace GDS.Core {
         }
 
         public static T PickIgnoreChildren<T>(this T element) where T : VisualElement {
-            foreach (var child in element.Children()) child.PickIgnore();
+            foreach (var child in element.Children()) {
+                child.PickIgnore();
+                child.PickIgnoreChildren();
+            }
             return element;
         }
 

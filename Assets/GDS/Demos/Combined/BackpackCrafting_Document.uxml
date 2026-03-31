@@ -60,7 +60,7 @@
             <!-- ═══════════════════════════════════════════
                  Shop / Craft Window  (drag by RightHeader)
                  ═══════════════════════════════════════════ -->
-            <ui:VisualElement name="RightWindow" style="position: absolute; left: 1080px; top: 10px;">
+            <ui:VisualElement name="RightWindow" style="position: absolute; left: 300px; top: 10px;">
                 <ui:VisualElement class="section-border" style="width: 280px; background-image: url(&quot;project://database/Assets/GDS/Demos/Backpack/Sprites/bg-paper-rustic.png?fileID=2800000&amp;guid=f5663806ddf4fa14f9830103b6c2d434&amp;type=3#bg-paper-rustic&quot;);">
                     <ui:VisualElement name="RightHeader" class="row" style="justify-content: space-between; align-items: center; padding: 8px 8px 4px 16px; border-bottom-width: 1px; border-bottom-color: rgba(0, 0, 0, 0.25); cursor: move;">
                         <ui:Label tabindex="-1" text="Shop / Craft" class="big-text" style="color: rgba(213, 213, 213, 0.6);" />

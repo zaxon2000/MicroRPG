@@ -58,7 +58,10 @@ namespace GDS.Demos.Basic {
 
         void Decrement(Slot slot) {
             if (slot.Item == null) return;
-            if (!slot.Item.Stackable) return;
+            if (!slot.Item.Stackable) {
+                slot.Item = null;
+                return;
+            }
             slot.Item.StackSize -= 1;
             if (slot.Item.StackSize <= 0) slot.Item = null;
         }
