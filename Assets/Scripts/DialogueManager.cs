@@ -47,6 +47,11 @@ public class DialogueManager : MonoBehaviour
     // Index 0 = key "1", index 1 = key "2", etc.
     private readonly List<int> _activeResponseNextIndices = new List<int>();
 
+    // When there is exactly one response (or a terminal node), pressing Enter
+    // will trigger it. -2 means no single-proceed action is available.
+    private const int NoSingleProceed = -2;
+    private int _singleProceedNextIndex = NoSingleProceed;
+
     // Number keys 1-9 paired with their Input System Key enum values
     private static readonly Key[] NumberKeys =
     {
@@ -177,6 +182,7 @@ public class DialogueManager : MonoBehaviour
         IsDialogueActive = false;
         _currentData = null;
         _activeResponseNextIndices.Clear();
+        _singleProceedNextIndex = NoSingleProceed;
         HideDialogue();
         OnDialogueEnded?.Invoke();
     }
@@ -213,16 +219,24 @@ public class DialogueManager : MonoBehaviour
                 _responsesContainer.Add(btn);
                 _activeResponseNextIndices.Add(nextIndex);
             }
+
+            // Allow Enter to auto-proceed when there is only one option
+            _singleProceedNextIndex = node.responses.Count == 1
+                ? node.responses[0].nextNodeIndex
+                : NoSingleProceed;
         }
         else
         {
             // Terminal node: clear hotkeys and add a dismiss button
             _activeResponseNextIndices.Clear();
             var continueBtn = new Button();
-            continueBtn.text = "[Click to close]";
+            continueBtn.text = "[Enter] Close";
             continueBtn.AddToClassList("dialogue-continue-btn");
             continueBtn.clicked += EndDialogue;
             _responsesContainer.Add(continueBtn);
+
+            // Enter always dismisses a terminal node
+            _singleProceedNextIndex = -1;
         }
 
         _dialogueOverlay.style.display = DisplayStyle.Flex;
@@ -240,11 +254,22 @@ public class DialogueManager : MonoBehaviour
 
     /// <summary>
     /// Polls digit keys 1-9 and selects the matching response if one is active.
+    /// When only one response (or a terminal node) is showing, Enter also proceeds.
     /// </summary>
     private void HandleNumberKeyInput()
     {
-        if (!IsDialogueActive || _activeResponseNextIndices.Count == 0) return;
+        if (!IsDialogueActive) return;
         if (Keyboard.current == null) return;
+
+        // Enter proceeds when there is a single option or a terminal node
+        if (_singleProceedNextIndex != NoSingleProceed &&
+            Keyboard.current[Key.Enter].wasPressedThisFrame)
+        {
+            OnResponseSelected(_singleProceedNextIndex);
+            return;
+        }
+
+        if (_activeResponseNextIndices.Count == 0) return;
 
         int maxKey = Mathf.Min(_activeResponseNextIndices.Count, NumberKeys.Length);
         for (int i = 0; i < maxKey; i++)
