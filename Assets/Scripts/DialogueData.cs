@@ -27,6 +27,10 @@ public class DialogueNode
 
     [Tooltip("Player response choices. Leave empty for a terminal node (click to dismiss).")]
     public List<DialogueResponse> responses = new List<DialogueResponse>();
+
+    [HideInInspector]
+    [Tooltip("Position of this node in the dialogue editor graph.")]
+    public Vector2 editorPosition;
 }
 
 /// <summary>
