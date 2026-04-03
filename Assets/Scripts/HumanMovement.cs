@@ -113,6 +113,13 @@ public class HumanMovement : MonoBehaviour
 
     private void Update()
     {
+        // Freeze movement while dialogue is active
+        if (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive)
+        {
+            if (rig != null) rig.linearVelocity = Vector2.zero;
+            return;
+        }
+
         HandleSprint();
         HandleClimbing();
         HandleDropping();

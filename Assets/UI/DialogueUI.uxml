@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance"
+         noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+
+    <Style src="project://database/Assets/UI/DialogueUI.uss" />
+
+    <ui:VisualElement name="DialogueRoot" class="dialogue-root" picking-mode="Ignore">
+
+        <!-- Interact prompt ("E") positioned dynamically -->
+        <ui:VisualElement name="InteractPrompt" class="interact-prompt">
+            <ui:Label name="InteractPromptLabel" text="E" class="interact-prompt__label" />
+        </ui:VisualElement>
+
+        <!-- Dialogue overlay -->
+        <ui:VisualElement name="DialogueOverlay" class="dialogue-overlay">
+            <ui:VisualElement name="DialoguePanel" class="dialogue-panel">
+                <ui:Label name="SpeakerName" class="dialogue-speaker" text="Speaker" />
+                <ui:Label name="DialogueText" class="dialogue-text" text="..." />
+                <ui:VisualElement name="ResponsesContainer" class="dialogue-responses" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>
