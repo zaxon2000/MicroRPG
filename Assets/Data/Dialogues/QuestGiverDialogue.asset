@@ -17,12 +17,21 @@ MonoBehaviour:
     text: Why are you here?
     responses:
     - responseText: 1) None of your business.
-      nextNodeIndex: 1
+      nextNodeIndex: 3
     - responseText: 2) I'm seeking adventure.
+      nextNodeIndex: 1
+    - responseText: 3) Who are you?
       nextNodeIndex: 2
-  - speakerName: Quest Giver
-    text: Then go away.
-    responses: []
+    editorPosition: {x: 128, y: 214}
   - speakerName: Quest Giver
     text: Good, then I have a quest for you.
     responses: []
+    editorPosition: {x: 692, y: 262}
+  - speakerName: NPC
+    text: It's rude to answer a question with a question
+    responses: []
+    editorPosition: {x: 692, y: 469}
+  - speakerName: Quest Giver
+    text: Then go away.
+    responses: []
+    editorPosition: {x: 692, y: 74}
