@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 /// <summary>
@@ -40,6 +42,17 @@ public class DialogueManager : MonoBehaviour
     private Transform _promptTarget;
     private Camera _mainCamera;
     private Action<int> _onResponseChosen;
+
+    // Ordered list of next-node indices for the currently displayed responses.
+    // Index 0 = key "1", index 1 = key "2", etc.
+    private readonly List<int> _activeResponseNextIndices = new List<int>();
+
+    // Number keys 1-9 paired with their Input System Key enum values
+    private static readonly Key[] NumberKeys =
+    {
+        Key.Digit1, Key.Digit2, Key.Digit3, Key.Digit4,
+        Key.Digit5, Key.Digit6, Key.Digit7, Key.Digit8, Key.Digit9
+    };
 
     private void Awake()
     {
@@ -82,6 +95,7 @@ public class DialogueManager : MonoBehaviour
     private void LateUpdate()
     {
         UpdatePromptPosition();
+        HandleNumberKeyInput();
     }
 
     // ───────────────────── Interact Prompt ─────────────────────
@@ -162,6 +176,7 @@ public class DialogueManager : MonoBehaviour
     {
         IsDialogueActive = false;
         _currentData = null;
+        _activeResponseNextIndices.Clear();
         HideDialogue();
         OnDialogueEnded?.Invoke();
     }
@@ -184,7 +199,8 @@ public class DialogueManager : MonoBehaviour
 
         if (node.responses.Count > 0)
         {
-            // Add response buttons
+            // Add response buttons and record their next-node indices for hotkey use
+            _activeResponseNextIndices.Clear();
             foreach (DialogueResponse response in node.responses)
             {
                 var btn = new Button();
@@ -195,11 +211,13 @@ public class DialogueManager : MonoBehaviour
                 btn.clicked += () => OnResponseSelected(nextIndex);
 
                 _responsesContainer.Add(btn);
+                _activeResponseNextIndices.Add(nextIndex);
             }
         }
         else
         {
-            // Terminal node: add a "click to close" button
+            // Terminal node: clear hotkeys and add a dismiss button
+            _activeResponseNextIndices.Clear();
             var continueBtn = new Button();
             continueBtn.text = "[Click to close]";
             continueBtn.AddToClassList("dialogue-continue-btn");
@@ -218,6 +236,25 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         ShowNode(nextNodeIndex);
+    }
+
+    /// <summary>
+    /// Polls digit keys 1-9 and selects the matching response if one is active.
+    /// </summary>
+    private void HandleNumberKeyInput()
+    {
+        if (!IsDialogueActive || _activeResponseNextIndices.Count == 0) return;
+        if (Keyboard.current == null) return;
+
+        int maxKey = Mathf.Min(_activeResponseNextIndices.Count, NumberKeys.Length);
+        for (int i = 0; i < maxKey; i++)
+        {
+            if (Keyboard.current[NumberKeys[i]].wasPressedThisFrame)
+            {
+                OnResponseSelected(_activeResponseNextIndices[i]);
+                return;
+            }
+        }
     }
 
     private void HideDialogue()
