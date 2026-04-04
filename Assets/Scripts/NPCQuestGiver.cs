@@ -67,12 +67,12 @@ public class NPCQuestGiver : MonoBehaviour
         if (inRange && !_playerInRange)
         {
             _playerInRange = true;
-            _dialogueManager.ShowPrompt(transform);
+            _dialogueManager.RegisterPromptCandidate(transform);
         }
         else if (!inRange && _playerInRange)
         {
             _playerInRange = false;
-            _dialogueManager.HidePrompt();
+            _dialogueManager.UnregisterPromptCandidate(transform);
         }
 
         if (_playerInRange && Keyboard.current != null && Keyboard.current[interactKey].wasPressedThisFrame)
@@ -90,6 +90,7 @@ public class NPCQuestGiver : MonoBehaviour
         if (_dialogueManager.IsDialogueActive) return;
 
         _playerInRange = false;
+        _dialogueManager.UnregisterPromptCandidate(transform);
 
         // Find the first quest in a relevant state
         foreach (QuestData quest in quests)

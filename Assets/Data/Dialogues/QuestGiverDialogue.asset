@@ -24,7 +24,7 @@ MonoBehaviour:
       nextNodeIndex: 2
     editorPosition: {x: 128, y: 214}
   - speakerName: Quest Giver
-    text: Good, then I have a quest for you.
+    text: Good, then I then speak with the nearby quest giver.
     responses: []
     editorPosition: {x: 692, y: 262}
   - speakerName: NPC

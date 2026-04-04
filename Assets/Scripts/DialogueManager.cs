@@ -42,6 +42,10 @@ public class DialogueManager : MonoBehaviour
     private Transform _promptTarget;
     private Camera _mainCamera;
     private Action<int> _onResponseChosen;
+    private Transform _playerTransform;
+
+    // All NPCs currently in interact range, evaluated each frame for closest
+    private readonly HashSet<Transform> _promptCandidates = new HashSet<Transform>();
 
     // Ordered list of next-node indices for the currently displayed responses.
     // Index 0 = key "1", index 1 = key "2", etc.
@@ -70,6 +74,10 @@ public class DialogueManager : MonoBehaviour
 
         _uiDocument = GetComponent<UIDocument>();
         _mainCamera = Camera.main;
+
+        Player player = FindFirstObjectByType<Player>();
+        if (player != null)
+            _playerTransform = player.transform;
     }
 
     private void OnEnable()
@@ -99,6 +107,7 @@ public class DialogueManager : MonoBehaviour
 
     private void LateUpdate()
     {
+        UpdateClosestPromptCandidate();
         UpdatePromptPosition();
         HandleNumberKeyInput();
     }
@@ -106,21 +115,75 @@ public class DialogueManager : MonoBehaviour
     // ───────────────────── Interact Prompt ─────────────────────
 
     /// <summary>
-    /// Shows the "E" prompt above the given world-space target.
+    /// Registers an NPC as a candidate for the interact prompt.
+    /// The closest candidate is shown each frame automatically.
     /// </summary>
-    public void ShowPrompt(Transform target)
+    public void RegisterPromptCandidate(Transform npc)
     {
-        _promptTarget = target;
-        _interactPrompt.style.display = DisplayStyle.Flex;
+        if (npc != null)
+            _promptCandidates.Add(npc);
     }
 
     /// <summary>
-    /// Hides the "E" interact prompt.
+    /// Removes an NPC from the interact prompt candidates.
+    /// </summary>
+    public void UnregisterPromptCandidate(Transform npc)
+    {
+        _promptCandidates.Remove(npc);
+
+        // If this was the active target, clear the prompt immediately
+        if (_promptTarget == npc)
+            ClearPrompt();
+    }
+
+    /// <summary>
+    /// Force-hides the prompt and clears all state. Used when dialogue starts.
     /// </summary>
     public void HidePrompt()
     {
-        _interactPrompt.style.display = DisplayStyle.None;
+        _promptCandidates.Clear();
+        ClearPrompt();
+    }
+
+    private void ClearPrompt()
+    {
         _promptTarget = null;
+        if (_interactPrompt != null)
+            _interactPrompt.style.display = DisplayStyle.None;
+    }
+
+    private void UpdateClosestPromptCandidate()
+    {
+        if (IsDialogueActive || _promptCandidates.Count == 0)
+        {
+            if (!IsDialogueActive && _promptTarget != null)
+                ClearPrompt();
+            return;
+        }
+
+        // Pick the closest candidate to the player each frame
+        Transform closest = null;
+        float closestDist = float.MaxValue;
+
+        foreach (Transform candidate in _promptCandidates)
+        {
+            if (candidate == null) continue;
+
+            float dist = _playerTransform != null
+                ? Vector2.Distance(_playerTransform.position, candidate.position)
+                : 0f;
+
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closest = candidate;
+            }
+        }
+
+        if (closest == _promptTarget) return;
+
+        _promptTarget = closest;
+        _interactPrompt.style.display = _promptTarget != null ? DisplayStyle.Flex : DisplayStyle.None;
     }
 
     private void UpdatePromptPosition()

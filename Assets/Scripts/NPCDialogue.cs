@@ -47,12 +47,12 @@ public class NPCDialogue : MonoBehaviour
         if (inRange && !_playerInRange)
         {
             _playerInRange = true;
-            _dialogueManager.ShowPrompt(transform);
+            _dialogueManager.RegisterPromptCandidate(transform);
         }
         else if (!inRange && _playerInRange)
         {
             _playerInRange = false;
-            _dialogueManager.HidePrompt();
+            _dialogueManager.UnregisterPromptCandidate(transform);
         }
 
         // Check for interact input
@@ -71,6 +71,7 @@ public class NPCDialogue : MonoBehaviour
         if (_dialogueManager.IsDialogueActive) return;
 
         _playerInRange = false;
+        _dialogueManager.UnregisterPromptCandidate(transform);
         _dialogueManager.StartDialogue(dialogueData);
     }
 }
