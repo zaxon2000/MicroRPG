@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -152,6 +152,7 @@ public class Enemy : MonoBehaviour
     void Die ()
     {
         player.AddXp(xpToGive);
+        QuestEvents.RaiseEnemyKilled(gameObject.name);
         Destroy(gameObject);
     }
 }

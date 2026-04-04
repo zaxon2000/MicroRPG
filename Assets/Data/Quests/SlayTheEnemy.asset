@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe5f237f86ea34a1d83116e7a77de3ce, type: 3}
+  m_Name: SlayTheEnemy
+  m_EditorClassIdentifier: Assembly-CSharp::QuestData
+  questId: slay_enemy_01
+  questTitle: Slay the Enemy
+  questDescription: Defeat the enemy threatening the village and return to the quest
+    giver.
+  prerequisites: []
+  objectives:
+  - objectiveType: 0
+    description: Defeat the enemy
+    targetName: Enemy
+    requiredAmount: 1
+  reward:
+    xp: 50
+    gold: 10
+    items: []
+  offerDialogue: {fileID: 11400000, guid: 9c56a68f803e74fc5bdce5e0f563bffc, type: 2}
+  inProgressDialogue: {fileID: 11400000, guid: 3b3f2e40f51ba4a6f80e4b3b2ec8056b, type: 2}
+  completionDialogue: {fileID: 11400000, guid: 60a206730e7fd421199dfc6a40e17b1a, type: 2}

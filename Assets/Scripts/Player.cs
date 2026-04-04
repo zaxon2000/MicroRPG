@@ -92,6 +92,9 @@ public class Player : MonoBehaviour
 
         // update level UI
         _playerUI.UpdateLevelText();
+
+        // notify quest system
+        QuestEvents.RaisePlayerLeveledUp(curLevel);
     }
 
     // called when an enemy attacks us

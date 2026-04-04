@@ -1,0 +1,35 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance"
+         noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+
+    <Style src="project://database/Assets/UI/QuestLogUI.uss" />
+
+    <ui:VisualElement name="QuestLogRoot" class="quest-log-root" picking-mode="Ignore">
+
+        <!-- Quest Log Panel -->
+        <ui:VisualElement name="QuestLogPanel" class="quest-log-panel">
+
+            <!-- Header -->
+            <ui:VisualElement class="quest-log-header">
+                <ui:Label text="Quest Log" class="quest-log-header__title" />
+                <ui:Button name="QuestLogCloseBtn" text="X" class="quest-log-close-btn" />
+            </ui:VisualElement>
+
+            <!-- Separator -->
+            <ui:VisualElement class="quest-log-separator" />
+
+            <!-- Quest list -->
+            <ui:ScrollView class="quest-log-scroll">
+                <ui:VisualElement name="QuestListContainer" class="quest-list-container" />
+                <ui:Label name="NoQuestsLabel" text="No active quests." class="quest-no-quests" />
+            </ui:ScrollView>
+
+            <!-- Footer hint -->
+            <ui:Label text="Press [J] to close" class="quest-log-hint" />
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

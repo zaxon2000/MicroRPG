@@ -145,9 +145,16 @@ public class DialogueManager : MonoBehaviour
 
     private void OnPromptClicked(ClickEvent evt)
     {
-        // Trigger the interact on the current NPC
+        // Trigger the interact on the current NPC (supports both dialogue-only and quest-giving NPCs)
         if (_promptTarget != null)
         {
+            var questGiver = _promptTarget.GetComponent<NPCQuestGiver>();
+            if (questGiver != null)
+            {
+                questGiver.StartDialogue();
+                return;
+            }
+
             var npcDialogue = _promptTarget.GetComponent<NPCDialogue>();
             if (npcDialogue != null)
                 npcDialogue.StartDialogue();
