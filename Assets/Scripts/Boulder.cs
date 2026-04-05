@@ -132,7 +132,7 @@ public class Boulder : MonoBehaviour
         float pushSpeed = Vector2.Dot(intendedVelocity, towardBoulder);
 
         if (pushSpeed > pushSpeedThreshold)
-            Launch(towardBoulder);
+            Launch(intendedVelocity.normalized);
     }
 
     // ── Impact detection (falling state) ────────────────────────────────────
