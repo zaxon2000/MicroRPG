@@ -24,6 +24,9 @@ public class Boulder : MonoBehaviour
     [Header("Push")]
     [Tooltip("Player speed toward the boulder (units/s) required to count as a push.")]
     [SerializeField] private float pushSpeedThreshold = 0.5f;
+    [Tooltip("Deceleration (units/s²) applied during the ledge slide. "
+           + "Brings the boulder to a stop unless it enters freefall first.")]
+    [SerializeField] private float slideFriction = 6f;
 
     [Header("Enemy Impact")]
     [Tooltip("Damage dealt to any enemy the falling boulder strikes.")]
@@ -96,9 +99,23 @@ public class Boulder : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Kinematic slide: move the boulder at constant velocity until freefall.
-        if (_isFalling && !_isFreefalling)
-            _rig.MovePosition(_rig.position + _slideVelocity * Time.fixedDeltaTime);
+        if (!_isFalling || _isFreefalling) return;
+
+        // Apply friction to decelerate the slide.
+        float speed = _slideVelocity.magnitude;
+        if (speed < 0.01f)
+        {
+            // Boulder has come to rest on the ledge — cancel the fall state
+            // so it can be pushed again.
+            _slideVelocity = Vector2.zero;
+            _isFalling     = false;
+            _collider.excludeLayers = 0;
+            return;
+        }
+
+        float newSpeed = Mathf.Max(0f, speed - slideFriction * Time.fixedDeltaTime);
+        _slideVelocity = _slideVelocity.normalized * newSpeed;
+        _rig.MovePosition(_rig.position + _slideVelocity * Time.fixedDeltaTime);
     }
 
     // ── Push detection ───────────────────────────────────────────────────────
