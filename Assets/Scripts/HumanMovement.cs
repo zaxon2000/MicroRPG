@@ -58,11 +58,18 @@ public class HumanMovement : MonoBehaviour
     public float staminaThresholdStartSprinting = 20f; // minimum stamina to start sprinting
     public float staminaThresholdStopSprinting = 5f;  // stamina level that stops sprinting
     public float staminaDegenRateSprinting = 15f;      // stamina drain per second while sprinting
+
+    [Header("Push Stamina")]
+    [Tooltip("Stamina drain per second while actively pushing a boulder.")]
+    public float staminaDegenRatePushing = 12f;
     
     // Sprint state
     private bool _isSprinting = false;
     private bool _canSprint = true;
     private float _staminaRegenTimer = 0f;
+
+    // Push state
+    private bool _isPushing = false;
     
     // Runtime state
     public Vector2 FacingDirection { get; private set; } = Vector2.down;
@@ -332,8 +339,8 @@ public class HumanMovement : MonoBehaviour
     
     private void HandleStaminaRegeneration()
     {
-        // Only regenerate stamina if not currently sprinting
-        if (!_isSprinting && !isClimbing && !isDropping)
+        // Only regenerate stamina if not currently exerting
+        if (!_isSprinting && !isClimbing && !isDropping && !_isPushing)
         {
             _staminaRegenTimer += Time.deltaTime;
             
@@ -435,7 +442,35 @@ public class HumanMovement : MonoBehaviour
     {
         Boulder boulder = collision.gameObject.GetComponent<Boulder>();
         if (boulder == null || rig == null) return;
+
+        // Need stamina to push.
+        if (curStamina <= 0f)
+        {
+            _isPushing = false;
+            return;
+        }
+
         boulder.TryPush(rig.position, IntendedVelocity);
+
+        // Drain stamina while actively in contact and pressing toward the boulder.
+        Vector2 toBoulder = ((Vector2)boulder.transform.position - rig.position).normalized;
+        if (Vector2.Dot(IntendedVelocity, toBoulder) > 0f)
+        {
+            _isPushing = true;
+            curStamina -= staminaDegenRatePushing * Time.deltaTime;
+            curStamina = Mathf.Max(curStamina, 0f);
+            _staminaRegenTimer = 0f;
+        }
+        else
+        {
+            _isPushing = false;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Boulder>() != null)
+            _isPushing = false;
     }
 
     private IEnumerator HandleEnterSurface(Collider2D other)
