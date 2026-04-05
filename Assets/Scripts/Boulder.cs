@@ -50,6 +50,7 @@ public class Boulder : MonoBehaviour
     private int _groundLayer;
     private int _obstacleLayer;
     private LayerMask _groundMask;
+    private LayerMask _climbableMask;
 
     /// <summary>True once the boulder has been pushed and is falling.</summary>
     public bool IsFalling => _isFalling;
@@ -71,7 +72,8 @@ public class Boulder : MonoBehaviour
         _enemyLayer    = LayerMask.NameToLayer("Enemy");
         _groundLayer   = LayerMask.NameToLayer("Ground");
         _obstacleLayer = LayerMask.NameToLayer("Obstacle");
-        _groundMask    = LayerMask.GetMask("Ground");
+        _groundMask     = LayerMask.GetMask("Ground");
+        _climbableMask  = LayerMask.GetMask("Climbable");
     }
 
     private void Update()
@@ -114,7 +116,23 @@ public class Boulder : MonoBehaviour
 
         float newSpeed = Mathf.Max(0f, speed - slideFriction * Time.fixedDeltaTime);
         _slideVelocity = _slideVelocity.normalized * newSpeed;
-        _rig.MovePosition(_rig.position + _slideVelocity * Time.fixedDeltaTime);
+
+        // Before moving, check if the next position leaves the ledge (Ground)
+        // and enters the Climbable area (mountain face).
+        // - Pushed UPWARD into the mountain face → stop the boulder.
+        // - Pushed HORIZONTALLY or DOWNWARD past a Climbable tile → allow freefall
+        //   (the existing detection in Update() will trigger BeginFreefall).
+        Vector2 nextPos = _rig.position + _slideVelocity * Time.fixedDeltaTime;
+        if (Physics2D.OverlapPoint(nextPos, _groundMask) == null
+            && Physics2D.OverlapPoint(nextPos, _climbableMask) != null
+            && _slideVelocity.y > 0f)
+        {
+            _slideVelocity = Vector2.zero;
+            _isFalling     = false;
+            return;
+        }
+
+        _rig.MovePosition(nextPos);
     }
 
     // ── Push detection ───────────────────────────────────────────────────────
