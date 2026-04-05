@@ -37,18 +37,16 @@ public class Boulder : MonoBehaviour
     private Rigidbody2D _rig;
     private CircleCollider2D _collider;
     private bool _isFalling;
+    private bool _isFreefalling;
     private float _fallTimer;
-    private float _launchTime;
-
-    // Seconds after launch during which ground/obstacle impacts are ignored,
-    // giving the boulder time to slide off the ledge it was resting on.
-    private const float LAUNCH_GRACE_PERIOD = 0.25f;
+    private Vector2 _slideVelocity;
 
     // Cached references.
     private int _playerLayer;
     private int _enemyLayer;
     private int _groundLayer;
     private int _obstacleLayer;
+    private LayerMask _groundMask;
 
     /// <summary>True once the boulder has been pushed and is falling.</summary>
     public bool IsFalling => _isFalling;
@@ -70,6 +68,7 @@ public class Boulder : MonoBehaviour
         _enemyLayer    = LayerMask.NameToLayer("Enemy");
         _groundLayer   = LayerMask.NameToLayer("Ground");
         _obstacleLayer = LayerMask.NameToLayer("Obstacle");
+        _groundMask    = LayerMask.GetMask("Ground");
     }
 
     private void Update()
@@ -83,13 +82,23 @@ public class Boulder : MonoBehaviour
             return;
         }
 
-        // After the grace period, enable full gravity so the boulder falls
-        // once it has slid past the ledge edge.
-        if (_rig.gravityScale < fallGravityScale &&
-            Time.time - _launchTime >= LAUNCH_GRACE_PERIOD)
-        {
-            _rig.gravityScale = fallGravityScale;
-        }
+        if (_isFreefalling) return;
+
+        // MountainFace_Tilemap covers the entire background including under the
+        // ledge, so detecting Climbable overlap fires immediately — wrong signal.
+        // Instead, detect when the boulder's center LEAVES the Ground layer
+        // (MountainLedge_Tilemap). While on the ledge there is always a Ground
+        // tile under the center. The moment it slides off the edge, OverlapPoint
+        // returns null → begin freefall.
+        if (Physics2D.OverlapPoint(_rig.position, _groundMask) == null)
+            BeginFreefall();
+    }
+
+    private void FixedUpdate()
+    {
+        // Kinematic slide: move the boulder at constant velocity until freefall.
+        if (_isFalling && !_isFreefalling)
+            _rig.MovePosition(_rig.position + _slideVelocity * Time.fixedDeltaTime);
     }
 
     // ── Push detection ───────────────────────────────────────────────────────
@@ -131,10 +140,6 @@ public class Boulder : MonoBehaviour
         // Ignore the player while falling.
         if (layer == _playerLayer) return;
 
-        // Grace period: ignore the ground/obstacle the boulder was resting on
-        // so horizontal pushes have time to slide off the ledge edge.
-        bool inGracePeriod = Time.time - _launchTime < LAUNCH_GRACE_PERIOD;
-
         // Enemy: heavy damage + downward knockback, then destroy.
         if (layer == _enemyLayer)
         {
@@ -147,8 +152,10 @@ public class Boulder : MonoBehaviour
             return;
         }
 
-        // Ground or obstacle (another ledge): shatter on impact.
-        if ((layer == _groundLayer || layer == _obstacleLayer) && !inGracePeriod)
+        // Ground or obstacle: only destroy once the boulder is in freefall
+        // (center has crossed into the MountainFace_Tilemap / Climbable layer).
+        // During the ledge-slide phase, ground contacts are ignored.
+        if ((layer == _groundLayer || layer == _obstacleLayer) && _isFreefalling)
             Destroy(gameObject);
     }
 
@@ -157,16 +164,24 @@ public class Boulder : MonoBehaviour
     private void Launch(Vector2 pushDirection)
     {
         if (_isFalling) return;
-        _isFalling  = true;
-        _launchTime = Time.time;
+        _isFalling    = true;
+        _slideVelocity = pushDirection * initialPushSpeed;
 
-        // Switch to trigger so the falling boulder passes through the player
-        // and detects enemy / ground impacts via OnTriggerEnter2D.
+        // Stay Kinematic so gravity never acts during the ledge slide.
+        // _rig.bodyType remains Kinematic; movement is driven by MovePosition
+        // in FixedUpdate. BeginFreefall() switches to Dynamic when the boulder's
+        // center enters the MountainFace_Tilemap (Climbable layer).
+        _collider.excludeLayers = LayerMask.GetMask("Player");
+    }
+
+    private void BeginFreefall()
+    {
+        _isFreefalling      = true;
         _collider.isTrigger = true;
 
         _rig.bodyType       = RigidbodyType2D.Dynamic;
-        _rig.gravityScale   = 0f; // Gravity enabled after LAUNCH_GRACE_PERIOD in Update
+        _rig.gravityScale   = fallGravityScale;
         _rig.freezeRotation = true;
-        _rig.linearVelocity = pushDirection * initialPushSpeed;
+        _rig.linearVelocity = _slideVelocity;
     }
 }
