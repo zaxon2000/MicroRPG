@@ -425,6 +425,19 @@ public class HumanMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) { StartCoroutine(HandleEnterSurface(other)); }
     private void OnTriggerStay2D(Collider2D other)  { HandleContinuousSurface(other); }
 
+    /// <summary>
+    /// Fires on the Dynamic player body whenever its non-trigger CapsuleCollider2D
+    /// is in contact with any non-trigger collider. Used to drive boulder pushes —
+    /// Dynamic bodies always receive OnCollisionStay2D regardless of the other
+    /// body's Kinematic contact flags.
+    /// </summary>
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Boulder boulder = collision.gameObject.GetComponent<Boulder>();
+        if (boulder == null || rig == null) return;
+        boulder.TryPush(rig.position, IntendedVelocity);
+    }
+
     private IEnumerator HandleEnterSurface(Collider2D other)
     {
         if(runDebugs) Debug.Log($"[HumanMovement] HandleEnterSurface: Entering surface with layer: {other.gameObject.layer}, isDropping: {isDropping}, _dropDurationElapsed: {_dropDurationElapsed}");

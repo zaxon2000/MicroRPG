@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2837799147170561389}
   - component: {fileID: 324285270788263432}
   - component: {fileID: 6405685398061852429}
+  - component: {fileID: 7231189278014778600}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -115,7 +116,6 @@ MonoBehaviour:
   curHp: 20
   maxHp: 20
   interactRange: 1
-  inventory: []
   curLevel: 1
   curXp: 0
   xpToNextLevel: 10
@@ -247,8 +247,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0029980838, y: 0.0005995035}
-  m_Size: {x: 0.6995365, y: 0.86754394}
+  m_Offset: {x: -0.01732871, y: -0.004625678}
+  m_Size: {x: 0.4499541, y: 0.7536557}
   m_Direction: 0
 --- !u!70 &6405685398061852429
 CapsuleCollider2D:
@@ -284,9 +284,22 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Offset: {x: -0.010214418, y: -0.010359883}
+  m_Size: {x: 0.41669422, y: 0.77175355}
   m_Direction: 0
+--- !u!114 &7231189278014778600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3241523730407946147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8814d101956e04ce7b49dc81ad413763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
+  _config: {fileID: 11400000, guid: 79dd4f94f08bf4e58bff2a853c386c24, type: 2}
 --- !u!1 &8928971807238681608
 GameObject:
   m_ObjectHideFlags: 0

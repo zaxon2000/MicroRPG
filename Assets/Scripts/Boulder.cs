@@ -44,7 +44,6 @@ public class Boulder : MonoBehaviour
     private int _enemyLayer;
     private int _groundLayer;
     private int _obstacleLayer;
-    private HumanMovement _cachedPlayerMovement;
 
     /// <summary>True once the boulder has been pushed and is falling.</summary>
     public bool IsFalling => _isFalling;
@@ -76,47 +75,21 @@ public class Boulder : MonoBehaviour
             Destroy(gameObject);
     }
 
-    // ── Push detection (physics-driven) ─────────────────────────────────────
+    // ── Push detection ───────────────────────────────────────────────────────
 
     /// <summary>
-    /// While the player is in physical contact with the boulder, check their
-    /// intended velocity to decide whether to launch.
+    /// Called by HumanMovement.OnCollisionStay2D — fires unconditionally on
+    /// the Dynamic player body, so no special Kinematic flags are needed here.
     /// </summary>
-    private void OnCollisionStay2D(Collision2D collision)
+    public void TryPush(Vector2 playerPosition, Vector2 intendedVelocity)
     {
         if (_isFalling) return;
-        if (collision.gameObject.layer != _playerLayer) return;
 
-        if (_cachedPlayerMovement == null)
-            _cachedPlayerMovement = collision.gameObject.GetComponent<HumanMovement>();
-
-        if (_cachedPlayerMovement == null)
-        {
-            Debug.LogWarning("[Boulder] HumanMovement component not found on player.");
-            return;
-        }
-
-        Vector2 towardBoulder = (_rig.position - collision.rigidbody.position).normalized;
-        Vector2 intended = _cachedPlayerMovement.IntendedVelocity;
-        float pushSpeed = Vector2.Dot(intended, towardBoulder);
-
-        Debug.Log($"[Boulder] Contact — intended={intended}, toward={towardBoulder}, " +
-                  $"pushSpeed={pushSpeed:F2}, threshold={pushSpeedThreshold}, " +
-                  $"towardY={towardBoulder.y:F2}");
+        Vector2 towardBoulder = (_rig.position - playerPosition).normalized;
+        float pushSpeed = Vector2.Dot(intendedVelocity, towardBoulder);
 
         if (pushSpeed > pushSpeedThreshold)
-        {
-            // Allow sideways and downward pushes; reject upward.
-            if (towardBoulder.y <= 0.1f)
-            {
-                Debug.Log("[Boulder] Launching!");
-                Launch(towardBoulder);
-            }
-            else
-            {
-                Debug.Log("[Boulder] Push rejected — upward direction blocked.");
-            }
-        }
+            Launch(towardBoulder);
     }
 
     // ── Impact detection (falling state) ────────────────────────────────────
