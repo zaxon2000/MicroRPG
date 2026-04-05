@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GDS.Demos.Backpack;
 using UnityEngine;
 
 /// <summary>
@@ -111,8 +112,8 @@ public class QuestReward
     [Tooltip("Gold awarded.")]
     public int gold;
 
-    [Tooltip("Items awarded (by name). Leave empty for none.")]
-    public List<string> items = new List<string>();
+    [Tooltip("Items added directly to the player's backpack on completion.")]
+    public List<Backpack_ItemBase> items = new List<Backpack_ItemBase>();
 }
 
 /// <summary>

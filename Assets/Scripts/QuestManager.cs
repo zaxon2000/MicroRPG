@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GDS.Core;
+using GDS.Demos.Backpack;
 using UnityEngine;
 
 /// <summary>
@@ -40,6 +42,7 @@ public class QuestManager : MonoBehaviour
     private readonly Dictionary<string, QuestData> _registeredQuests = new Dictionary<string, QuestData>();
 
     private Player _player;
+    private PlayerInventory _inventory;
 
     private void Awake()
     {
@@ -70,6 +73,10 @@ public class QuestManager : MonoBehaviour
         _player = FindFirstObjectByType<Player>();
         if (_player == null)
             Debug.LogWarning("[QuestManager] No Player found in scene.");
+
+        _inventory = FindFirstObjectByType<PlayerInventory>();
+        if (_inventory == null)
+            Debug.LogWarning("[QuestManager] No PlayerInventory found in scene.");
     }
 
     // ───────────────────── Registration ─────────────────────
@@ -150,8 +157,11 @@ public class QuestManager : MonoBehaviour
                     break;
 
                 case QuestConditionType.HasItem:
-                    // Future: integrate with PlayerInventory to check for items
-                    // For now, item-name events are tracked via QuestEvents
+                    if (_inventory == null) return false;
+                    bool hasItem = _inventory.Backpack.Items
+                        .Any(item => item != null &&
+                             string.Equals(item.Name, cond.itemName, StringComparison.OrdinalIgnoreCase));
+                    if (!hasItem) return false;
                     break;
 
                 case QuestConditionType.EnemyKilled:
@@ -221,7 +231,15 @@ public class QuestManager : MonoBehaviour
             if (quest.reward.xp > 0)
                 _player.AddXp(quest.reward.xp);
 
-            // Gold and item rewards can be extended with PlayerInventory integration
+            if (quest.reward.gold > 0 && _inventory != null)
+                _inventory.PlayerGold.SetValue(_inventory.PlayerGold.Value + quest.reward.gold);
+
+            // Fire one event per item so PlayerInventory (or any other listener) can handle it.
+            foreach (Backpack_ItemBase itemBase in quest.reward.items)
+            {
+                if (itemBase != null)
+                    QuestEvents.RaiseQuestItemRewarded(itemBase);
+            }
         }
 
         _activeObjectives.Remove(id);

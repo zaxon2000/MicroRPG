@@ -1,3 +1,5 @@
+using GDS.Demos.Backpack;
+
 using System;
 
 /// <summary>
@@ -18,9 +20,15 @@ public static class QuestEvents
     public static event Action<int> OnPlayerLeveledUp;
 
     /// <summary>
-    /// Fired when the player picks up or acquires an item. Parameter is the item name.
+    /// Fired when the player picks up or acquires an item. Parameter is the item's display name.
     /// </summary>
     public static event Action<string> OnItemCollected;
+
+    /// <summary>
+    /// Fired by QuestManager when a quest completes and an item reward should be granted.
+    /// PlayerInventory subscribes and adds the item directly to the backpack.
+    /// </summary>
+    public static event Action<Backpack_ItemBase> OnQuestItemRewarded;
 
     /// <summary>
     /// Raises the enemy killed event.
@@ -44,5 +52,14 @@ public static class QuestEvents
     public static void RaiseItemCollected(string itemName)
     {
         OnItemCollected?.Invoke(itemName);
+    }
+
+    /// <summary>
+    /// Raises the quest item rewarded event. Called by QuestManager once per reward item
+    /// on quest completion. PlayerInventory handles adding it to the backpack.
+    /// </summary>
+    public static void RaiseQuestItemRewarded(Backpack_ItemBase itemBase)
+    {
+        OnQuestItemRewarded?.Invoke(itemBase);
     }
 }

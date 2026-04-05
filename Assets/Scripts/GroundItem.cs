@@ -40,6 +40,7 @@ public class GroundItem : MonoBehaviour
             return;
         }
 
+        QuestEvents.RaiseItemCollected(_itemBase.Name);
         Destroy(gameObject);
     }
 }

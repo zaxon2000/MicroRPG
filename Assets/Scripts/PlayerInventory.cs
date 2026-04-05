@@ -71,10 +71,14 @@ public class PlayerInventory : MonoBehaviour
         InventoryStore.Bus.On<PlaceItem>(OnPlaceItem);
         InventoryStore.Bus.On<SellCurrenItem>(OnSellCurrentItem);
         InventoryStore.Bus.On<RerollShop>(OnRerollShop);
+
+        // Listen for item rewards from the quest system
+        QuestEvents.OnQuestItemRewarded += OnQuestItemRewarded;
     }
 
     void OnDestroy()
     {
+        QuestEvents.OnQuestItemRewarded -= OnQuestItemRewarded;
         if (InventoryStore != null)
             Destroy(InventoryStore);
     }
@@ -106,6 +110,25 @@ public class PlayerInventory : MonoBehaviour
     {
         PlayerGold.Reset();
         InventoryStore.Bus.Publish(new SellItemSuccess(null, null));
+    }
+
+    // ── Quest Reward ──────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// Receives an item rewarded by the quest system and places it in the player's backpack.
+    /// If the backpack is full the item is logged as a warning rather than silently lost.
+    /// </summary>
+    void OnQuestItemRewarded(GDS.Demos.Backpack.Backpack_ItemBase itemBase)
+    {
+        if (itemBase == null || Backpack == null) return;
+
+        GDS.Core.Item item = itemBase.CreateItem();
+        Result result = Backpack.Add(item);
+
+        if (result is Fail)
+            Debug.LogWarning($"[PlayerInventory] Quest reward '{itemBase.Name}' could not be added — backpack may be full.");
+        else
+            Debug.Log($"[PlayerInventory] Quest reward added to backpack: {itemBase.Name}");
     }
 
     // ── Event Handlers ────────────────────────────────────────────────────────
