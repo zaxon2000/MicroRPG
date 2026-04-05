@@ -5,27 +5,30 @@
 
     <Style src="project://database/Assets/UI/QuestLogUI.uss" />
 
+    <!--
+        Transparent full-screen root. picking-mode="Ignore" ensures all
+        game input passes through the empty areas to the game below.
+    -->
     <ui:VisualElement name="QuestLogRoot" class="quest-log-root" picking-mode="Ignore">
 
-        <!-- Quest Log Panel -->
+        <!--
+            QuestLogPanel is the actual 320px panel anchored top-right.
+            C# shows/hides this element only; no full-screen overlay.
+        -->
         <ui:VisualElement name="QuestLogPanel" class="quest-log-panel">
 
-            <!-- Header -->
             <ui:VisualElement class="quest-log-header">
                 <ui:Label text="Quest Log" class="quest-log-header__title" />
-                <ui:Button name="QuestLogCloseBtn" text="X" class="quest-log-close-btn" />
+                <ui:Button name="QuestLogCloseBtn" text="&#x2715;" class="quest-log-close-btn" />
             </ui:VisualElement>
 
-            <!-- Separator -->
             <ui:VisualElement class="quest-log-separator" />
 
-            <!-- Quest list -->
             <ui:ScrollView class="quest-log-scroll">
                 <ui:VisualElement name="QuestListContainer" class="quest-list-container" />
                 <ui:Label name="NoQuestsLabel" text="No active quests." class="quest-no-quests" />
             </ui:ScrollView>
 
-            <!-- Footer hint -->
             <ui:Label text="Press [J] to close" class="quest-log-hint" />
 
         </ui:VisualElement>

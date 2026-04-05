@@ -1,6 +1,8 @@
 /* ── Quest Log UI Styles ── */
 
-/* Full-screen root (pass-through for clicks) */
+/* ── Full-screen transparent root ── */
+/* No background-color — stays invisible so the game renders at full
+   performance. picking-mode=Ignore in UXML passes all input to the game. */
 .quest-log-root {
     position: absolute;
     left: 0;
@@ -9,11 +11,11 @@
     bottom: 0;
 }
 
-/* ── Panel ── */
+/* ── Panel anchored to the top-right corner ── */
 .quest-log-panel {
     position: absolute;
-    right: 20px;
     top: 20px;
+    right: 20px;
     width: 320px;
     max-height: 480px;
     background-color: rgba(20, 20, 30, 0.94);
@@ -21,13 +23,13 @@
     border-width: 2px;
     border-color: rgb(100, 100, 140);
     padding: 14px 16px;
+    flex-direction: column;
     display: none;
 }
 
-/* ── Header ── */
+/* ── Header row ── */
 .quest-log-header {
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     margin-bottom: 6px;
 }
@@ -36,24 +38,35 @@
     font-size: 18px;
     color: rgb(255, 210, 80);
     -unity-font-style: bold;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
+/* Constrain the close button on every axis so the Unity theme cannot expand it */
 .quest-log-close-btn {
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-self: center;
     width: 26px;
     height: 26px;
-    background-color: rgba(60, 60, 80, 0.8);
+    min-width: 26px;
+    max-width: 26px;
+    min-height: 26px;
+    max-height: 26px;
+    background-color: rgba(60, 60, 80, 0.9);
     border-radius: 4px;
     border-width: 1px;
     border-color: rgb(100, 100, 140);
     color: rgb(200, 200, 220);
-    font-size: 12px;
+    font-size: 13px;
     -unity-font-style: bold;
     -unity-text-align: middle-center;
     padding: 0;
+    margin: 0;
 }
 
 .quest-log-close-btn:hover {
-    background-color: rgba(255, 80, 80, 0.6);
+    background-color: rgba(200, 50, 50, 0.85);
     border-color: rgb(255, 120, 120);
     color: rgb(255, 255, 255);
 }
@@ -65,9 +78,10 @@
     margin-bottom: 10px;
 }
 
-/* ── Scroll ── */
+/* ── Scroll view ── */
 .quest-log-scroll {
     flex-grow: 1;
+    max-height: 360px;
 }
 
 .quest-list-container {
@@ -83,9 +97,9 @@
     padding: 20px 0;
 }
 
-/* ── Quest Entry ── */
+/* ── Quest entry card ── */
 .quest-entry {
-    background-color: rgba(40, 40, 60, 0.6);
+    background-color: rgba(40, 40, 60, 0.7);
     border-radius: 6px;
     border-width: 1px;
     border-color: rgba(100, 100, 140, 0.4);
@@ -98,6 +112,7 @@
     color: rgb(255, 230, 150);
     -unity-font-style: bold;
     margin-bottom: 4px;
+    white-space: normal;
 }
 
 .quest-entry__desc {
@@ -113,6 +128,7 @@
     color: rgb(200, 200, 220);
     margin-left: 8px;
     margin-bottom: 2px;
+    white-space: normal;
 }
 
 .quest-objective--done {
@@ -120,6 +136,143 @@
     color: rgb(100, 200, 100);
     margin-left: 8px;
     margin-bottom: 2px;
+    white-space: normal;
+}
+
+/* ── Footer hint ── */
+.quest-log-hint {
+    font-size: 11px;
+    color: rgb(120, 120, 140);
+    -unity-text-align: middle-center;
+    margin-top: 8px;
+    -unity-font-style: italic;
+}
+
+
+/* ── Inner panel box ── */
+.quest-log-box {
+    width: 320px;
+    max-width: 320px;
+    max-height: 480px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: rgba(20, 20, 30, 0.96);
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: rgb(100, 100, 140);
+    padding: 14px 16px;
+    flex-direction: column;
+}
+
+/* ── Header ── */
+.quest-log-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.quest-log-header__title {
+    font-size: 18px;
+    color: rgb(255, 210, 80);
+    -unity-font-style: bold;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.quest-log-close-btn {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    max-width: 26px;
+    min-height: 26px;
+    max-height: 26px;
+    background-color: rgba(60, 60, 80, 0.9);
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: rgb(100, 100, 140);
+    color: rgb(200, 200, 220);
+    font-size: 13px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    padding: 0;
+    margin: 0;
+}
+
+.quest-log-close-btn:hover {
+    background-color: rgba(200, 50, 50, 0.85);
+    border-color: rgb(255, 120, 120);
+    color: rgb(255, 255, 255);
+}
+
+/* ── Separator ── */
+.quest-log-separator {
+    height: 1px;
+    background-color: rgba(100, 100, 140, 0.5);
+    margin-bottom: 10px;
+}
+
+/* ── Scroll view ── */
+.quest-log-scroll {
+    flex-grow: 1;
+    max-height: 360px;
+}
+
+.quest-list-container {
+    flex-direction: column;
+}
+
+/* ── No quests label ── */
+.quest-no-quests {
+    font-size: 13px;
+    color: rgb(140, 140, 160);
+    -unity-font-style: italic;
+    -unity-text-align: middle-center;
+    padding: 20px 0;
+}
+
+/* ── Quest entry card ── */
+.quest-entry {
+    background-color: rgba(40, 40, 60, 0.7);
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: rgba(100, 100, 140, 0.4);
+    padding: 10px 12px;
+    margin-bottom: 8px;
+}
+
+.quest-entry__title {
+    font-size: 14px;
+    color: rgb(255, 230, 150);
+    -unity-font-style: bold;
+    margin-bottom: 4px;
+    white-space: normal;
+}
+
+.quest-entry__desc {
+    font-size: 12px;
+    color: rgb(180, 180, 200);
+    white-space: normal;
+    margin-bottom: 6px;
+}
+
+/* ── Objectives ── */
+.quest-objective {
+    font-size: 12px;
+    color: rgb(200, 200, 220);
+    margin-left: 8px;
+    margin-bottom: 2px;
+    white-space: normal;
+}
+
+.quest-objective--done {
+    font-size: 12px;
+    color: rgb(100, 200, 100);
+    margin-left: 8px;
+    margin-bottom: 2px;
+    white-space: normal;
 }
 
 /* ── Footer hint ── */
