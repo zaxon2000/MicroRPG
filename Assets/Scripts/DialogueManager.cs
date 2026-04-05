@@ -24,6 +24,12 @@ public class DialogueManager : MonoBehaviour
     public bool IsDialogueActive { get; private set; }
 
     /// <summary>
+    /// The index of the last node that was displayed before the dialogue ended.
+    /// Reset to -1 at the start of each new conversation.
+    /// </summary>
+    public int LastNodeIndex { get; private set; } = -1;
+
+    /// <summary>
     /// Raised when a dialogue conversation ends.
     /// </summary>
     public event Action OnDialogueEnded;
@@ -239,6 +245,7 @@ public class DialogueManager : MonoBehaviour
 
         _currentData = data;
         IsDialogueActive = true;
+        LastNodeIndex = -1;
         HidePrompt();
 
         ShowNode(0);
@@ -266,6 +273,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         DialogueNode node = _currentData.nodes[nodeIndex];
+        LastNodeIndex = nodeIndex;
 
         _speakerLabel.text = node.speakerName;
         _dialogueTextLabel.text = node.text;

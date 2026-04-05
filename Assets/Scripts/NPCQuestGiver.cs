@@ -155,16 +155,18 @@ public class NPCQuestGiver : MonoBehaviour
     {
         _dialogueManager.OnDialogueEnded -= HandleOfferDialogueEnded;
 
-        if (_pendingOfferQuest != null)
-        {
-            // Accept the quest when the offer dialogue finishes.
-            // If you want Accept/Decline branching, use the dialogue tree to lead
-            // to a terminal "accepted" node. Declining just ends the dialogue
-            // without the node marked for acceptance.
-            // For simplicity, completing the offer dialogue = acceptance.
-            _questManager.AcceptQuest(_pendingOfferQuest);
-            _pendingOfferQuest = null;
-        }
+        if (_pendingOfferQuest == null) return;
+
+        QuestData quest = _pendingOfferQuest;
+        _pendingOfferQuest = null;
+
+        // Accept only if the player landed on the designated acceptance node.
+        // offerAcceptNodeIndex == -1 means any ending counts as acceptance.
+        bool accepted = quest.offerAcceptNodeIndex < 0 ||
+                        _dialogueManager.LastNodeIndex == quest.offerAcceptNodeIndex;
+
+        if (accepted)
+            _questManager.AcceptQuest(quest);
     }
 
     private void StartInProgressDialogue(QuestData quest)

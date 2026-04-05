@@ -146,8 +146,13 @@ public class QuestData : ScriptableObject
     public QuestReward reward;
 
     [Header("Dialogue Integration")]
-    [Tooltip("Dialogue shown when offering the quest. Last two responses should be Accept / Decline.")]
+    [Tooltip("Dialogue shown when offering the quest.")]
     public DialogueData offerDialogue;
+
+    [Tooltip(
+        "Index of the node in offerDialogue that the player must end on for the quest to be accepted. " +
+        "Set this to the node shown after choosing 'Accept'. Use -1 to accept on any ending.")]
+    public int offerAcceptNodeIndex = -1;
 
     [Tooltip("Dialogue shown while quest is in progress.")]
     public DialogueData inProgressDialogue;

@@ -25,7 +25,9 @@ MonoBehaviour:
   reward:
     xp: 50
     gold: 10
-    items: []
+    items:
+    - {fileID: 11400000, guid: b782cdd4569fcc04ba6f40236845a6ce, type: 2}
   offerDialogue: {fileID: 11400000, guid: 9c56a68f803e74fc5bdce5e0f563bffc, type: 2}
+  offerAcceptNodeIndex: 1
   inProgressDialogue: {fileID: 11400000, guid: 3b3f2e40f51ba4a6f80e4b3b2ec8056b, type: 2}
   completionDialogue: {fileID: 11400000, guid: 60a206730e7fd421199dfc6a40e17b1a, type: 2}
