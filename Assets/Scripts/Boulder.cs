@@ -38,6 +38,11 @@ public class Boulder : MonoBehaviour
     private CircleCollider2D _collider;
     private bool _isFalling;
     private float _fallTimer;
+    private float _launchTime;
+
+    // Seconds after launch during which ground/obstacle impacts are ignored,
+    // giving the boulder time to slide off the ledge it was resting on.
+    private const float LAUNCH_GRACE_PERIOD = 0.25f;
 
     // Cached references.
     private int _playerLayer;
@@ -70,9 +75,21 @@ public class Boulder : MonoBehaviour
     private void Update()
     {
         if (!_isFalling) return;
+
         _fallTimer += Time.deltaTime;
         if (_fallTimer >= maxFallTime)
+        {
             Destroy(gameObject);
+            return;
+        }
+
+        // After the grace period, enable full gravity so the boulder falls
+        // once it has slid past the ledge edge.
+        if (_rig.gravityScale < fallGravityScale &&
+            Time.time - _launchTime >= LAUNCH_GRACE_PERIOD)
+        {
+            _rig.gravityScale = fallGravityScale;
+        }
     }
 
     // ── Push detection ───────────────────────────────────────────────────────
@@ -114,6 +131,10 @@ public class Boulder : MonoBehaviour
         // Ignore the player while falling.
         if (layer == _playerLayer) return;
 
+        // Grace period: ignore the ground/obstacle the boulder was resting on
+        // so horizontal pushes have time to slide off the ledge edge.
+        bool inGracePeriod = Time.time - _launchTime < LAUNCH_GRACE_PERIOD;
+
         // Enemy: heavy damage + downward knockback, then destroy.
         if (layer == _enemyLayer)
         {
@@ -127,7 +148,7 @@ public class Boulder : MonoBehaviour
         }
 
         // Ground or obstacle (another ledge): shatter on impact.
-        if (layer == _groundLayer || layer == _obstacleLayer)
+        if ((layer == _groundLayer || layer == _obstacleLayer) && !inGracePeriod)
             Destroy(gameObject);
     }
 
@@ -136,14 +157,15 @@ public class Boulder : MonoBehaviour
     private void Launch(Vector2 pushDirection)
     {
         if (_isFalling) return;
-        _isFalling = true;
+        _isFalling  = true;
+        _launchTime = Time.time;
 
         // Switch to trigger so the falling boulder passes through the player
         // and detects enemy / ground impacts via OnTriggerEnter2D.
         _collider.isTrigger = true;
 
         _rig.bodyType       = RigidbodyType2D.Dynamic;
-        _rig.gravityScale   = fallGravityScale;
+        _rig.gravityScale   = 0f; // Gravity enabled after LAUNCH_GRACE_PERIOD in Update
         _rig.freezeRotation = true;
         _rig.linearVelocity = pushDirection * initialPushSpeed;
     }
