@@ -32206,25 +32206,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2001515857618196926, guid: 85da66e674a9e4128906076851b13bd1,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 2001515857618196926, guid: 85da66e674a9e4128906076851b13bd1,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8516563558596280857, guid: 85da66e674a9e4128906076851b13bd1,
         type: 3}
       propertyPath: m_Name
       value: Boulder
-      objectReference: {fileID: 0}
-    - target: {fileID: 8516563558596280857, guid: 85da66e674a9e4128906076851b13bd1,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

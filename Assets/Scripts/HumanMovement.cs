@@ -66,6 +66,9 @@ public class HumanMovement : MonoBehaviour
     
     // Runtime state
     public Vector2 FacingDirection { get; private set; } = Vector2.down;
+
+    /// <summary>The velocity the player intends to move at, before physics resolves collisions.</summary>
+    public Vector2 IntendedVelocity { get; private set; }
     private Vector2 MoveInput { get; set; }
     
     // --- New: Climb Jump ---
@@ -404,6 +407,7 @@ public class HumanMovement : MonoBehaviour
             }
 
             rig.linearVelocity = MoveInput * speed;   // normal path
+            IntendedVelocity = MoveInput * speed;
         }
         
     }

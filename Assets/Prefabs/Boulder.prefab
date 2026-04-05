@@ -189,8 +189,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.4
+  m_Offset: {x: -1.1092571, y: -11.216861}
+  m_Radius: 0.77161884
 --- !u!212 &4421536570794204304
 SpriteRenderer:
   serializedVersion: 2
@@ -263,6 +263,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boulder
   fallGravityScale: 6
+  initialPushSpeed: 3
+  maxFallTime: 10
+  pushSpeedThreshold: 0.5
   enemyDamage: 200
   enemyKnockbackSpeed: 12
   enemyKnockbackDuration: 1.2
