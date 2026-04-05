@@ -109,7 +109,6 @@ public class Boulder : MonoBehaviour
             // so it can be pushed again.
             _slideVelocity = Vector2.zero;
             _isFalling     = false;
-            _collider.excludeLayers = 0;
             return;
         }
 
@@ -188,13 +187,15 @@ public class Boulder : MonoBehaviour
         // _rig.bodyType remains Kinematic; movement is driven by MovePosition
         // in FixedUpdate. BeginFreefall() switches to Dynamic when the boulder's
         // center enters the MountainFace_Tilemap (Climbable layer).
-        _collider.excludeLayers = LayerMask.GetMask("Player");
+        // Player exclusion is deferred to BeginFreefall() so the boulder still
+        // blocks the player while sliding on the ledge.
     }
 
     private void BeginFreefall()
     {
-        _isFreefalling      = true;
-        _collider.isTrigger = true;
+        _isFreefalling              = true;
+        _collider.isTrigger         = true;
+        _collider.excludeLayers     = LayerMask.GetMask("Player");
 
         _rig.bodyType       = RigidbodyType2D.Dynamic;
         _rig.gravityScale   = fallGravityScale;
