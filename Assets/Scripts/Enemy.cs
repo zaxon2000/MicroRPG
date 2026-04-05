@@ -36,6 +36,10 @@ public class Enemy : MonoBehaviour
     public Vector2 FacingDirection { get; private set; } = Vector2.down;
     private bool isClimbing;
 
+    // knockback state — set by BoulderHit(); overrides AI while active
+    private bool _isKnockedBack;
+    private float _knockbackTimer;
+
     void Awake ()
     {
         // get the player target
@@ -51,6 +55,19 @@ public class Enemy : MonoBehaviour
 
     void Update ()
     {
+        // While knocked back by a boulder, let physics drive the body.
+        if (_isKnockedBack)
+        {
+            _knockbackTimer -= Time.deltaTime;
+            if (_knockbackTimer <= 0f)
+            {
+                _isKnockedBack = false;
+                rig.gravityScale    = 0f;
+                rig.linearVelocity  = Vector2.zero;
+            }
+            return;
+        }
+
         // calculate the distance between us and the player
         float playerDist = Vector2.Distance(transform.position, player.transform.position);
 
@@ -146,6 +163,23 @@ public class Enemy : MonoBehaviour
 
         if(curHp <= 0)
             Die();
+    }
+
+    /// <summary>
+    /// Called when a falling boulder strikes this enemy.
+    /// Applies heavy damage and forces a downward knockback to simulate falling.
+    /// </summary>
+    public void BoulderHit(int damage, Vector2 knockbackVelocity, float duration)
+    {
+        TakeDamage(damage);
+
+        // Only apply knockback physics if the enemy survived.
+        if (curHp <= 0) return;
+
+        _isKnockedBack      = true;
+        _knockbackTimer     = duration;
+        rig.gravityScale    = 3f;
+        rig.linearVelocity  = knockbackVelocity;
     }
 
     // called when out hp reaches 0
