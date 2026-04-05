@@ -398,9 +398,9 @@ MonoBehaviour:
   list1:
     Name: 
     Slots:
+    - rid: 7115924460020170882
     - rid: 7115924460020170880
     - rid: 7115924460020170881
-    - rid: 7115924460020170882
     - rid: 7115924460020170883
     - rid: 7115924460020170884
     - rid: 7115924460020170885
@@ -436,6 +436,20 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 2834596073250488649
+      type: {class: Item, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Base: {fileID: 11400000, guid: 64800d12d450dc840b5e1b47c104c567, type: 2}
+        Id: 7RGJD0
+        Name: Apple
+        StackSize: 25
+    - rid: 2834596073250488650
+      type: {class: Item, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Base: {fileID: 11400000, guid: 59b3398047e1b7447ad1b7f148095c00, type: 2}
+        Id: 0cO2Ve
+        Name: Sword
+        StackSize: 1
     - rid: 7115924460020170860
       type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
       data:
@@ -454,7 +468,7 @@ MonoBehaviour:
       type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
       data:
         Item:
-          rid: -2
+          rid: 2834596073250488650
         Tags: []
         Index: 2
     - rid: 7115924460020170863
@@ -582,21 +596,21 @@ MonoBehaviour:
         Item:
           rid: 7115924460020170892
         Tags: []
-        Index: 0
+        Index: 1
     - rid: 7115924460020170881
       type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
       data:
         Item:
           rid: 7115924460020170893
         Tags: []
-        Index: 1
+        Index: 2
     - rid: 7115924460020170882
       type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
       data:
         Item:
-          rid: -2
+          rid: 2834596073250488649
         Tags: []
-        Index: 2
+        Index: 0
     - rid: 7115924460020170883
       type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
       data:
@@ -652,7 +666,7 @@ MonoBehaviour:
         Base: {fileID: 11400000, guid: 64800d12d450dc840b5e1b47c104c567, type: 2}
         Id: SjW7Zk
         Name: Apple
-        StackSize: 100
+        StackSize: 50
     - rid: 7115924460020170891
       type: {class: Item, ns: GDS.Core, asm: GDS.Core}
       data:

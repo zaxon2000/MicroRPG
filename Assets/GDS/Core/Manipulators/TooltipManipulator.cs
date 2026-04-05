@@ -5,13 +5,10 @@ using UnityEngine.UIElements;
 namespace GDS.Core {
     public class TooltipManipulator : PointerManipulator {
 
-        public int PollingInterval = 75;
-        float arHor, arVer;
+        public int PollingInterval = 50;
 
-        TooltipView Tooltip;
-        Vector2 screenPos;
+        BaseTooltipView Tooltip;
         Vector2 lastTooltipPos = new(0, 0);
-
 
         IHoveredItemContext context;
         IVisualElementScheduledItem scheduleId;
@@ -19,14 +16,12 @@ namespace GDS.Core {
         string lastItemId;
         int lastItemStackSize;
 
-        public TooltipManipulator(TooltipView tooltipView = null) {
+        public TooltipManipulator(BaseTooltipView tooltipView = null) {
 
             Tooltip = tooltipView ?? new TooltipView();
             Tooltip.style.position = Position.Absolute;
+            Tooltip.PickIgnore(true);
             Tooltip.Hide();
-
-            // TODO: fix this
-            // Warning: this causes an infinite loop when the tooltip has a min-width
             Tooltip.RegisterCallback<GeometryChangedEvent>(_ => TryRepositionTooltip());
         }
 
@@ -50,16 +45,11 @@ namespace GDS.Core {
         }
 
         void OnTick() {
-            arHor = target.worldBound.width / Screen.width;
-            arVer = target.worldBound.height / Screen.height;
+            var screenPos = Pointer.current.position.ReadValue();
+            screenPos.y = Screen.height - screenPos.y;
+            var panelPos = RuntimePanelUtils.ScreenToPanel(target.panel, screenPos);
 
-            screenPos = Pointer.current.position.ReadValue();
-            screenPos.x *= arHor;
-            screenPos.y = (Screen.height - screenPos.y) * arVer;
-
-            // Why not return early if screen pos hasn't changed?
-            // The item under cursor may have changed or moved
-            context = target.panel.Pick(screenPos)?.GetFirstOfType<IHoveredItemContext>();
+            context = target.panel.Pick(panelPos)?.GetFirstOfType<IHoveredItemContext>();
 
             if (context?.Item == null) {
                 HideTooltip();
@@ -89,8 +79,7 @@ namespace GDS.Core {
         }
 
         void PositionTooltip(Vector2 pos) {
-            Tooltip.style.left = pos.x;
-            Tooltip.style.top = pos.y;
+            Tooltip.Translate((int)pos.x, (int)pos.y);
         }
 
         void TryRepositionTooltip() {

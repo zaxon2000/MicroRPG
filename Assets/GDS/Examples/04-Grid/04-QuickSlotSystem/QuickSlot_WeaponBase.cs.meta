@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 04157dce6c88c6b4eba0de4f6a37792d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework 2 PRO (UI Toolkit)
+  packageVersion: 2.1
+  assetPath: Assets/GDS/Examples/04-Grid/04-QuickSlotSystem/QuickSlot_WeaponBase.cs
+  uploadId: 891154

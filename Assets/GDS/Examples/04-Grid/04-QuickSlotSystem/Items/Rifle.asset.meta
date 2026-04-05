@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 428f2d73d53662d499fff35c43038724
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework 2 PRO (UI Toolkit)
+  packageVersion: 2.1
+  assetPath: Assets/GDS/Examples/04-Grid/04-QuickSlotSystem/Items/Rifle.asset
+  uploadId: 891154

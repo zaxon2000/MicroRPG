@@ -14,7 +14,7 @@ namespace GDS.Examples {
         [Space(12)]
         public ListBag Inventory = new();
 
-        void Awake() {
+        void OnEnable() {
             Store.Main = Inventory;
             Store.Secondary = Bench;
 

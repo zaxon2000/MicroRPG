@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 namespace GDS.Core {
@@ -10,6 +11,9 @@ namespace GDS.Core {
     [UxmlElement]
 #endif
 
+    // Important Note:
+    // Why implement IItemContext here but not in GridItemView?
+    // Because GridItemView can have an irregular shape and we'd need to implement IItemContext on each of the cells
     public partial class GridBagView : VisualElement, IItemContext, IHoveredItemContext {
 
 #if UNITY_6000_0_OR_NEWER
@@ -52,24 +56,30 @@ namespace GDS.Core {
         bool showPreviewItems = DefaultShowPreviewItems;
         int CellSize = DefaultCellSize;
 
-        bool localPosValid = false;
         GridBag bag;
         Observable<Item> ghost;
-        Vector3 lastLocalPos;
+        bool localPosValid = false;
+        Vector2 lastGlobalPos;
+        Vector2 lastLocalPos;
         Pos lastGridCoord;
         Pos gridGhostPos;
+        Item lastGhostValue;
         Item lastHoveredItem;
+        IVisualElementScheduledItem scheduleId;
+        const int PollingInterval = 50;
+
         List<Item> overlapping = new();
-        Dictionary<Item, ItemView> itemViewsDict = new();
-        IEnumerable<ItemView> overlappingItemViews => overlapping.Select(itemViewsDict.GetValueOrDefault);
-        ItemView lastHoveredItemView => lastHoveredItem == null ? null : itemViewsDict.GetValueOrDefault(lastHoveredItem);
+        Dictionary<Item, BaseGridItemView> itemViewsDict = new();
+        IEnumerable<BaseGridItemView> overlappingItemViews => overlapping.Select(itemViewsDict.GetValueOrDefault);
+        BaseGridItemView lastHoveredItemView => lastHoveredItem == null ? null : itemViewsDict.GetValueOrDefault(lastHoveredItem);
 
         VisualElement slotContainer = Dom.Div("absolute slot-container");
         VisualElement itemContainer = Dom.Div("absolute item-container");
         GridGhostView gridGhostView = new GridGhostView().WithClass("absolute grid-ghost-view");
 
         Label debugLabel = Dom.Label("debug-label-grid", "debug");
-        public Func<ItemView> CreateItemView = () => new GridItemView();
+        public Func<BaseGridItemView> CreateItemView = () => new GridItemView();
+        public Dictionary<Item, BaseGridItemView> ItemViewsDict => itemViewsDict;
 
         public GridBagView() {
             this.Add("grid-bag", slotContainer, itemContainer, gridGhostView, debugLabel);
@@ -86,26 +96,14 @@ namespace GDS.Core {
             // bag.Init();
             SetBagValue(bag);
             gridGhostView.Init(CellSize, hasIrregularShapes);
-            this.Observe(ghost, OnGhostChanged);
+            // this.Observe(ghost, OnGhostChanged);
             return this;
         }
 
-        public void SetPreviewCellSize(int value) {
-            previewCellSize = value;
-            RenderPreview();
-        }
-        public void SetPreviewGridWidth(int value) {
-            previewGridWidth = value;
-            RenderPreview();
-        }
-        public void SetPreviewGridHeight(int value) {
-            previewGridHeight = value;
-            RenderPreview();
-        }
-        public void SetShowPreviewItems(bool value) {
-            showPreviewItems = value;
-            RenderPreview();
-        }
+        public void SetPreviewCellSize(int value) { previewCellSize = value; RenderPreview(); }
+        public void SetPreviewGridWidth(int value) { previewGridWidth = value; RenderPreview(); }
+        public void SetPreviewGridHeight(int value) { previewGridHeight = value; RenderPreview(); }
+        public void SetShowPreviewItems(bool value) { showPreviewItems = value; RenderPreview(); }
 
         void SetBagValue(GridBag value) {
             UnregisterEvents();
@@ -125,13 +123,16 @@ namespace GDS.Core {
                 itemContainer.Add(itemView);
                 itemViewsDict.Add(item.Item, itemView);
             });
+
+            scheduleId = schedule.Execute(OnTick);
+            scheduleId.Every(PollingInterval);
+            scheduleId.Pause();
         }
 
-        ItemView CreateGridItemView(GridItem item) {
+        BaseGridItemView CreateGridItemView(GridItem item) {
             // Debug.Log($"should create grid item: {item.Item}, pos: {item.Pos}");
             var view = CreateItemView();
-            if (view is GridItemView gi) gi.CellSize = CellSize;
-            if (view is IrregularGridItemView igi) igi.CellSize = CellSize;
+            view.CellSize = CellSize;
             view.Item = item.Item;
             view.AddToClassList("absolute");
             view.Translate(item.Pos.X * CellSize, item.Pos.Y * CellSize);
@@ -168,7 +169,7 @@ namespace GDS.Core {
             bag.ItemChanged += OnItemChanged;
             bag.CollectionReset += OnCollectionReset;
 
-            RegisterCallback<PointerMoveEvent>(OnPointerMove);
+            RegisterCallback<PointerEnterEvent>(OnPointerEnter);
             RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
         }
 
@@ -179,19 +180,12 @@ namespace GDS.Core {
             bag.ItemChanged -= OnItemChanged;
             bag.CollectionReset -= OnCollectionReset;
 
-            UnregisterCallback<PointerMoveEvent>(OnPointerMove);
+            UnregisterCallback<PointerEnterEvent>(OnPointerEnter);
             UnregisterCallback<PointerLeaveEvent>(OnPointerLeave);
         }
 
         void OnCollectionReset() {
             itemContainer.Clear();
-        }
-
-        void OnGhostChanged(Item item) {
-            if (localPosValid == false) return;
-            gridGhostView.Build(item);
-            UpdateGridGhostView();
-            UpdateHoveredItem(lastGridCoord);
         }
 
         void OnItemAdded(Item item) {
@@ -214,73 +208,72 @@ namespace GDS.Core {
             itemView.Item = item;
         }
 
-        void OnPointerMove(PointerMoveEvent e) {
+        void OnPointerEnter(PointerEnterEvent e) {
             localPosValid = true;
-            lastLocalPos = e.localPosition;
-            UpdateGridGhostView();
-            Pos gridCoord = GridMath.ScreenPosToGridPos(e.localPosition, CellSize, bag.Size);
-            if (lastGridCoord == gridCoord) return;
-
-            lastGridCoord = gridCoord;
-            UpdateHoveredItem(gridCoord);
-
-            debugLabel.Show();
-            debugLabel.Translate(gridCoord, CellSize);
-            debugLabel.text = gridCoord.ToString();
+            scheduleId.Resume();
         }
 
         void OnPointerLeave(PointerLeaveEvent e) {
             localPosValid = false;
+            scheduleId.Pause();
+            Cleanup();
+        }
+
+        void OnTick() {
+            if (localPosValid == false) { Cleanup(); return; }
+
+            var screenPos = Pointer.current.position.ReadValue();
+            screenPos.y = Screen.height - screenPos.y;
+            var panelPos = RuntimePanelUtils.ScreenToPanel(panel, screenPos);
+
+            lastGlobalPos = panelPos;
+            var newLocalPos = lastGlobalPos - worldBound.min;
+            lastLocalPos = newLocalPos;
+            lastGridCoord = GridMath.ScreenPosToGridPos(lastLocalPos, CellSize, bag.Size);
+
+            UpdateHoveredItem();
+            UpdateGhostView();
+            UpdateOverlappingItems();
+            UpdateDebugView();
+
+        }
+
+        void Cleanup() {
             debugLabel.Hide();
-            gridGhostPos = null;
             gridGhostView.Hide();
-            foreach (var itemView in overlappingItemViews) itemView.RemoveFromClassList("overlapping");
-
-            if (lastHoveredItem == null) return;
-            var lastItemView = itemViewsDict.GetValueOrDefault(lastHoveredItem);
-            lastItemView?.RemoveFromClassList("hovered");
-            lastHoveredItem = null;
-
-        }
-
-        void UpdateGridGhostView() {
-            if (ghost.Value == null) {
-                gridGhostPos = null;
-                gridGhostView.Hide();
-                if (overlapping.Count > 0) {
-                    foreach (var itemView in overlappingItemViews) {
-                        if (itemView == null) { Debug.LogWarning("item already removed"); continue; }
-                        itemView?.RemoveFromClassList("overlapping");
-                    }
-                    overlapping.Clear();
+            if (overlapping.Count > 0) {
+                foreach (var itemView in overlappingItemViews) {
+                    if (itemView == null) { Debug.LogWarning("item already removed"); continue; }
+                    itemView?.RemoveFromClassList("overlapping");
                 }
-                return;
-            }
-            gridGhostPos = bag.CreateGridGhostPos(lastLocalPos, ghost.Value.Size());
-            if (gridGhostPos == null) {
-                gridGhostView.Hide();
                 overlapping.Clear();
-                return;
             }
-
-            gridGhostView.Build(ghost.Value);
-            gridGhostView.Translate(gridGhostPos);
-            gridGhostView.Show();
-
-            foreach (var itemView in overlappingItemViews) {
-                if (itemView == null) { Debug.LogWarning("item has been removed"); continue; }
-                itemView?.RemoveFromClassList("overlapping");
-            }
-            var computedShape = GridMath.ComputedShape(bag.Occupancy, ghost.Value.Shape(), gridGhostPos);
-            overlapping = bag.GetOverlappingItems(computedShape, gridGhostPos).ToList();
-            foreach (var itemView in overlappingItemViews) itemView.AddToClassList("overlapping");
-
-            gridGhostView.EnableInClassList("illegal", overlapping.Count > 1);
+            lastHoveredItemView?.RemoveFromClassList("hovered");
+            lastHoveredItem = null;
         }
 
-        void UpdateHoveredItem(Pos pos) {
-            if (pos == null) return;
-            Item hoveredItem = bag.GetItemAt(pos);
+        void UpdateDebugView() {
+            debugLabel.Show();
+            debugLabel.Translate(lastGridCoord, CellSize);
+            debugLabel.text = lastGridCoord.ToString();
+        }
+
+        void UpdateGhostView() {
+            if (ghost.Value == null) {
+                gridGhostView.Hide();
+            } else {
+                gridGhostPos = bag.CreateGridGhostPos(lastLocalPos, ghost.Value.Size());
+                gridGhostView.Build(ghost.Value);
+                gridGhostView.Translate(gridGhostPos);
+                gridGhostView.Show();
+            }
+            lastGhostValue = ghost.Value;
+        }
+
+        void UpdateHoveredItem() {
+            if (localPosValid == false) { lastHoveredItem = null; return; }
+            if (lastGridCoord == null) return;
+            Item hoveredItem = bag.GetItemAt(lastGridCoord);
             if (lastHoveredItem == hoveredItem) return;
 
             lastHoveredItemView?.RemoveFromClassList("hovered");
@@ -288,62 +281,27 @@ namespace GDS.Core {
             lastHoveredItemView?.AddToClassList("hovered");
         }
 
+        void UpdateOverlappingItems() {
+            foreach (var itemView in overlappingItemViews) {
+                if (itemView == null) { Debug.LogWarning("item has been removed"); continue; }
+                itemView?.RemoveFromClassList("overlapping");
+            }
+
+            if (ghost.Value == null) return;
+            var computedShape = GridMath.ComputedShape(bag.Occupancy, ghost.Value.Shape(), gridGhostPos);
+            overlapping = bag.GetOverlappingItems(computedShape, gridGhostPos).ToList();
+            foreach (var itemView in overlappingItemViews) itemView?.AddToClassList("overlapping");
+
+            gridGhostView.EnableInClassList("illegal", overlapping.Count > 1);
+        }
+
         ///////////////////////////////////////
         // IItemContext, IHoveredItemContext //
         ///////////////////////////////////////
         public Bag Bag => bag;
-        public Slot Slot => GetSlotContext();
-        public Item Item => GetItemContext();
-        public Rect WorldBound => GetWorldBound();
-
-        Slot GetSlotContext() {
-            if (gridGhostPos == null) return null;
-            return bag.GetSlotAt(gridGhostPos);
-        }
-
-        Item GetItemContext() {
-            return lastHoveredItem;
-        }
-
-        Rect GetWorldBound() {
-            if (lastHoveredItem == null) return Rect.zero;
-            if (lastHoveredItemView == null) return Rect.zero;
-            return lastHoveredItemView.worldBound;
-        }
-
-    }
-
-    public class GridGhostView : VisualElement {
-        int CellSize;
-        bool HasIrregularShapes = true;
-        Pos lastPos;
-        string itemId;
-        Direction itemDirection;
-        VisualElement cell = Dom.Div("shape-cell");
-        public void Init(int cellSize, bool hasIrregularShapes) {
-            CellSize = cellSize;
-            HasIrregularShapes = hasIrregularShapes;
-            if (hasIrregularShapes == false) { Add(cell); }
-        }
-
-        public void Build(Item item) {
-            if (item == null) { itemId = null; return; }
-            if (item.Id == itemId && itemDirection == item.Direction()) return;
-            itemId = item.Id;
-            itemDirection = item.Direction();
-            if (HasIrregularShapes) {
-                Clear();
-                Add(new ShapeView(item.Shape(), CellSize));
-            } else {
-                cell.SetSize(item.Size(), CellSize);
-            }
-        }
-
-        public void Translate(Pos pos) {
-            if (pos == lastPos) return;
-            lastPos = pos;
-            this.Translate(pos, CellSize);
-        }
+        public Slot Slot => gridGhostPos == null ? null : bag.GetSlotAt(gridGhostPos);
+        public Item Item => lastHoveredItem;
+        public Rect WorldBound => lastHoveredItemView?.worldBound ?? Rect.zero;
     }
 
 }

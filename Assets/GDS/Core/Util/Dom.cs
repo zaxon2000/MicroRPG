@@ -104,16 +104,16 @@ namespace GDS.Core {
             return element;
         }
 
-        public static T PickIgnore<T>(this T element) where T : VisualElement {
+        public static T PickIgnore<T>(this T element, bool recursive = false) where T : VisualElement {
             element.pickingMode = PickingMode.Ignore;
+            if (recursive) {
+                foreach (var child in element.Children()) child.PickIgnore(recursive);
+            }
             return element;
         }
 
         public static T PickIgnoreChildren<T>(this T element) where T : VisualElement {
-            foreach (var child in element.Children()) {
-                child.PickIgnore();
-                child.PickIgnoreChildren();
-            }
+            foreach (var child in element.Children()) child.PickIgnore();
             return element;
         }
 

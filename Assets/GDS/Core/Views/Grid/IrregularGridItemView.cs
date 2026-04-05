@@ -1,21 +1,20 @@
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace GDS.Core {
-    public class IrregularGridItemView : ItemView {
+    public class IrregularGridItemView : BaseGridItemView {
 
-        protected VisualElement shapeContainer;
-        public int CellSize = 64;
+        protected VisualElement shapeContainer = Dom.Div("absolute");
+
+        public IrregularGridItemView() { this.Add("item-view", shapeContainer, image, quant); }
 
         override public void Render() {
-            base.Render();
+
+            if (item == null) { return; }
+            image.sprite = item.Icon;
+            quant.text = item.StackSize.ToString();
+            quant.SetVisible(item.Stackable);
 
             this.SetSize(Item.Size(), CellSize);
-
-            if (shapeContainer == null) {
-                shapeContainer = Dom.Div("absolute").PickIgnoreAll();
-                Insert(0, shapeContainer);
-            }
 
             if (Item is ShapeItem shapeItem) {
                 image.SetSize(shapeItem.BaseSize, CellSize);
@@ -26,7 +25,6 @@ namespace GDS.Core {
                 image.Rotate(0);
                 image.Translate(0, 0);
             }
-
 
             shapeContainer.Clear();
             shapeContainer.Add(new ShapeView(Item.Shape(), CellSize));

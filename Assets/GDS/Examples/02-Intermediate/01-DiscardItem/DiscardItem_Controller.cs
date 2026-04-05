@@ -17,7 +17,7 @@ namespace GDS.Examples {
         bool uiOpen = true;
         VisualElement root;
 
-        void Awake() {
+        void OnEnable() {
             Store.Bag = Bag;
 
             root = GetComponent<UIDocument>().rootVisualElement;

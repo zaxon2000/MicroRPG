@@ -12,6 +12,7 @@ namespace GDS.Examples {
         }
     }
 
+    [System.Serializable]
     public class ContainerItem : Item {
         [Space(16), ShowField(nameof(ListBag.Slots))]
         public ListBag Capacity;

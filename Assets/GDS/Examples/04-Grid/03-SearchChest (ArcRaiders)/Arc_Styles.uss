@@ -1,0 +1,17 @@
+.unidentified-item {
+    background-color: rgb(46, 4, 4);
+    color: rgb(238, 238, 238);
+}
+
+.identify-progress {
+    position: absolute;
+    height: 10px;
+    width: 100%;
+    bottom: 0;
+    background-color: white;
+    transition: scale 3s;
+}
+
+.show-progress .identify-progress {
+    scale: 0 1;
+}

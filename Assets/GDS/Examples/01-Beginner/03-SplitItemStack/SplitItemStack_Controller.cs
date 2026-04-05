@@ -13,9 +13,9 @@ namespace GDS.Examples {
         [Space(16)]
         public ListBag listBag = new() { Size = 20 };
         [Space(16)]
-        public SetBag setBag = new() { Slots = Enumerable.Range(0, 5).Select(i => new SetSlot() { Key = "slot" + i }).ToList() };
+        public SetBag setBag = new() { Size = 5 };
 
-        void Awake() {
+        void OnEnable() {
             var root = GetComponent<UIDocument>().rootVisualElement;
             root.AddManipulator(new DragDropManipulator(store));
 

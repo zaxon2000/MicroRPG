@@ -17,7 +17,7 @@ namespace GDS.Examples {
         // UI visibility flag
         bool rootVisible = true;
 
-        void Awake() {
+        void OnEnable() {
             root = GetComponent<UIDocument>().rootVisualElement;
             root.AddManipulator(new DragDropManipulator(Store));
             root.Q<ListBagView>().Init(listBag);

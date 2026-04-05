@@ -38,6 +38,15 @@ namespace GDS.Core {
 
                 root.Add(name, key, tags, item);
 
+                // Add custom fields
+                var fields = EditorUtil.IterateChildren(property);
+                foreach (var field in fields) {
+                    if (field.name == "Key") continue;
+                    if (field.name == "Tags") continue;
+                    if (field.name == "Item") continue;
+                    root.Add(new PropertyField(field));
+                }
+
                 if (slot.Item != null) root.Add(clearButton);
             }
 

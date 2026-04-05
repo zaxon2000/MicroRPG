@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 666026c84e25f0f4485e2dfb6cdfd795
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework 2 PRO (UI Toolkit)
+  packageVersion: 2.1
+  assetPath: Assets/GDS/Examples/04-Grid/03-SearchChest (ArcRaiders)/Items/Arc_Gun.asset
+  uploadId: 891154

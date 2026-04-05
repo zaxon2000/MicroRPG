@@ -371,6 +371,16 @@ MonoBehaviour:
       - rid: 3125526253434307090
       - rid: 3125526253434307091
       - rid: 3125526253434307092
+      - rid: 2834596574075813888
+      - rid: 2834596574075813889
+      - rid: 2834596574075813890
+      - rid: 2834596574075813891
+      - rid: 2834596574075813892
+      - rid: 2834596574075813893
+      - rid: 2834596574075813894
+      - rid: 2834596574075813895
+      - rid: 2834596574075813896
+      - rid: 2834596574075813897
     - Name: Tab2
       Slots:
       - rid: 3125526253434307093
@@ -378,6 +388,21 @@ MonoBehaviour:
       - rid: 3125526253434307095
       - rid: 3125526253434307096
       - rid: 3125526253434307097
+      - rid: 2834596574075813898
+      - rid: 2834596574075813899
+      - rid: 2834596574075813900
+      - rid: 2834596574075813901
+      - rid: 2834596574075813902
+      - rid: 2834596574075813903
+      - rid: 2834596574075813904
+      - rid: 2834596574075813905
+      - rid: 2834596574075813906
+      - rid: 2834596574075813907
+      - rid: 2834596574075813908
+      - rid: 2834596574075813909
+      - rid: 2834596574075813910
+      - rid: 2834596574075813911
+      - rid: 2834596574075813912
   references:
     version: 2
     RefIds:
@@ -434,6 +459,181 @@ MonoBehaviour:
         Name: Gem
         StackSize: 100
         Rarity: 0
+    - rid: 2834596574075813888
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 10
+    - rid: 2834596574075813889
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 11
+    - rid: 2834596574075813890
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 12
+    - rid: 2834596574075813891
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 13
+    - rid: 2834596574075813892
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 14
+    - rid: 2834596574075813893
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 15
+    - rid: 2834596574075813894
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 16
+    - rid: 2834596574075813895
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 17
+    - rid: 2834596574075813896
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 18
+    - rid: 2834596574075813897
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 19
+    - rid: 2834596574075813898
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 5
+    - rid: 2834596574075813899
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 6
+    - rid: 2834596574075813900
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 7
+    - rid: 2834596574075813901
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 8
+    - rid: 2834596574075813902
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 9
+    - rid: 2834596574075813903
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 10
+    - rid: 2834596574075813904
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 11
+    - rid: 2834596574075813905
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 12
+    - rid: 2834596574075813906
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 13
+    - rid: 2834596574075813907
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 14
+    - rid: 2834596574075813908
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 15
+    - rid: 2834596574075813909
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 16
+    - rid: 2834596574075813910
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 17
+    - rid: 2834596574075813911
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 18
+    - rid: 2834596574075813912
+      type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
+      data:
+        Item:
+          rid: -2
+        Tags: []
+        Index: 19
     - rid: 3125526253434307083
       type: {class: ListSlot, ns: GDS.Core, asm: GDS.Core}
       data:
@@ -943,7 +1143,6 @@ MonoBehaviour:
   TooltipViewAsset: {fileID: 9197481963319205126, guid: 9d479fd050e5af44286bedca70726912,
     type: 3}
   playerInventory:
-    Name: Player Inventory
     Equipment:
       Name: Equipment
       Slots:

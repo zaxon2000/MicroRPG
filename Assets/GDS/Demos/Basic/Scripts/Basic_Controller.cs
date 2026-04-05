@@ -15,12 +15,11 @@ namespace GDS.Demos.Basic {
         [Space(12)]
         public PlayerInventory playerInventory;
 
-        private void Awake() {
+        private void OnEnable() {
             Store.Init(playerInventory);
 
             var root = GetComponent<UIDocument>().rootVisualElement;
-            root.AddManipulator(new DragDropManipulator(Store, new GhostItemWithRotation() { CellSize = 48 }));
-            root.AddManipulator(new RotateGhostManipulator(Store));
+            root.AddManipulator(new DragDropManipulator(Store));
             root.AddManipulator(new HighlightSlotManipulator(Store));
             root.AddManipulator(new TooltipManipulator(new BasicTooltipView(TooltipViewAsset)));
 

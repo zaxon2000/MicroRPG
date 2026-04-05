@@ -112,3 +112,10 @@
   min-height: 12px;
   top: 1px;
 }
+
+/*********
+* Dropdown
+**********/
+.unity-base-dropdown__container-inner {
+  background-color: #111;
+}

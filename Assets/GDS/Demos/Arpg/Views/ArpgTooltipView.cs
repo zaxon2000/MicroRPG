@@ -4,10 +4,12 @@ using GDS.Core;
 
 namespace GDS.Demos.Arpg {
 
-    public class ArpgTooltipView : TooltipView {
+    public class ArpgTooltipView : BaseTooltipView {
+
+        Label PhysicalDamage, AttacksPerSecond, ChanceToBlock, Armor;
+        VisualElement Root, WeaponGroup, ArmorGroup, ShieldGroup;
+
         public ArpgTooltipView() {
-            Clear();
-            ClearClassList();
             var uxml = Resources.Load<VisualTreeAsset>("ArpgTooltipView");
             uxml.CloneTree(this);
             Root = this.Q<VisualElement>("Root");
@@ -22,9 +24,6 @@ namespace GDS.Demos.Arpg {
             Armor = this.Q<Label>(nameof(Armor));
             Root.ClearClassList();
         }
-
-        Label PhysicalDamage, AttacksPerSecond, ChanceToBlock, Armor;
-        VisualElement Root, WeaponGroup, ArmorGroup, ShieldGroup;
 
         public override void Render(IHoveredItemContext context) {
             var item = context.Item;

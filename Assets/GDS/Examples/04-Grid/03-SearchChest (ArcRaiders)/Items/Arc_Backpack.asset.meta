@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 10630eaf279ed2d4cac09dc71c8b95de
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework 2 PRO (UI Toolkit)
+  packageVersion: 2.1
+  assetPath: Assets/GDS/Examples/04-Grid/03-SearchChest (ArcRaiders)/Items/Arc_Backpack.asset
+  uploadId: 891154

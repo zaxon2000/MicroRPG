@@ -50,7 +50,7 @@ namespace GDS.Demos.Basic {
 
             var newItem = itemBase.CreateItem();
             Slots.ForEach(Decrement);
-            Notify();
+            NotifyChanged();
             NotifyReset();
 
             return new CraftItemSuccess(newItem);
@@ -58,10 +58,7 @@ namespace GDS.Demos.Basic {
 
         void Decrement(Slot slot) {
             if (slot.Item == null) return;
-            if (!slot.Item.Stackable) {
-                slot.Item = null;
-                return;
-            }
+            if (!slot.Item.Stackable) return;
             slot.Item.StackSize -= 1;
             if (slot.Item.StackSize <= 0) slot.Item = null;
         }

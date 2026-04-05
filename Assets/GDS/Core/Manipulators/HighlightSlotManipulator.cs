@@ -9,11 +9,8 @@ namespace GDS.Core {
         SlotView oldSlot;
         SlotView newSlot;
 
-        public int PollingInterval = 75;
+        public int PollingInterval = 50;
         IVisualElementScheduledItem scheduleId;
-
-        float arHor, arVer;
-        Vector2 screenPos;
 
         public HighlightSlotManipulator(Store store) {
             this.store = store;
@@ -43,16 +40,11 @@ namespace GDS.Core {
         }
 
         void OnTick() {
-            arHor = target.worldBound.width / Screen.width;
-            arVer = target.worldBound.height / Screen.height;
+            var screenPos = Pointer.current.position.ReadValue();
+            screenPos.y = Screen.height - screenPos.y;
+            var panelPos = RuntimePanelUtils.ScreenToPanel(target.panel, screenPos);
 
-            screenPos = Pointer.current.position.ReadValue();
-            screenPos.x *= arHor;
-            screenPos.y = (Screen.height - screenPos.y) * arVer;
-
-            // Why not return early if screen pos hasn't changed?
-            // The item under cursor may have changed or moved
-            newSlot = target.panel.Pick(screenPos)?.GetFirstOfType<SlotView>();
+            newSlot = target.panel.Pick(panelPos)?.GetFirstOfType<SlotView>();
 
             if (newSlot is null) {
                 HideHighlight();
@@ -67,10 +59,13 @@ namespace GDS.Core {
                 oldSlot.RemoveFromClassList("valid");
                 oldSlot.RemoveFromClassList("invalid");
             }
+            if (newSlot.Slot == null) {
+                Debug.LogWarning("Slot cannot be null!");
+                return;
+            }
 
             newSlot.WithClass(GetClass(newSlot.Bag, newSlot.Slot, ghost));
             oldSlot = newSlot;
-
         }
 
         void HideHighlight() {

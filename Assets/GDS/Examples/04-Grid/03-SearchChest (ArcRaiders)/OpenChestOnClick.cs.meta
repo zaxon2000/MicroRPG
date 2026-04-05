@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 29a949a53fdfc6841b98d40b51a6e4a0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework 2 PRO (UI Toolkit)
+  packageVersion: 2.1
+  assetPath: Assets/GDS/Examples/04-Grid/03-SearchChest (ArcRaiders)/OpenChestOnClick.cs
+  uploadId: 891154

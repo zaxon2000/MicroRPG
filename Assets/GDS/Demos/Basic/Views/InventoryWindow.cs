@@ -8,7 +8,7 @@ namespace GDS.Demos.Basic {
     public class InventoryWindow : WindowView {
 
         public InventoryWindow(PlayerInventory bag, Basic_Store store) {
-            Init(bag.Name, () => store.Bus.Publish(new CloseWindow(bag)));
+            Init("Inventory", () => store.Bus.Publish(new CloseWindow(bag)));
 
             this.WithClass("inventory-window");
 
@@ -18,10 +18,7 @@ namespace GDS.Demos.Basic {
             var goldLabel = goldView.Q<Label>("GoldLabel");
 
             var equipmentView = new SetBagView().Init(bag.Equipment, bag.Equipment.Name);
-
-            var inventoryView = new GridBagView();
-            inventoryView.CreateItemView = () => new IrregularGridItemView();
-            inventoryView.Init(bag.Inventory, store.Ghost);
+            var inventoryView = new ListBagView().Init(bag.Inventory, 10, bag.Inventory.Name);
             inventoryView.WithClass("mt-16");
 
             Container.Add(equipmentView, inventoryView, goldView);

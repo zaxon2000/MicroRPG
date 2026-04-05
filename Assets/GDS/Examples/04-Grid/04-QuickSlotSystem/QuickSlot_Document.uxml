@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="QuickSlot_Styles.uss" />
+    <ui:VisualElement name="Root" class="bg-dark-gray cover place-items-center">
+        <ui:VisualElement name="Container" class="row" style="width: 1200px; justify-content: space-between;">
+            <ui:VisualElement>
+                <ui:Button text="Shoot" name="UseButton" style="position: absolute; top: 104px; left: 234px;" />
+                <ui:Label tabindex="-1" text="Hands" parse-escape-sequences="true" display-tooltip-when-elided="true" class="bag-title" />
+                <ui:VisualElement name="Hands" style="width: 200px; height: 200px; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-left-color: rgb(183, 183, 183); border-right-color: rgb(183, 183, 183); border-top-color: rgb(183, 183, 183); border-bottom-color: rgb(183, 183, 183);" />
+                <GDS.Core.ListBagView name="Shortcuts" preview-slots="4" items-per-row="4" title="Shortcuts" style="margin-top: 20px;" />
+            </ui:VisualElement>
+            <GDS.Core.GridBagView name="Inventory" preview-cell-size="100" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="[1-4]: Select item in shortcut slot" parse-escape-sequences="true" display-tooltip-when-elided="true" class="help-text" style="margin-top: 5%;" />
+</ui:UXML>

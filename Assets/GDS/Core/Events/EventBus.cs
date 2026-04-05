@@ -8,6 +8,8 @@ namespace GDS.Core.Events {
         private Dictionary<Type, List<Action<CustomEvent>>> byAnyType = new();
         private Dictionary<Delegate, Action<CustomEvent>> lookup = new();
 
+        public bool Logging = true;
+
         public void On<T>(Action<T> handler) where T : CustomEvent {
             var type = typeof(T);
             if (!byType.TryGetValue(type, out var list)) { byType[type] = list = new(); }
@@ -47,7 +49,7 @@ namespace GDS.Core.Events {
         }
 
         public void Publish(CustomEvent Event) {
-            LogUtil.Print($"{Event}");
+            if (Logging) LogUtil.Print($"{Event}");
 
             var type = Event.GetType();
             if (byType.TryGetValue(type, out var subs)) subs.ForEach(sub => sub.Invoke(Event));

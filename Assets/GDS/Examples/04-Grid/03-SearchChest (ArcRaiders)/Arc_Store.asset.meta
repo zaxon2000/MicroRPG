@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: f24f643c1708cd8448d5ae9abcfaac71
+labels:
+- ResetOnEnterPlay
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework 2 PRO (UI Toolkit)
+  packageVersion: 2.1
+  assetPath: Assets/GDS/Examples/04-Grid/03-SearchChest (ArcRaiders)/Arc_Store.asset
+  uploadId: 891154

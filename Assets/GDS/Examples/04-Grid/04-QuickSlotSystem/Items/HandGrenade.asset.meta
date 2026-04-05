@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9f40a228dba1a4945a301d027c6bc315
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework 2 PRO (UI Toolkit)
+  packageVersion: 2.1
+  assetPath: Assets/GDS/Examples/04-Grid/04-QuickSlotSystem/Items/HandGrenade.asset
+  uploadId: 891154

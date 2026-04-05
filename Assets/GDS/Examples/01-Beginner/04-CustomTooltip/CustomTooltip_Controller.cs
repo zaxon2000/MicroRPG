@@ -20,9 +20,10 @@ namespace GDS.Examples {
             root.Q<ListBagView>().Init(listBag);
         }
 
-        void Awake() {
+        void OnEnable() {
             var root = GetComponent<UIDocument>().rootVisualElement;
             root.AddManipulator(new DragDropManipulator(store));
+            // TooltipManipulator accepts a custom TooltipView parameter
             root.AddManipulator(new TooltipManipulator(new CustomTooltipView(TooltipViewAsset)));
 
             var listBagView = root.Q<ListBagView>();

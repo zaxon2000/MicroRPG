@@ -22,10 +22,6 @@ namespace GDS.Demos.Backpack {
             AddRange(Catalog.Randomize().Take(Size).Select(b => b.CreateItem()));
         }
 
-        public override void Reset() {
-            Reroll();
-        }
-
         public override bool Accepts(Item item) => false;
 
         public override Result CanRemove(Item item) {

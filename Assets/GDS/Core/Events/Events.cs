@@ -45,11 +45,21 @@ namespace GDS.Core.Events {
     public class Result : CustomEvent {
         public static Result Success = new Success();
         public static Result Fail = new Fail();
+        public static Result WrongSlotType = new ItemNotAccepted();
+        public static Result ItemNotAccepted = new ItemNotAccepted();
+        public static Result ItemCannotFit = new ItemCannotFit();
+        public static Result StackingNotAllowed = new StackingNotAllowed();
     };
-    public class Success : Result { }
+
+    // Fail
     public class Fail : Result { }
+    public class WrongSlotType : Fail { }
+    public class ItemNotAccepted : Fail { }
+    public class ItemCannotFit : Fail { }
+    public class StackingNotAllowed : Fail { }
 
     // Success
+    public class Success : Result { }
     public class ItemSuccess : Success {
         public Item Item;
         public ItemSuccess(Item item) => Item = item;
@@ -77,23 +87,17 @@ namespace GDS.Core.Events {
 
 
 
-    // Fail
-    public class BagFull : Fail {
-        public Bag Bag;
-        public BagFull(Bag bag) => Bag = bag;
-    }
+
+
 
     // Extensions
     public static class ResultExt {
         public static Result MapTo(this Result result, Success success, Fail fail = null) => result switch {
             Success => success,
-            Fail when fail != null => fail,
-            _ => Result.Fail
+            _ => fail ?? Result.Fail
         };
 
         public static Result MapTo(this Result result, Func<Result> action) => result is Success ? action() : result;
         public static Result And(this Result result, Func<Result> action) => result is Success ? action() : result;
-
-        // public static Result And(this Result result, Result target) => result is Fail ? Result.Fail : target;
     }
 }

@@ -14,12 +14,13 @@ namespace GDS.Examples {
         [Space(12)]
         public ListBag list2 = new() { Size = 20 };
 
-        private void Awake() {
+        private void OnEnable() {
             store.Main = list1;
             store.Secondary = list2;
 
             var root = GetComponent<UIDocument>().rootVisualElement;
             root.AddManipulator(new DragDropManipulator(store));
+            root.AddManipulator(new TooltipManipulator());
 
             var listView = root.Q<ListView>();
             listView.itemsSource = list1.Slots;
@@ -38,8 +39,6 @@ namespace GDS.Examples {
 
             var listBagView = root.Q<ListBagView>();
             listBagView.Init(list2);
-
-
         }
     }
 

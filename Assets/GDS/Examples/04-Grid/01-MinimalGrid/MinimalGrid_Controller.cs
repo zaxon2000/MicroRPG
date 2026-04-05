@@ -8,7 +8,7 @@ namespace GDS.Examples {
         public Store Store;
         public GridBag bag = new() { Size = new(10, 5), CellSize = 100 };
 
-        void Awake() {
+        void OnEnable() {
             var root = GetComponent<UIDocument>().rootVisualElement;
             root.AddManipulator(new DragDropManipulator(Store, new GhostItemWithRotation() { CellSize = bag.CellSize }));
             root.AddManipulator(new RotateGhostManipulator(Store));

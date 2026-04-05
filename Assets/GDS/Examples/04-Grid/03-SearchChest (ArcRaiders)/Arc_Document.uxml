@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="Arc_Styles.uss" />
+    <ui:VisualElement class="cover bg-dark-gray row">
+        <ui:VisualElement name="Left" class="place-items-center" style="flex-shrink: 0; flex-grow: 1; flex-basis: 0;" />
+        <ui:VisualElement name="Right" class="place-items-center" style="flex-shrink: 0; flex-grow: 1; flex-basis: 0;">
+            <GDS.Core.GridBagView name="PlayerInventory" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="[esc] : Close all     [tab] : Toggle" parse-escape-sequences="true" display-tooltip-when-elided="true" class="help-text" />
+</ui:UXML>

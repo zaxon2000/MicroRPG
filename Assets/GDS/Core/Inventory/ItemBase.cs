@@ -12,6 +12,6 @@ namespace GDS.Core {
         public List<Tag> Tags = new();
 
         public void OnEnable() => Name ??= name;
-        virtual public Item CreateItem() => new Item() { Base = this, Name = Name, StackSize = MaxStackSize };
+        virtual public Item CreateItem() => new Item() { Base = this, Name = Name, StackSize = Stackable ? MaxStackSize : 1 };
     }
 }

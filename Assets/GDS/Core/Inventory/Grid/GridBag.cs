@@ -7,10 +7,29 @@ using UnityEngine;
 namespace GDS.Core {
     [Serializable]
     public class GridBag : Bag {
+        /// <summary>
+        /// Event trigerred when an item has changed.
+        /// </summary>
         public event Action<Item> ItemChanged;
+
+        /// <summary>
+        /// Event trigerred when an item was added.
+        /// </summary>
         public event Action<Item> ItemAdded;
+
+        /// <summary>
+        /// Event trigerred when an item was removed.
+        /// </summary>
         public event Action<Item> ItemRemoved;
+
+        /// <summary>
+        /// Event trigerred when collection has been changed.
+        /// </summary>
         public event Action CollectionChanged;
+
+        /// <summary>
+        /// Event trigerred when the collection has changed substantially. Typically requires a full redraw.
+        /// </summary>
         public event Action CollectionReset;
 
         public int CellSize = 64;
@@ -27,31 +46,49 @@ namespace GDS.Core {
 
         public override IEnumerable<Item> Items => GridItems.Select(gi => gi.Item);
 
+        // TODO: validate pos
+        public Slot GetSlotAt(Pos pos) => Slots[pos.Y, pos.X];
+        public Item GetItemAt(Pos pos) => GetSlotAt(pos).Item;
+        public GridItem FindGridItem(Item item) => GridItems.Find(gi => gi.Item == item);
+        public override Slot FindSlot(Item item) {
+            if (FindGridItem(item) is not GridItem gi) return null;
+            return GetSlotAt(gi.Pos);
+        }
 
-
-        protected void NotifyAdded(Item item) {
+        public void NotifyAdded(Item item) {
             ItemAdded?.Invoke(item);
-            CollectionChanged?.Invoke();
+            NotifyChanged();
         }
 
-        protected void NotifyRemoved(Item item) {
+        public void NotifyRemoved(Item item) {
             ItemRemoved?.Invoke(item);
-            CollectionChanged?.Invoke();
+            NotifyChanged();
         }
 
-        protected void NotifyChanged(Item item) {
+        public void NotifyChanged(Item item) {
             ItemChanged?.Invoke(item);
+            NotifyChanged();
+        }
+
+        public void NotifyChanged() {
             CollectionChanged?.Invoke();
         }
 
-        public override void Init() {
+        public void NotifyReset() {
+            CollectionReset?.Invoke();
+        }
+
+        public void Init() {
             Slots = GridMath.CreateMatrix(Size, pos => new GridSlot() { Pos = pos });
             Occupancy = new int[Size.H, Size.W];
             GridItems = new();
             InitialState.ForEach(i => AddNoNotify(i));
         }
 
-        public override void Reset() {
+        /// <summary>
+        /// Clears the bag.
+        /// </summary>
+        public override void Clear() {
             if (Occupancy == null) return;
             GridItems.Clear();
             for (var i = 0; i < Size.H; i++)
@@ -59,16 +96,26 @@ namespace GDS.Core {
                     Slots[i, j].Clear();
                     Occupancy[i, j] = 0;
                 }
-            CollectionReset?.Invoke();
+            NotifyReset();
         }
 
+        /// <summary>
+        /// Checks whether the bag can accept the item and has available capacity.
+        /// </summary>
+        /// <param name="item">The item to check</param>
+        /// <returns>ItemNotAccepted if bag does not accept the item. ItemCannotFit if the bag doesn't have enough capacity. Success if the item can be added.</returns>
         public override Result CanAdd(Item item) {
-            if (!Accepts(item)) return Result.Fail;
+            if (!Accepts(item)) return Result.ItemNotAccepted;
             var pos = GridMath.TryFitItemIntoGrid(Occupancy, item.Shape(), FillDirection);
-            if (pos == null) return new BagFull(this);
+            if (pos == null) return Result.ItemCannotFit;
             return Result.Success;
         }
 
+        /// <summary>
+        /// Adds an item to the bag (without notifying subscribers)
+        /// </summary>
+        /// <param name="item">The item to add</param>
+        /// <returns>Item position in the grid if it was added; null otherwise.</returns>
         Pos AddNoNotify(Item item) {
             if (item == null) { Debug.LogWarning($"Warning: Trying to add a null item to {this}!"); return null; }
             var pos = GridMath.TryFitItemIntoGrid(Occupancy, item.Shape(), FillDirection);
@@ -78,17 +125,29 @@ namespace GDS.Core {
             return pos;
         }
 
+        /// <summary>
+        /// Adds an item to the bag
+        /// </summary>
+        /// <param name="item">The item to add</param>
+        /// <returns>ItemNotAccepted if bag does not accept the item. ItemCannotFit if the bag doesn't have enough capacity. PlaceItemSuccess if the item was added.</returns>
         public override Result Add(Item item) {
             if (item == null) { Debug.LogWarning($"Warning: Trying to add a null item to {this}!"); return Result.Fail; }
+            if (!Accepts(item)) return Result.ItemNotAccepted;
             Pos pos = AddNoNotify(item);
-            if (pos == null) return new BagFull(this);
+            if (pos == null) return Result.ItemCannotFit;
             NotifyAdded(item);
-            return Result.Success;
+            return new PlaceItemSuccess(item, null);
         }
 
+        /// <summary>
+        /// Adds an item to the specified slot. Can replace an existing item or move a stack to target slot.
+        /// </summary>
+        /// <param name="slot">Target slot</param>
+        /// <param name="item">Item to add</param>
+        /// <returns>PlaceItemSuccess or Fail</returns>
         public override Result AddAt(Slot slot, Item item) {
-            if (slot is not GridSlot s) return Result.Fail;
-            if (!Accepts(item)) return Result.Fail;
+            if (slot is not GridSlot s) return Result.WrongSlotType;
+            if (!Accepts(item)) return Result.ItemNotAccepted;
 
             var computedShape = GridMath.ComputedShape(Occupancy, item.Shape(), s.Pos);
             var overlapping = GetOverlappingItems(computedShape, s.Pos);
@@ -99,8 +158,7 @@ namespace GDS.Core {
             if (count == 1) replaced = overlapping.ElementAt(0);
 
             // Stacking
-            if (replaced != null && AllowStacking() && ItemExt.CanStack(item, replaced)) {
-                // Debug.Log($"should transfer all from {item} to {replaced}");
+            if (replaced != null && AllowStacking() && item.CanStack(replaced)) {
                 return TransferAll(item, slot, replaced);
             }
 
@@ -112,7 +170,6 @@ namespace GDS.Core {
             }
 
             var gridItem = new GridItem(item, s.Pos);
-            // Debug.Log($"should add grid item at {s.Pos}");
             GridItems.Add(gridItem);
             UpdateSlotsAndOccupancy(s.Pos, item.Shape(), item);
             NotifyAdded(gridItem.Item);
@@ -120,29 +177,89 @@ namespace GDS.Core {
             return new PlaceItemSuccess(item, replaced);
         }
 
-        // In a GridBag more than 1 item can have the same grid position (due to custom shapes),
-        // therefore we cannot rely on slot position but instead must find the item in the items list
-        // TODO: Replace with list with dict to improve lookup?
+
+        /// <summary>
+        /// Removes the item from the bag
+        /// </summary>
+        /// <param name="item">Item to remove</param>
+        /// <returns>PickItemSuccess or Fail</returns>
         public override Result Remove(Item item) {
-            // Debug.Log($"should remove item {item} from grid bag");
+            // In a GridBag more than 1 item can have the same grid position (due to custom shapes and rotation),
+            // therefore we cannot rely on slot position but instead must find the item in the items list
+            // TODO: Replace with list with dict to improve lookup?
             var index = GridItems.FindIndex(gi => gi.Item == item);
-            // Debug.Log($"item index: {index}");
             if (index == -1) return Result.Fail;
             var gridItem = GridItems[index];
             GridItems.RemoveAt(index);
             UpdateSlotsAndOccupancy(gridItem.Pos, gridItem.Item.Shape(), null);
-
             NotifyRemoved(item);
             return new PickItemSuccess(gridItem.Item);
         }
 
-        // TODO: validate pos
-        public Slot GetSlotAt(Pos pos) => Slots[pos.Y, pos.X];
-        public Item GetItemAt(Pos pos) => GetSlotAt(pos).Item;
-        public GridItem FindGridItem(Item item) => GridItems.Find(gi => gi.Item == item);
-        public override Slot FindSlot(Item item) {
-            if (FindGridItem(item) is not GridItem gi) return null;
-            return GetSlotAt(gi.Pos);
+        /// <summary>
+        /// Transfers the whole stack from source item to target item (up to max stack) 
+        /// </summary>
+        /// <returns>PlaceItemSuccess or Fail</returns>
+        public override Result TransferAll(Item fromItem, Slot _, Item toItem) {
+            if (!Accepts(fromItem)) return Result.ItemNotAccepted;
+            if (!AllowStacking()) return Result.StackingNotAllowed;
+            var (newFromItem, newToItem) = fromItem.TransferAll(toItem);
+            NotifyChanged(newToItem);
+            return new PlaceItemSuccess(newToItem, newFromItem);
+        }
+
+        /// <summary>
+        /// Transfers one from a source item to target slot
+        /// </summary>
+        /// <returns>PlaceItemSuccess or Fail</returns>
+        public override Result TransferOne(Item fromItem, Slot toSlot, Item _) {
+            if (!fromItem.Stackable) return Result.Fail;
+            if (toSlot is not GridSlot s) return Result.WrongSlotType;
+            if (!Accepts(fromItem)) return Result.ItemNotAccepted;
+            if (!AllowStacking()) return Result.StackingNotAllowed;
+            var computedShape = GridMath.ComputedShape(Occupancy, fromItem.Shape(), s.Pos);
+            var overlapping = GetOverlappingItems(computedShape, s.Pos);
+
+            var count = overlapping.Count();
+            if (count >= 2) return Result.Fail;
+
+            Item replaced = null;
+            if (count == 1) replaced = overlapping.ElementAt(0);
+
+            // Stacking
+            if (replaced != null && fromItem.CanStack(replaced)) {
+                var (newFromItem, newToItem) = fromItem.TransferOne(replaced);
+                NotifyChanged(replaced);
+                return new PlaceItemSuccess(newToItem, newFromItem);
+            }
+
+            // Nothing to replace
+            if (replaced == null) {
+                var (newFromItem, newToItem) = fromItem.TransferOne(null);
+                if (newFromItem is ShapeItem nf && newToItem is ShapeItem nt) { nt.Direction = nf.Direction; }
+                AddAt(toSlot, newToItem);
+                return new PlaceItemSuccess(newToItem, newFromItem);
+            }
+
+            return Result.Fail;
+        }
+
+        /// <summary>
+        /// Splits a stack of items in half
+        /// </summary>
+        /// <param name="item">The item to split</param>
+        /// <returns>PickItemSuccess or Fail</returns>
+        public override Result SplitHalf(Item item) {
+            if (!item.Stackable) return Result.Fail;
+            var gridItem = FindGridItem(item);
+            if (gridItem == null) return Result.Fail;
+            if (!AllowStacking()) return Result.StackingNotAllowed;
+            if (item.StackSize == 1) return Remove(item);
+
+            var (newFromItem, newToItem) = item.SplitHalf();
+            gridItem.Item = newFromItem;
+            NotifyChanged(gridItem.Item);
+            return new PickItemSuccess(newToItem);
 
         }
 
@@ -162,6 +279,12 @@ namespace GDS.Core {
                 }
         }
 
+        /// <summary>
+        /// Computes grid ghost position based on ghost item size and local pointer position.
+        /// </summary>
+        /// <param name="localPos">Local Pointer position</param>
+        /// <param name="itemSize">Ghost item size</param>
+        /// <returns>Pos if the item fits; null otherwise</returns>
         public Pos CreateGridGhostPos(Vector3 localPos, Size itemSize) {
             var (W, H) = itemSize;
             if (W > Size.W || H > Size.H) return null;
@@ -173,6 +296,12 @@ namespace GDS.Core {
             return new Pos(xClamp, yClamp);
         }
 
+        /// <summary>
+        /// Computes the overlap between bag items and ghost item
+        /// </summary>
+        /// <param name="shape">Ghost item shape</param>
+        /// <param name="offset">Ghost item position</param>
+        /// <returns>A list of items</returns>
         public IEnumerable<Item> GetOverlappingItems(int[,] shape, Pos offset) {
             var (x, y) = offset;
             var (h, w) = shape.GetLength2D();
@@ -188,54 +317,5 @@ namespace GDS.Core {
             return list;
         }
 
-        public override Result TransferAll(Item fromItem, Slot _, Item toItem) {
-            if (!Accepts(fromItem)) return Result.Fail;
-            if (!AllowStacking()) return Result.Fail;
-            ItemExt.TransferAll(fromItem, toItem);
-            NotifyChanged(toItem);
-            return new PlaceItemSuccess(toItem, fromItem.StackSize > 0 ? fromItem : null);
-        }
-
-        public override Result TransferOne(Item fromItem, Slot toSlot, Item _) {
-            if (!fromItem.Stackable) return Result.Fail;
-            Debug.Log($"Should transfer one from {fromItem} to slot: {toSlot}");
-            if (toSlot is not GridSlot s) return Result.Fail;
-            if (!Accepts(fromItem)) return Result.Fail;
-            if (!AllowStacking()) return Result.Fail;
-            var computedShape = GridMath.ComputedShape(Occupancy, fromItem.Shape(), s.Pos);
-            var overlapping = GetOverlappingItems(computedShape, s.Pos);
-            var count = overlapping.Count();
-            if (count >= 2) return Result.Fail;
-
-            Item replaced = null;
-            if (count == 1) replaced = overlapping.ElementAt(0);
-
-            // Stacking
-            if (replaced != null && ItemExt.CanStack(fromItem, replaced)) {
-                // Debug.Log($"should transfer all from {item} to {replaced}");
-                var (newFromItem, newToItem) = ItemExt.TransferOne(fromItem, replaced);
-                NotifyChanged(replaced);
-                return new PlaceItemSuccess(newToItem, newFromItem.StackSize > 0 ? newFromItem : null);
-            }
-
-            if (replaced == null) {
-                var (newFromItem, newToItem) = ItemExt.TransferOne(fromItem, null);
-                AddAt(toSlot, newToItem);
-                return new PlaceItemSuccess(newToItem, newFromItem.StackSize > 0 ? newFromItem : null);
-            }
-
-            return Result.Fail;
-        }
-
-        public override Result SplitHalf(Item item) {
-            if (!item.Stackable) return Result.Fail;
-            var gridItem = FindGridItem(item);
-            if (gridItem == null) return Result.Fail;
-            if (!AllowStacking()) return Result.Fail;
-            var (newFromItem, newToItem) = ItemExt.SplitHalf(item);
-            gridItem.Item = newFromItem.StackSize > 0 ? newFromItem : null;
-            NotifyChanged(gridItem.Item);
-            return new PickItemSuccess(newToItem);
-        }
     }
 }

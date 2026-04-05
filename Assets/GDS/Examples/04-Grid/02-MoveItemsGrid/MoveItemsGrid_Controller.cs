@@ -15,7 +15,7 @@ namespace GDS.Examples {
         [Space(12)]
         public GridBag bagRight = new() { Size = new(6, 6) };
 
-        void Awake() {
+        void OnEnable() {
             store.Main = bagLeft;
             store.Secondary = bagRight;
 

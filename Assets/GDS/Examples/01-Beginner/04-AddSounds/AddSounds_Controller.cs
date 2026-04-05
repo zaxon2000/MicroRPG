@@ -11,7 +11,7 @@ namespace GDS.Examples {
         [Space(12)]
         public ListBag listBag = new() { Size = 20 };
 
-        void Awake() {
+        void OnEnable() {
             var root = GetComponent<UIDocument>().rootVisualElement;
             root.AddManipulator(new DragDropManipulator(store));
 

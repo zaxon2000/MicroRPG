@@ -32,9 +32,10 @@ namespace GDS.Demos.Backpack {
         public override void Reset() {
             base.Reset();
             PlayerGold.Reset();
-            Shop.Reset();
-            Backpack.Reset();
-            Storage.Reset();
+
+            Backpack.Clear();
+            Storage.Clear();
+            Shop.Reroll();
         }
 
         public void ResetPlayerGold() {

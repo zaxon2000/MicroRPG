@@ -49,7 +49,7 @@ namespace GDS.Examples {
 
             var newItem = itemBase.CreateItem();
             Slots.ForEach(Decrement);
-            Notify();
+            NotifyChanged();
             NotifyReset();
 
             return new PickItemSuccess(newItem);

@@ -3,11 +3,12 @@ using GDS.Core;
 
 namespace GDS.Demos.Basic {
 
-    public class BasicTooltipView : TooltipView {
+    public class BasicTooltipView : BaseTooltipView {
+
+        VisualElement Root, WeaponGroup, ArmorGroup;
+        Label Attack, Speed, Dps, Defense, Weight, Cost;
 
         public BasicTooltipView(VisualTreeAsset uxml) {
-            ClearClassList();
-            Clear();
             uxml.CloneTree(this);
             Root = this.Q<VisualElement>("Root");
             ItemName = this.Q<Label>("Name");
@@ -21,12 +22,6 @@ namespace GDS.Demos.Basic {
             Weight = this.Q<Label>(nameof(Weight));
             Cost = this.Q<Label>(nameof(Cost));
         }
-
-        VisualElement Root, WeaponGroup, ArmorGroup;
-
-        Label Attack, Speed, Dps, Defense, Weight, Cost;
-
-
 
         public override void Render(IHoveredItemContext context) {
             var item = context.Item;
@@ -51,15 +46,12 @@ namespace GDS.Demos.Basic {
                 ArmorGroup.Show();
             }
 
-
-
             Weight.text = $"Weight: {b.Weight}";
             var cost = item.Stackable ? b.Cost * item.StackSize : b.Cost;
             Cost.text = $"Cost: {cost}";
         }
 
         string NameWithStack(Item item) => item.Stackable ? $"{item.Name} ({item.StackSize})" : item.Name;
-
 
     }
 

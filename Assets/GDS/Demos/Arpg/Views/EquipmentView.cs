@@ -31,6 +31,11 @@ namespace GDS.Demos.Arpg {
             bag = equipment;
             equipment.ItemChanged += OnItemChanged;
             foreach (var s in bag.Slots) {
+                if (!slotViewsDict.ContainsKey(s.Key)) {
+                    Debug.LogWarning($"key: {s.Key} not found in slot dictionary (potential mismatch between data and view)");
+                    continue;
+                }
+
                 slotViewsDict[s.Key].Init(bag, s);
             }
         }

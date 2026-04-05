@@ -4,14 +4,14 @@ using GDS.Core;
 namespace GDS.Demos.Basic {
 
     [CreateAssetMenu(menuName = "SO/Demos/Basic/Basic_ItemBase")]
-    public class Basic_ItemBase : ShapeItemBase {
+    public class Basic_ItemBase : ItemBase {
         public int Weight = 1;
         public int Cost = 1;
         public override Item CreateItem() => new Basic_Item() { Base = this, Name = Name, StackSize = MaxStackSize };
     }
 
     [System.Serializable]
-    public class Basic_Item : ShapeItem {
+    public class Basic_Item : Item {
         public Rarity Rarity;
     }
 

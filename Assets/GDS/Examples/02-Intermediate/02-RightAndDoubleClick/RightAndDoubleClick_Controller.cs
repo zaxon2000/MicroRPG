@@ -12,7 +12,7 @@ namespace GDS.Examples {
         [Space(12)]
         public ListBag bagRight = new() { Size = 20 };
 
-        void Awake() {
+        void OnEnable() {
             store.Left = bagLeft;
             store.Right = bagRight;
 
@@ -21,9 +21,9 @@ namespace GDS.Examples {
             root.AddManipulator(new DoubleClickManipulator(store));
 
             var listBagViewLeft = root.Q<ListBagView>("Left");
-            var listBagViewRight = root.Q<ListBagView>("Right");
-
             listBagViewLeft.Init(bagLeft);
+
+            var listBagViewRight = root.Q<ListBagView>("Right");
             listBagViewRight.Init(bagRight);
         }
 

@@ -6,14 +6,14 @@ namespace GDS.Examples {
 
     [RequireComponent(typeof(UIDocument))]
     public class MoveItems_Controller : MonoBehaviour {
-        [Required, InlineEditor]
+        [Required]
         public MoveItems_Store store;
         [Space(12)]
         public ListBag bagLeft = new() { Size = 20 };
         [Space(12)]
         public ListBag bagRight = new() { Size = 20 };
 
-        void Awake() {
+        void OnEnable() {
             store.Main = bagRight;
             store.Secondary = bagLeft;
 
@@ -21,12 +21,10 @@ namespace GDS.Examples {
             root.AddManipulator(new DragDropManipulator(store));
 
             var listBagViewLeft = root.Q<ListBagView>("Left");
-            var listBagViewRight = root.Q<ListBagView>("Right");
-
             listBagViewLeft.Init(bagLeft);
+
+            var listBagViewRight = root.Q<ListBagView>("Right");
             listBagViewRight.Init(bagRight);
-
-
         }
 
     }

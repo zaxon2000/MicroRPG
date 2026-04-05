@@ -4,22 +4,18 @@ using UnityEngine;
 
 namespace GDS.Core {
 
-
-
     [Serializable]
     public class Item {
-
         public Item() => Id = IdExt.ShortId();
-
         public ItemBase Base;
 
         public string Id;
         public string Name;
         public int StackSize;
 
-        public Sprite Icon => Base.Icon;
-        public bool Stackable => Base.Stackable;
-        public int MaxStackSize => Base.MaxStackSize;
+        virtual public Sprite Icon => Base.Icon;
+        virtual public bool Stackable => Base.Stackable;
+        virtual public int MaxStackSize => Base.MaxStackSize;
 
         // TODO: Use Describe decorator instead of ToString (to avoid repetition in extended classes)
         public override string ToString() {
@@ -34,7 +30,7 @@ namespace GDS.Core {
         public static string ToPrettyString(Item item) => item == null ? "<null>".Gray() : item + $" ({item.GetType()})".Gray();
         public static string ItemNameWithQuant(this Item item) => item.Stackable ? $"{item.Name} ({item.StackSize})" : item.Name;
         public static Item Clone(this Item item, bool keepId = false) {
-            // We are using reflection here because item can be a subclass of Item
+            // Reflection is used here (as opposed to regular instantiation) because item can be a subclass of Item
             var clone = (Item)Activator.CreateInstance(item.GetType());
             clone.Base = item.Base;
             clone.Name = item.Name;
@@ -44,14 +40,14 @@ namespace GDS.Core {
         }
 
         public static bool CanStack(this Item fromItem, Item toItem) =>
-            (fromItem.Base.Stackable && toItem == null) ||
-            (fromItem.Base.Stackable && fromItem.Base == toItem.Base && toItem.StackSize < toItem.MaxStackSize);
+            (fromItem.Stackable && toItem == null) ||
+            (fromItem.Stackable && fromItem.Base == toItem.Base && toItem.StackSize < toItem.MaxStackSize);
 
         public static (Item newFromItem, Item newToItem) TransferAll(this Item fromItem, Item toItem) {
             var total = toItem.StackSize + fromItem.StackSize;
             toItem.StackSize = Math.Min(total, toItem.MaxStackSize);
             fromItem.StackSize = total - toItem.StackSize;
-            return (fromItem, toItem);
+            return (fromItem.StackSize > 0 ? fromItem : null, toItem);
         }
 
         public static (Item newFromItem, Item newToItem) TransferOne(this Item fromItem, Item toItem) {
@@ -63,15 +59,16 @@ namespace GDS.Core {
                 fromItem.StackSize--;
                 toItem.StackSize++;
             }
-            return (fromItem, toItem);
+            return (fromItem.StackSize > 0 ? fromItem : null, toItem);
         }
 
         public static (Item newFromItem, Item newToItem) SplitHalf(this Item item) {
             var newItem = item.Clone();
+            // Note that half is rounded down
             int half = item.StackSize / 2;
             item.StackSize = half;
             newItem.StackSize -= half;
-            return (item, newItem);
+            return (item.StackSize > 0 ? item : null, newItem);
         }
     }
 

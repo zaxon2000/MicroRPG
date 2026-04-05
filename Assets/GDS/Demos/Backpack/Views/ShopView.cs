@@ -28,7 +28,6 @@ namespace GDS.Demos.Backpack {
         Store Store;
         int CellSize = 80;
 
-        /// <summary>Initialises the shop view. Accepts any Store subclass so the view can be reused outside the Backpack demo.</summary>
         public void Init(Shop shop, Store store) {
             Shop = shop;
             Store = store;

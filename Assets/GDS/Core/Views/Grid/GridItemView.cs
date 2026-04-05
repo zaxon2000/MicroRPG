@@ -2,22 +2,25 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace GDS.Core {
-    public class GridItemView : ItemView {
-
-        VisualElement shape;
+    public abstract class BaseGridItemView : BaseItemView {
         public int CellSize = 64;
+    }
+
+    public class GridItemView : BaseGridItemView {
+
+        protected VisualElement shape = Dom.Div("absolute item-shape");
+
+        public GridItemView() { this.Add("item-view", shape, image, quant); }
 
         override public void Render() {
-            base.Render();
+            if (item == null) { return; }
+            image.sprite = item.Icon;
+            quant.text = item.StackSize.ToString();
+            quant.SetVisible(item.Stackable);
 
-            this.SetSize(Item.Size(), CellSize);
+            this.SetSize(item.Size(), CellSize);
 
-            if (shape == null) {
-                shape = Dom.Div("absolute item-shape").PickIgnoreAll();
-                Insert(0, shape);
-            }
-
-            if (Item is ShapeItem shapeItem) {
+            if (item is ShapeItem shapeItem) {
                 image.SetSize(shapeItem.BaseSize, CellSize);
                 image.Rotate((float)shapeItem.Direction);
                 image.Translate(GridMath.AdjustPosForSizeAndDir(shapeItem.BaseSize, shapeItem.Direction), CellSize);

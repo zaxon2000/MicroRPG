@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 560aeb4bd4bc4b14b98a51b920a16e1a
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319294
+  packageName: Inventory Framework 2 PRO (UI Toolkit)
+  packageVersion: 2.1
+  assetPath: Assets/GDS/Examples/04-Grid/04-QuickSlotSystem/Readme.md
+  uploadId: 891154

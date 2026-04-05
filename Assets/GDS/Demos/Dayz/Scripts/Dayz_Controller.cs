@@ -25,7 +25,7 @@ namespace GDS.Demos.Dayz {
             root.EnableInClassList("show-debug-labels", ShowDebugLabels);
         }
 
-        void Awake() {
+        void OnEnable() {
             Store.Init(Equipment, Hands, Hotbar);
 
             root = GetComponent<UIDocument>().rootVisualElement;

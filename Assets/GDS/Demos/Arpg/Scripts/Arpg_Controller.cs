@@ -16,7 +16,7 @@ namespace GDS.Demos.Arpg {
         [Space(16)]
         public PlayerInventory PlayerInventory;
 
-        void Awake() {
+        void OnEnable() {
             Store.Init(PlayerInventory);
 
             var root = GetComponent<UIDocument>().rootVisualElement;

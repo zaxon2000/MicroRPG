@@ -12,7 +12,7 @@ namespace GDS.Demos.Backpack {
         [Required, InlineEditor]
         public Backpack_Store Store;
 
-        void Awake() {
+        void OnEnable() {
             var root = GetComponent<UIDocument>().rootVisualElement;
             root.AddManipulator(new DragDropManipulator(Store, new GhostItemWithRotation() { CellSize = 80 }));
             root.AddManipulator(new RotateGhostManipulator(Store));

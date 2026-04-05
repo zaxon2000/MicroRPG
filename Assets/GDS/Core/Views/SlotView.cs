@@ -36,6 +36,7 @@ namespace GDS.Core {
 
         public virtual void Render() {
             itemView.Item = Item;
+            itemView.SetVisible(slot.Full());
             EnableInClassList("empty", slot.Empty());
         }
 

@@ -20,9 +20,6 @@ namespace GDS.Core {
         public virtual Result TransferOne(Item fromItem, Slot toSlot, Item toItem) => Result.Fail;
         public virtual Result SplitHalf(Item item) => Result.Fail;
 
-
-        public virtual void Reset() { }
-        public virtual void Init() { }
         public virtual void Clear() { }
         public virtual bool Accepts(Item item) => true;
         public virtual bool AllowStacking() => true;

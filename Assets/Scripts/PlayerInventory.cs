@@ -58,10 +58,8 @@ public class PlayerInventory : MonoBehaviour
 
         // Init
         Backpack.Init();
-        Storage.Init();
         Shop.Init(PlayerGold);  // links shop gold check to this player's gold
-        Shop.Reset();           // populates shop slots from catalog
-        CraftingBench.Init();
+        Shop.Reroll();          // populates shop slots from catalog
 
         // Runtime Store shim — provides Bus + Ghost to GDS manipulators without mutating any asset
         InventoryStore = ScriptableObject.CreateInstance<PlayerInventoryStore>();

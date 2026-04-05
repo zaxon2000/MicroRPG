@@ -1,0 +1,34 @@
+:root {
+  --cell-size: 100px;
+}
+
+.custom-item-view {
+  width: 100%;
+  height: 100%;
+}
+
+.custom-item-view .item-image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.item-view .item-quant,
+.custom-item-view .item-quant {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 18px;
+  background-color: #333;
+  padding: 2px 8px;
+}
+
+.shortcut-label {
+  background-color: rgb(17, 17, 17);
+  padding: 4px 8px;
+  position: absolute;
+}
+
+.slot:hover {
+  border-color: rgb(184, 171, 245);
+}

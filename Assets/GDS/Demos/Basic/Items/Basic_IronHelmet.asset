@@ -18,7 +18,6 @@ MonoBehaviour:
   MaxStackSize: 100
   Tags:
   - {fileID: 11400000, guid: 292947ce9fed9574ab1aeba9a6b035a1, type: 2}
-  Shape: {fileID: 11400000, guid: a92f55cef7f92444d85cb3d890cef7b1, type: 2}
   Weight: 5
   Cost: 1
   Defense:
