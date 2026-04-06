@@ -1,10 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="width: 290px;">
-        <ui:VisualElement name="Reroll" style="margin-bottom: 6px;">
-            <ui:Button text="Reroll:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RerollButton" style="width: 100px; height: 28px; font-size: 12px; -unity-text-align: middle-left; padding-left: 10px;" />
-            <ui:VisualElement name="Icon" picking-mode="Ignore" style="background-image: url(&quot;project://database/Assets/GDS/Common/Sprites/ui/icon_coins.png?fileID=2800000&amp;guid=215af4b4c17fb9f4199284fb7ebb386d&amp;type=3#icon_coins&quot;); width: 14px; height: 14px; position: absolute; top: 7px; left: 68px;" />
+        <ui:VisualElement name="Reroll" style="margin-bottom: 4px;">
+            <ui:Button text="Reroll:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RerollButton" style="width: 80px; height: 22px; font-size: 11px; -unity-text-align: middle-left; padding-left: 8px;" />
+            <ui:VisualElement name="Icon" picking-mode="Ignore" style="background-image: url(&quot;project://database/Assets/GDS/Common/Sprites/ui/icon_coins.png?fileID=2800000&amp;guid=215af4b4c17fb9f4199284fb7ebb386d&amp;type=3#icon_coins&quot;); width: 12px; height: 12px; position: absolute; top: 5px; left: 54px;" />
         </ui:VisualElement>
-        <ui:VisualElement class="row" style="flex-wrap: wrap; gap: 4px;">
+        <ui:VisualElement class="row" style="flex-wrap: wrap; gap: 3px;">
             <GDS.Demos.Backpack.ShopSlotView name="Slot1" class="shop-slot" />
             <GDS.Demos.Backpack.ShopSlotView name="Slot2" class="shop-slot" />
             <GDS.Demos.Backpack.ShopSlotView name="Slot3" class="shop-slot" />
