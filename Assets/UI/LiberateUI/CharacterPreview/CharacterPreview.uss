@@ -1,0 +1,95 @@
+/* Character Preview - Common Styles */
+
+.character-preview--common {
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 6px;
+    padding: 24px;
+}
+
+/* Item Slots - Absolute Positioning */
+.item-slot--common {
+    position: absolute;
+    -unity-background-scale-mode: scale-to-fit;
+    border-radius: 2px;
+    justify-content: center;
+    align-items: center;
+    transition-property: scale;
+    transition-duration: 0.25s;
+}
+
+.item-slot--common:hover {
+    scale: 1.1;
+}
+
+.item-slot--top-left {
+    top: 24px;
+    left: 24px;
+}
+
+.item-slot--top-right {
+    top: 24px;
+    right: 24px;
+}
+
+.item-slot--bottom-left {
+    bottom: 24px;
+    left: 24px;
+}
+
+.item-slot--bottom-right {
+    bottom: 24px;
+    right: 24px;
+}
+
+.item-slot__icon--common {
+    width: 70%;
+    height: 80%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* Character Preview Container */
+.char-preview-container--common {
+    position: relative;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-width: 2px;
+    justify-content: center;
+    align-items: center;
+}
+
+.char-preview__image--common {
+    width: 60%;
+    height: 60%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* Stats Info Container */
+.stats-info-container--common {
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 4px;
+    padding: 24px;
+}
+
+.stats-title--common {
+    font-size: 24px;
+    color: #19183B;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    margin-bottom: 24px;
+}
+
+.stat-row--common {
+    padding: 8px;
+    margin-bottom: 4px;
+    justify-content: space-between;
+}
+
+.stat-row__label--common {
+    font-size: 18px;
+    color: #19183B;
+    -unity-font-style: bold;
+}
+
+.stat-row__value--common {
+    font-size: 18px;
+    color: #19183B;
+}

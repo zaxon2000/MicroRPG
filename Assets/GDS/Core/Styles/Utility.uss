@@ -1,8 +1,6 @@
 /* These are some utility classes that allow for easier layout directly in the `template` */
 /* It includes some predefined values for flex direction, positioning, margins, padding, gap, etc */
 /* The concept is inpired by `Tailwind CSS` - https://tailwindcss.com/docs/styling-with-utility-classes*/
-:root {
-}
 
 .hidden,
 .display-none {

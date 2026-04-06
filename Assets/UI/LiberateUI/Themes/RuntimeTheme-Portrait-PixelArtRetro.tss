@@ -1,0 +1,8 @@
+@import url("unity-theme://default");
+
+/* IMPORTANT: Art theme must be imported BEFORE resolution theme
+   because resolution styles use CSS variables (like  
+   that are defined in the art theme files */
+@import url("PixelArtRetro.tss");
+@import url("RuntimeTheme-Portrait.tss");
+

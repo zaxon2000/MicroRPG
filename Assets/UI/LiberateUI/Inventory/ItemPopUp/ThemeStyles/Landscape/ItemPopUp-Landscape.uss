@@ -1,0 +1,40 @@
+/* Landscape Theme Styles for ItemPopUp */
+
+.item-popup--theme {
+    width: 60%;
+    height: 80%;
+}
+
+/* Main content layout - row direction for landscape */
+.item-popup__content--theme {
+    flex-direction: row;
+}
+
+/* Preview and Stats Container - vertical layout in landscape */
+.item-popup__preview-stats-container--theme {
+    flex-direction: column;
+    flex-basis: 40%;
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+/* Item Preview - takes half the height in landscape */
+.item-popup__preview--theme {
+    flex-grow: 1;
+    flex-basis: 50%;
+    margin-bottom: 10px;
+}
+
+/* Stats Section - takes half the height in landscape */
+.item-popup__stats--theme {
+    flex-grow: 1;
+    flex-basis: 50%;
+    margin-top: 10px;
+}
+
+/* Description Section - takes twice the space horizontally */
+.item-popup__description--theme {
+    flex-basis: 60%;
+    flex-grow: 2;
+    height: 100%;
+}

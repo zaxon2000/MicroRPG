@@ -1,0 +1,83 @@
+/* ================================
+   Settings Screen - PixelArtRetro Theme
+   ================================ */
+
+/* Settings Screen Background */
+.settings-screen--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/SecondaryFilledFrame');
+}
+
+/* Tab Button Background and Color */
+.tab-button--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Buttons/SecondaryButton');
+    color: #19183B;
+}
+
+.tab-button--active {
+    color: #19183B;
+}
+
+/* Dropdown Colors */
+#liberate-dropdown.dropdown--theme-art {
+    color: #19183B;
+}
+
+#liberate-dropdown.dropdown--theme-art .unity-label {
+    color: #19183B;
+}
+
+#liberate-dropdown.dropdown--theme-art .unity-base-field__input {
+    /* background-image: resource('LiberateUI/PixelArtRetro/Buttons/PrimaryButtonSurfaceFilled'); */
+    background-image: resource('LiberateUI/PixelArtRetro/Buttons/SecondaryButton');
+    color: #19183B;
+}
+
+/* Slider Colors */
+#liberate-slider.slider--theme-art {
+    color: #19183B;
+}
+
+#liberate-slider.slider--theme-art .unity-label {
+    color: #19183B;
+}
+
+#liberate-slider.slider--theme-art #unity-tracker {
+    background-color: #4b8585;
+}
+
+#liberate-slider.slider--theme-art #unity-dragger {
+    background-image: resource('LiberateUI/PixelArtRetro/Buttons/Marker');
+}
+
+/* Toggle Colors */
+#liberate-toggle.toggle--theme-art {
+    color: #19183B;
+}
+
+#liberate-toggle.toggle--theme-art .unity-label {
+    color: #19183B;
+}
+
+/* Keybinding Row Labels */
+.keybinding-row Label {
+    color: #19183B;
+}
+
+/* Key Binding Background */
+.key-binding--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Buttons/SecondaryButton');
+    color: #19183B;
+}
+
+/* Icon Overrides for Action Buttons */
+#apply-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Icons/Check');
+}
+
+#reset-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Icons/CircularArrow');
+}
+
+#back-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Icons/Cross');
+}

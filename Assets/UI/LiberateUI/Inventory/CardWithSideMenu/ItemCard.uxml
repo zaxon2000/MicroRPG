@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/LiberateUI/Inventory/CardWithSideMenu/ItemCard.uss?fileID=7433441132597879392&amp;guid=5c5618b00988442488089324c5b2b820&amp;type=3#ItemCard" />
+    <ui:VisualElement name="item-card" class="item-card item-card--theme item-card--theme-art">
+        <ui:Label text="Item Name" name="item-name" class="item-card__name" style="-unity-text-align: upper-center;" />
+        <ui:VisualElement name="item-image" class="item-card__image" />
+    </ui:VisualElement>
+</ui:UXML>

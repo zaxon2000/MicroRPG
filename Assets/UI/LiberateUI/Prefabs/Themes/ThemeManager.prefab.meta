@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c0253ea53c2a14d7da57ee31dc065ec0
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 338266
+  packageName: Fantasy RPG UI Toolkit Starter
+  packageVersion: 1.0.0
+  assetPath: Assets/UI/LiberateUI/Prefabs/Themes/ThemeManager.prefab
+  uploadId: 800732

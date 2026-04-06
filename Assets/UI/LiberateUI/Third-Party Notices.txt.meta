@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fa1ad36f95131415096630af275bb734
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 338266
+  packageName: Fantasy RPG UI Toolkit Starter
+  packageVersion: 1.0.0
+  assetPath: Assets/UI/LiberateUI/Third-Party Notices.txt
+  uploadId: 800732

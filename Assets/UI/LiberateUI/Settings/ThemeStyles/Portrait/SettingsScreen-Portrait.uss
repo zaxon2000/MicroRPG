@@ -1,0 +1,12 @@
+/* Settings Screen USS - Portrait Theme */
+
+.settings-screen--theme {
+    -unity-background-scale-mode: stretch-to-fill;
+    padding: 15px;
+    margin: 15px;
+    width: 80%;
+    height: 50%;
+    flex-direction: column;
+    justify-content: space-between;
+    -unity-text-align: middle-center;
+}

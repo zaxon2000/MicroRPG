@@ -1,0 +1,10 @@
+/* Settings Screen USS - Landscape Theme */
+
+.settings-screen--theme {
+    margin: 20px;
+    width: 40%;
+    height: 60%;
+    flex-direction: column;
+    justify-content: space-between;
+    -unity-text-align: middle-center;
+}

@@ -1,0 +1,7 @@
+/* Action Button - Landscape Theme Styles */
+
+/* Container layout for Landscape/Desktop */
+.action-button--theme {
+    width: auto;
+    max-width: 100%;
+}

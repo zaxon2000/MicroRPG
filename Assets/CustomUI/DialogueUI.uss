@@ -1,0 +1,119 @@
+/* ── Dialogue UI Styles (PixelArtRetro Style) ── */
+
+
+/* Full-screen root overlay */
+.dialogue-root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* ── Interact Prompt ("E") ── */
+.interact-prompt {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px; /* Blocky */
+    background-color: #19183B;
+    border-width: 2px;
+    border-color: #A1C2BD;
+    align-items: center;
+    justify-content: center;
+    translate: -18px -18px;
+    display: none;
+}
+
+.interact-prompt:hover {
+    background-color: #708993;
+}
+
+.interact-prompt__label {
+    font-size: 18px;
+    color: #A1C2BD;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+/* ── Dialogue Panel ── */
+.dialogue-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 60px;
+    display: none;
+}
+
+.dialogue-panel {
+    width: 520px;
+    min-height: 140px;
+    background-color: #19183B;
+    border-radius: 4px; /* Blocky */
+    border-width: 3px;
+    border-color: #708993;
+    padding: 16px 20px;
+}
+
+/* Speaker name */
+.dialogue-speaker {
+    font-size: 18px;
+    color: #A1C2BD;
+    -unity-font-style: bold;
+    margin-bottom: 6px;
+}
+
+/* NPC dialogue text */
+.dialogue-text {
+    font-size: 15px;
+    color: #FFFFFF;
+    white-space: normal;
+    margin-bottom: 12px;
+}
+
+/* Response buttons container */
+.dialogue-responses {
+    flex-direction: column;
+}
+
+/* Individual response button */
+.dialogue-response-btn {
+    background-color: #708993;
+    border-radius: 2px;
+    border-width: 1px;
+    border-color: #A1C2BD;
+    padding: 8px 14px;
+    margin-bottom: 6px;
+    color: #19183B;
+    font-size: 14px;
+    -unity-text-align: middle-left;
+    -unity-font-style: bold;
+}
+
+.dialogue-response-btn:hover {
+    background-color: #A1C2BD;
+    color: #19183B;
+}
+
+/* Continue button */
+.dialogue-continue-btn {
+    background-color: rgba(112, 137, 147, 0.3);
+    border-radius: 2px;
+    border-width: 1px;
+    border-color: #708993;
+    padding: 8px 14px;
+    margin-top: 4px;
+    color: #A1C2BD;
+    font-size: 13px;
+    -unity-text-align: middle-center;
+    -unity-font-style: italic;
+}
+
+.dialogue-continue-btn:hover {
+    background-color: #708993;
+    color: #19183B;
+}

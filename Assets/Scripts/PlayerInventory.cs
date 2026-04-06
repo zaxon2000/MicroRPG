@@ -30,7 +30,6 @@ public class PlayerInventory : MonoBehaviour
 
     // ── Observables ───────────────────────────────────────────────────────────
     public Observable<int>  PlayerGold    { get; private set; }
-    public Observable<bool> CraftingActive { get; private set; }
 
     /// <summary>
     /// Minimal Store shim — holds EventBus and Ghost so GDS manipulators and views
@@ -48,7 +47,6 @@ public class PlayerInventory : MonoBehaviour
 
         // Observables
         PlayerGold     = new Observable<int>(_config.StartingGold);
-        CraftingActive = new Observable<bool>(false);
 
         // Bags — fresh instances every session, seeded from config where needed
         Backpack      = new BackpackBag { CellSize = BackpackCellSize };
@@ -97,7 +95,6 @@ public class PlayerInventory : MonoBehaviour
             Shop,
             CraftingBench,
             PlayerGold,
-            CraftingActive,
             ResetPlayerGold);
     }
 

@@ -1,9 +1,3 @@
-:root {
-  --cell-size: 64px;
-  --col-valid-action: #090;
-  --col-invalid-action: #900;
-  --overlay-opacity: 0.25;
-}
 
 .debug-label {
   display: none;
@@ -19,8 +13,8 @@
 }
 
 .slot {
-  width: var(--cell-size);
-  height: var(--cell-size);
+  width: 32px;
+  height: 32px;
   border-width: 1px;
   border-color: #666;
   margin: 0;
@@ -33,14 +27,14 @@
 }
 
 .slot .slot-overlay {
-  opacity: var(--overlay-opacity);
+  opacity: 0.4;
 }
 
 .slot.valid .slot-overlay {
-  background-color: var(--col-valid-action);
+  background-color: #7ED957;
 }
 .slot.invalid .slot-overlay {
-  background-color: var(--col-invalid-action);
+  background-color: #FF4D4D;
 }
 
 .list-bag .slot-container {

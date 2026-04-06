@@ -50,7 +50,7 @@
 
 .slot {
   border-width: 0;
-  background-image: url("Sprites/grunge-cell.png");
+  
   -unity-background-image-tint-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -60,30 +60,30 @@
 }
 
 .shape-cell {
-  background-image: url("Sprites/grunge-cell.png");
+  
   opacity: 0.2;
   -unity-background-image-tint-color: #8f8;
 }
 
 .grid-ghost-view .shape-cell {
-  background-image: url("Sprites/grunge-cell-border.png");
+  
   opacity: 0.75;
   -unity-background-image-tint-color: #8f8;
 }
 
 .illegal.grid-ghost-view .shape-cell {
-  background-image: url("Sprites/grunge-cell-border.png");
+  
   -unity-background-image-tint-color: #f33;
   opacity: 0.7;
 }
 
 .hovered .shape-cell {
-  background-image: url("Sprites/grunge-cell.png");
+  
   opacity: 0.5;
 }
 
 .overlapping .shape-cell {
-  background-image: url("Sprites/grunge-cell-border.png");
+  
   opacity: 0.75;
   -unity-background-image-tint-color: #ff8;
 }
@@ -121,7 +121,7 @@
   display: flex;
 }
 .shop-item-shape .shape-cell {
-  background-image: url("Sprites/grunge-cell-border.png");
+  
   opacity: 0.2;
   -unity-background-image-tint-color: #fff;
 }

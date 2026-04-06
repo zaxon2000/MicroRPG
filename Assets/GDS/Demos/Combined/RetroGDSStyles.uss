@@ -1,0 +1,71 @@
+/* ── Retro GDS Styles (Hardcoded for Stability) ── */
+
+/* ── GDS Slot Overrides ── */
+.slot {
+    width: 32px;
+    height: 32px;
+    border-width: 2px;
+    border-color: #708993;
+    background-color: rgba(25, 24, 59, 0.6);
+    margin: 1px;
+}
+
+.slot:hover {
+    border-color: #A1C2BD;
+    background-color: rgba(161, 194, 189, 0.2);
+}
+
+/* ── Window Borders & Backgrounds ── */
+.section-border {
+    background-image: none !important;
+    background-color: #19183B;
+    border-width: 3px;
+    border-color: #708993;
+    border-radius: 4px;
+}
+
+/* ── Headers ── */
+#BackpackHeader, #StorageHeader, #CenterHeader, #RightHeader {
+    background-color: #708993;
+    border-bottom-width: 2px;
+    border-bottom-color: #A1C2BD;
+}
+
+.big-text {
+    font-size: 18px;
+    color: #19183B !important;
+    -unity-font-style: bold;
+}
+
+/* ── Buttons ── */
+.unity-button {
+    background-color: #708993;
+    border-radius: 2px;
+    border-width: 2px;
+    border-color: #A1C2BD;
+    color: #19183B;
+    font-size: 14px;
+    -unity-font-style: bold;
+}
+
+.unity-button:hover {
+    background-color: #A1C2BD;
+}
+
+/* ── Item Views ── */
+.item-view .item-image {
+    width: 32px;
+    height: 32px;
+}
+
+.ghost-item {
+    width: 32px;
+    height: 32px;
+}
+
+/* ── Sell Area ── */
+#SellArea {
+    background-color: rgba(112, 137, 147, 0.2) !important;
+    border-top-width: 2px;
+    border-top-color: #708993;
+}

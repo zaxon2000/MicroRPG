@@ -1,0 +1,34 @@
+/* Character Preview - Landscape Theme Styles */
+
+.character-preview--theme {
+    flex-direction: row;
+    width: 70%;
+    height: 80%;
+    justify-content: space-between;
+}
+
+/* Item Slots - Absolute positioned at corners */
+.item-slot--theme {
+    width: 120px;
+    height: 120px;
+}
+
+/* Character Preview Container - Center large area */
+.char-preview-container--theme {
+    width: 60%;
+    height: 100%;
+}
+
+/* Stats Info Container - Vertical layout */
+.stats-info-container--theme {
+    flex-direction: column;
+    width: 35%;
+    height: 100%;
+    justify-content: flex-start;
+}
+
+.stat-row--theme {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}

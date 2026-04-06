@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/LiberateUI/Components/Button/ActionButton.uss?fileID=7433441132597879392&amp;guid=7924de4594fcf41d39b0a8884c7adea0&amp;type=3#ActionButton" />
+    <ui:VisualElement name="action-button" class="action-button--common action-button--theme action-button--large">
+        <ui:Button text="SELL" name="button" class="action-button__button--common action-button__button--theme-art" />
+        <ui:VisualElement name="button-icon" class="action-button__icon--common">
+            <ui:VisualElement name="icon-background" class="action-button__icon-background--common action-button__icon-background--theme-art" />
+            <ui:VisualElement name="icon" class="action-button__icon-symbol--common action-button__icon-symbol--theme-art" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
