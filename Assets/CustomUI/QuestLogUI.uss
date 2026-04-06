@@ -1,0 +1,144 @@
+/* ── Quest Log UI Styles (PixelArtRetro Style) ── */
+
+
+/* ── Full-screen transparent root ── */
+.quest-log-root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* ── Panel anchored to the top-right corner ── */
+.quest-log-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 320px;
+    max-height: 480px;
+    background-color: #19183B;
+    border-radius: 4px; /* More blocky for retro */
+    border-width: 3px;
+    border-color: #708993;
+    padding: 14px 16px;
+    flex-direction: column;
+    display: none;
+}
+
+/* ── Header row ── */
+.quest-log-header {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.quest-log-header__title {
+    font-size: 20px;
+    color: #A1C2BD;
+    -unity-font-style: bold;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+/* Constrain the close button */
+.quest-log-close-btn {
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-self: center;
+    width: 26px;
+    height: 26px;
+    background-color: #708993;
+    border-radius: 2px;
+    border-width: 2px;
+    border-color: #A1C2BD;
+    color: #19183B;
+    font-size: 14px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    padding: 0;
+    margin: 0;
+}
+
+.quest-log-close-btn:hover {
+    background-color: #A1C2BD;
+    border-color: #19183B;
+    color: #19183B;
+}
+
+/* ── Separator ── */
+.quest-log-separator {
+    height: 2px;
+    background-color: #708993;
+    margin-bottom: 10px;
+}
+
+/* ── Scroll view ── */
+.quest-log-scroll {
+    flex-grow: 1;
+    max-height: 360px;
+}
+
+.quest-list-container {
+    flex-direction: column;
+}
+
+/* ── No quests label ── */
+.quest-no-quests {
+    font-size: 14px;
+    color: #708993;
+    -unity-font-style: italic;
+    -unity-text-align: middle-center;
+    padding: 20px 0;
+}
+
+/* ── Quest entry card ── */
+.quest-entry {
+    background-color: rgba(112, 137, 147, 0.15);
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: #708993;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+}
+
+.quest-entry__title {
+    font-size: 16px;
+    color: #A1C2BD;
+    -unity-font-style: bold;
+    margin-bottom: 4px;
+    white-space: normal;
+}
+
+.quest-entry__desc {
+    font-size: 13px;
+    color: #708993;
+    white-space: normal;
+    margin-bottom: 6px;
+}
+
+/* ── Objectives ── */
+.quest-objective {
+    font-size: 13px;
+    color: #A1C2BD;
+    margin-left: 8px;
+    margin-bottom: 2px;
+    white-space: normal;
+}
+
+.quest-objective--done {
+    font-size: 13px;
+    color: #7ED957; /* Retro Green */
+    margin-left: 8px;
+    margin-bottom: 2px;
+    white-space: normal;
+}
+
+/* ── Footer hint ── */
+.quest-log-hint {
+    font-size: 12px;
+    color: #708993;
+    -unity-text-align: middle-center;
+    margin-top: 8px;
+    -unity-font-style: italic;
+}

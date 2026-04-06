@@ -1,8 +1,5 @@
 @import url("../Styles/Utility.uss");
 
-:root {
-  --color-runtime: rgb(255, 174, 0);
-}
 
 .icon-preview {
   width: 60px;
@@ -55,14 +52,14 @@
 }
 
 .custom-box {
-  background-color: var(--unity-colors-default-background);
+  background-color: #19183B;
   padding: 4px;
   border-radius: 4px;
 }
 
 .custom-box .custom-box {
   background-color: var(--unity-colors-app_toolbar-background);
-  /* background-color: var(--unity-colors-alternated_rows-background); */
+  /* background-color:  --unity-colors-alternated_rows-background); */
 }
 
 .custom-foldout > Toggle {
@@ -119,12 +116,12 @@
   border-width: 2px;
   border-top-width: 8px;
   padding: 4px;
-  border-color: var(--color-runtime);
+  border-color: #708993;
 }
 
 .runtime-value-foldout .unity-foldout__toggle {
   margin-left: 0;
-  /* background-color: var(--color-runtime); */
+  /* background-color: #19183B; */
 }
 
 .runtime-value-foldout .unity-foldout__content {

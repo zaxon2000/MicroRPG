@@ -1,9 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/LiberateUI/UI/Inventory/CardWithSideMenu/InventoryContainer.uss?fileID=7433441132597879392&amp;guid=59e44d14e5dfd4b768cac6dfa46a0182&amp;type=3#InventoryContainer" />
-    <ui:VisualElement name="inventory-container" class="inventory-container inventory-container--theme inventory-container--theme-art">
-        <ui:ScrollView name="inventory-scrollview" class="inventory-container__scrollview">
-            <ui:VisualElement name="inventory-grid" class="inventory-container__grid">
-            </ui:VisualElement>
-        </ui:ScrollView>
-    </ui:VisualElement>
-</ui:UXML>

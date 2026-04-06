@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="InventoryContainer" src="project://database/Assets/UI/LiberateUI/Inventory/CardWithSideMenu/InventoryContainer.uxml#InventoryContainer" />
+    <ui:Template name="SettingsScreen" src="project://database/Assets/UI/LiberateUI/Settings/SettingsScreen.uxml#SettingsScreen" />
+    <ui:Template name="CharacterPreview" src="project://database/Assets/UI/LiberateUI/CharacterPreview/CharacterPreview.uxml#CharacterPreview" />
+    <ui:Style src="project://database/Assets/UI/LiberateUI/Base/Common-PixelArtRetro.uss" />
+    <ui:Style src="MainMenu.uss" />
+    <ui:Style src="ThemeStyles/PixelArtRetro/MainMenu-PixelArtRetro.uss" />
+    <ui:VisualElement name="main-menu-background" class="main-menu-background--common main-menu-background--theme-art"/>
+    <ui:VisualElement name="menu-container" class="menu__container--common menu__container--theme">
+        <ui:Button text="Inventory" name="inventory-button" class="menu__button--common menu__button--theme menu__button--theme-art" />
+        <ui:Button text="Equipment" name="equipment-button" class="menu__button--common menu__button--theme menu__button--theme-art" />
+        <ui:Button text="Settings" name="settings-button" class="menu__button--common menu__button--theme menu__button--theme-art" />
+    </ui:VisualElement>
+    <ui:Instance template="InventoryContainer" picking-mode="Ignore" name="inventory-instance" class="inventory_container_instance--common inventory_container_instance--theme" style="display: none;" />
+    <ui:Instance template="SettingsScreen" picking-mode="Ignore" name="settings-instance" class="settings_instance--common settings_instance--theme" style="display: none;" />
+    <ui:Instance template="CharacterPreview" picking-mode="Ignore" name="character-preview-instance" class="character-preview-instance--common character-preview-instance--theme" style="display: none;" />
+</ui:UXML>

@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="project://database/Assets/UI/LiberateUI/Base/Common-PixelArtRetro.uss" />
+    <ui:Style src="InventoryContainer.uss" />
+    <ui:Style src="ThemeStyles/PixelArtRetro/InventoryContainer-PixelArtRetro.uss" />
+    <ui:VisualElement name="inventory-container" class="inventory-container inventory-container--theme inventory-container--theme-art">
+        <ui:ScrollView name="inventory-scrollview" class="inventory-container__scrollview">
+            <ui:VisualElement name="inventory-grid" class="inventory-container__grid">
+            </ui:VisualElement>
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

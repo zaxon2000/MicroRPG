@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e059dd70c6cae47018eba485ba18b3c3
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 338266
+  packageName: Fantasy RPG UI Toolkit Starter
+  packageVersion: 1.0.0
+  assetPath: Assets/UI/LiberateUI/Components/Button/README.md
+  uploadId: 800732

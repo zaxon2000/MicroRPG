@@ -3,11 +3,6 @@
  * Loaded after Backpack_Styles.uss so all rules here win the cascade.
  */
 
-:root {
-  /* Drives .slot width/height in ListBagView (DefaultStyles.uss uses var(--cell-size)) */
-  --cell-size: 27px;
-}
-
 /* Re-declare relative so item images scale with --cell-size in the list bag */
 .item-view .item-image {
   width: 27px;

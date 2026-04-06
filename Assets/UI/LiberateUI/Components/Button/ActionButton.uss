@@ -1,0 +1,120 @@
+/* ================================
+   Action Button Component Styles
+   ================================ */
+
+/* Base Container */
+.action-button--common {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    margin: 0 8px;
+}
+
+/* Button Element - Common Styles */
+.action-button__button--common {
+    background-color: transparent;
+    color: #19183B;
+    border-width: 0;
+    border-radius: 4px;
+    font-size: 18px;
+    -unity-font-style: bold;
+    transition-property: opacity, scale;
+    transition-duration: 0.2s;
+    flex-grow: 1;
+}
+
+/* Button Hover State */
+.action-button__button--common:hover {
+    opacity: 0.8;
+}
+
+/* Button Active State */
+.action-button__button--common:active {
+    opacity: 0.6;
+}
+
+/* Icon Container - Common Styles */
+.action-button__icon--common {
+    position: absolute;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Icon Background - Common Styles */
+.action-button__icon-background--common {
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Icon Symbol - Common Styles */
+.action-button__icon-symbol--common {
+}
+
+/* ================================
+   Size Modifiers
+   ================================ */
+
+/* Medium Size Variant (Default) */
+.action-button--medium {
+    min-width: 120px;
+}
+
+.action-button--medium .action-button__button--common {
+    height: 36px;
+    padding-top: 12px;
+    padding-right: 16px;
+    padding-bottom: 12px;
+    padding-left: 16px;
+    font-size: 18px;
+    margin-left: 24px;
+}
+
+.action-button--medium .action-button__icon--common {
+    width: 40px;
+    height: 40px;
+}
+
+.action-button--medium .action-button__icon-background--common {
+    width: 40px;
+    height: 40px;
+}
+
+.action-button--medium .action-button__icon-symbol--common {
+    width: 24px;
+    height: 24px;
+}
+
+/* Large Size Variant */
+.action-button--large {
+    min-width: 160px;
+}
+
+.action-button--large .action-button__button--common {
+    height: 48px;
+    padding-top: 16px;
+    padding-right: 24px;
+    padding-bottom: 16px;
+    padding-left: 24px;
+    font-size: 24px;
+    margin-left: 32px;
+}
+
+.action-button--large .action-button__icon--common {
+    width: 56px;
+    height: 56px;
+}
+
+.action-button--large .action-button__icon-background--common {
+    width: 56px;
+    height: 56px;
+}
+
+.action-button--large .action-button__icon-symbol--common {
+    width: 32px;
+    height: 32px;
+}

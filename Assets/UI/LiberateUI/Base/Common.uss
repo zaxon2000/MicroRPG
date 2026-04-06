@@ -1,0 +1,83 @@
+/* ── Comprehensive Base Variables (Overwriting Common.uss) ── */
+
+:root {
+    /* Font - Default */
+    -unity-font-definition: url('project://database/Assets/UI/LiberateUI/Resources/LiberateUI/Fonts/Pixelify_Sans/PixelifySans-VariableFont_wght-SDF.asset?fileID=11400000&guid=9fc2b2192db4d4a1e83dfe8e95bf4c05&type=2#PixelifySans-VariableFont_wght-SDF');
+    
+    /* Core Colors - Default (fallback to retro) */
+    --primary-color: #19183B;
+    --secondary-color: #708993;
+    --surface-color: #A1C2BD;
+    --on-primary-color: #A1C2BD;
+    --on-secondary-color: #19183B;
+    --on-surface-color: #19183B;
+
+    /* Font Size Tokens */
+    --font-size-small: 14px;
+    --font-size-medium: 18px;
+    --font-size-large: 24px;
+    --font-size-extra-large: 32px;
+
+    /* Spacing Tokens */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 24px;
+
+    /* Button Size Tokens */
+    --button-height-small: 28px;
+    --button-height-medium: 36px;
+    --button-height-large: 48px;
+    --button-height-extra-large: 64px;
+
+    --button-min-width-small: 80px;
+    --button-min-width-medium: 120px;
+    --button-min-width-large: 160px;
+    --button-min-width-extra-large: 200px;
+
+    /* Button Icon Tokens */
+    --button-icon-size-small: 16px;
+    --button-icon-size-medium: 24px;
+    --button-icon-size-large: 32px;
+
+    --button-icon-bg-size-small: 32px;
+    --button-icon-bg-size-medium: 40px;
+    --button-icon-bg-size-large: 56px;
+    --button-icon-bg-size-extra-large: 81px;
+    --button-icon-offset-small: 24px;
+    --button-icon-offset-medium: 24px;
+    --button-icon-offset-large: 32px;
+
+    /* Button Padding */
+    --button-padding-top-small: 8px;
+    --button-padding-right-small: 12px;
+    --button-padding-bottom-small: 8px;
+    --button-padding-left-small: 12px;
+    --button-padding-top-medium: 12px;
+    --button-padding-right-medium: 16px;
+    --button-padding-bottom-medium: 12px;
+    --button-padding-left-medium: 16px;
+    --button-padding-top-large: 16px;
+    --button-padding-right-large: 24px;
+    --button-padding-bottom-large: 16px;
+    --button-padding-left-large: 24px;
+
+    /* Border Radius Tokens */
+    --border-radius-sm: 2px;
+    --border-radius-md: 4px;
+    --border-radius-lg: 6px;
+    --border-radius-xl: 8px;
+    --border-radius-default: 4px;
+
+    /* GDS Compatibility Variables */
+    --cell-size: 32px;
+    --col-valid-action: #7ED957;
+    --col-invalid-action: #FF4D4D;
+    --overlay-opacity: 0.4;
+
+    /* Misc */
+    --transition-duration: 0.2s;
+    --toggle-check-off-image: resource('LiberateUI/PixelArtRetro/Frames/CheckOff');
+    --toggle-check-on-image: resource('LiberateUI/PixelArtRetro/Frames/CheckOn');
+}
