@@ -61,23 +61,16 @@
 
             </ui:VisualElement>
 
-            <!-- Right Column (Shop & Crafting) -->
-            <ui:VisualElement name="RightWindow" style="position: absolute; left: 650px; top: 10px; width: 320px; flex-direction: column;">
-                
-                <ui:VisualElement class="section-border" style="height: 440px; background-color: #19183B; padding: 0;">
-                    <ui:VisualElement name="RightHeader" class="row place-items-center" style="height: 40px; padding: 0 10px; cursor: move; background-color: #708993; border-bottom-width: 2px; border-bottom-color: #A1C2BD;">
-                        <ui:Label text="Actions" class="big-text" style="color: #19183B; flex-grow: 1;" />
-                        <ui:Button name="CloseRightBtn" text="X" class="unity-button" style="width: 24px; height: 24px; padding: 0;" />
-                    </ui:VisualElement>
-                    
-                    <!-- Tabs -->
-                    <ui:VisualElement class="row" style="height: 36px; border-bottom-width: 1px; border-bottom-color: #708993;">
-                        <ui:Button name="ShopTabBtn" text="Shop" class="unity-button" style="flex-grow: 1; border-radius: 0; border-width: 0 1px 0 0;" />
-                        <ui:Button name="CraftTabBtn" text="Craft" class="unity-button" style="flex-grow: 1; border-radius: 0; border-width: 0;" />
+            <!-- Shop Window -->
+            <ui:VisualElement name="ShopWindow" style="position: absolute; left: 650px; top: 10px; width: 320px; flex-direction: column;">
+                <ui:VisualElement class="section-border" style="height: 300px; background-color: #19183B; padding: 0;">
+                    <ui:VisualElement name="ShopHeader" class="row place-items-center" style="height: 40px; padding: 0 10px; cursor: move; background-color: #708993; border-bottom-width: 2px; border-bottom-color: #A1C2BD;">
+                        <ui:Label text="Shop" class="big-text" style="color: #19183B; flex-grow: 1;" />
+                        <ui:Button name="CloseShopBtn" text="X" class="unity-button" style="width: 24px; height: 24px; padding: 0;" />
                     </ui:VisualElement>
 
                     <ui:ScrollView style="flex-grow: 1;">
-                        <ui:VisualElement name="SidePanel" style="padding: 10px;" />
+                        <ui:VisualElement name="ShopPanel" style="padding: 10px;" />
                     </ui:ScrollView>
 
                     <!-- Sell Area -->
@@ -86,7 +79,20 @@
                         <ui:VisualElement name="PiggyIcon" style="width: 32px; height: 32px; margin-left: 10px; background-image: url(&quot;project://database/Assets/GDS/Common/Sprites/ui/icon_piggy.png&quot;);" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+            </ui:VisualElement>
 
+            <!-- Crafting Window -->
+            <ui:VisualElement name="CraftingWindow" style="position: absolute; left: 650px; top: 320px; width: 320px; flex-direction: column;">
+                <ui:VisualElement class="section-border" style="height: 300px; background-color: #19183B; padding: 0;">
+                    <ui:VisualElement name="CraftingHeader" class="row place-items-center" style="height: 40px; padding: 0 10px; cursor: move; background-color: #708993; border-bottom-width: 2px; border-bottom-color: #A1C2BD;">
+                        <ui:Label text="Crafting" class="big-text" style="color: #19183B; flex-grow: 1;" />
+                        <ui:Button name="CloseCraftingBtn" text="X" class="unity-button" style="width: 24px; height: 24px; padding: 0;" />
+                    </ui:VisualElement>
+
+                    <ui:ScrollView style="flex-grow: 1;">
+                        <ui:VisualElement name="CraftingPanel" style="padding: 10px;" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
             </ui:VisualElement>
 
         </ui:VisualElement>

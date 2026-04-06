@@ -23,7 +23,6 @@ namespace GDS.Demos.Combined {
         BackpackShop          _shop;
         BasicCraftingBench    _craftingBench;
         Observable<int>       _playerGold;
-        Observable<bool>      _craftingActive;
         System.Action         _resetGold;
 
         VisualElement _root;
@@ -41,16 +40,18 @@ namespace GDS.Demos.Combined {
             _root.Q<Button>("InventoryBtn").RegisterCallback<ClickEvent>(_ => ToggleUI());
 
             // Close buttons.
-            WireCloseButton("CloseBackpackBtn", "BackpackWindow");
-            WireCloseButton("CloseStorageBtn",  "StorageWindow");
-            WireCloseButton("CloseCenterBtn",   "CenterWindow");
-            WireCloseButton("CloseRightBtn",    "RightWindow");
+            WireCloseButton("CloseBackpackBtn",  "BackpackWindow");
+            WireCloseButton("CloseStorageBtn",   "StorageWindow");
+            WireCloseButton("CloseCenterBtn",    "CenterWindow");
+            WireCloseButton("CloseShopBtn",      "ShopWindow");
+            WireCloseButton("CloseCraftingBtn",  "CraftingWindow");
 
             // Window drag.
-            AttachDragManipulator("BackpackHeader", "BackpackWindow");
-            AttachDragManipulator("StorageHeader",  "StorageWindow");
-            AttachDragManipulator("CenterHeader",   "CenterWindow");
-            AttachDragManipulator("RightHeader",    "RightWindow");
+            AttachDragManipulator("BackpackHeader",  "BackpackWindow");
+            AttachDragManipulator("StorageHeader",   "StorageWindow");
+            AttachDragManipulator("CenterHeader",    "CenterWindow");
+            AttachDragManipulator("ShopHeader",      "ShopWindow");
+            AttachDragManipulator("CraftingHeader",  "CraftingWindow");
 
             SyncUIVisibility();
         }
@@ -66,7 +67,6 @@ namespace GDS.Demos.Combined {
             BackpackShop          shop,
             BasicCraftingBench    craftingBench,
             Observable<int>       playerGold,
-            Observable<bool>      craftingActive,
             System.Action         resetGold) {
 
             _invStore       = invStore;
@@ -75,7 +75,6 @@ namespace GDS.Demos.Combined {
             _shop           = shop;
             _craftingBench  = craftingBench;
             _playerGold     = playerGold;
-            _craftingActive = craftingActive;
             _resetGold      = resetGold;
 
             // Manipulators need the event bus and ghost observable.
@@ -92,16 +91,13 @@ namespace GDS.Demos.Combined {
             var storageView = _root.Q<ListBagView>("StorageView");
             storageView.Init(_storage, 10);
 
-            // Shop / Craft tab buttons + swappable SidePanel.
-            var sidePanel = _root.Q<VisualElement>("SidePanel");
-            _root.Q<Button>("ShopTabBtn").RegisterCallback<ClickEvent>(_ => _craftingActive.SetValue(false));
-            _root.Q<Button>("CraftTabBtn").RegisterCallback<ClickEvent>(_ => _craftingActive.SetValue(true));
+            // Shop panel (own window).
+            var shopPanel = _root.Q<VisualElement>("ShopPanel");
+            BuildShopPanel(shopPanel);
 
-            _root.Observe(_craftingActive, active => {
-                sidePanel.Clear();
-                if (active) BuildCraftingPanel(sidePanel, _craftingBench);
-                else        BuildShopPanel(sidePanel);
-            });
+            // Crafting panel (own window).
+            var craftingPanel = _root.Q<VisualElement>("CraftingPanel");
+            BuildCraftingPanel(craftingPanel, _craftingBench);
 
             // Sell drop zone.
             var piggyIcon = _root.Q<VisualElement>("PiggyIcon");
@@ -139,7 +135,7 @@ namespace GDS.Demos.Combined {
         }
 
         void RestoreAllPanels() {
-            foreach (var name in new[] { "BackpackWindow", "StorageWindow", "CenterWindow", "RightWindow" })
+            foreach (var name in new[] { "BackpackWindow", "StorageWindow", "CenterWindow", "ShopWindow", "CraftingWindow" })
                 SetPanelVisible(name, true);
         }
 
