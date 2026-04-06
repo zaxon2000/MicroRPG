@@ -25,7 +25,7 @@
 }
 
 /* ── Headers ── */
-#BackpackHeader, #StorageHeader, #CenterHeader, #RightHeader {
+#BackpackHeader, #StorageHeader, #CenterHeader, #ShopHeader, #CraftingHeader {
     background-color: #708993;
     border-bottom-width: 2px;
     border-bottom-color: #A1C2BD;
