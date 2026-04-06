@@ -1,8 +1,0 @@
-/* ================================
-   Item Card - DarkHandDrawnFantasy Theme
-   ================================ */
-
-/* Item Card Background */
-.item-card--theme-art {
-    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Buttons/ButtonBackground');
-}

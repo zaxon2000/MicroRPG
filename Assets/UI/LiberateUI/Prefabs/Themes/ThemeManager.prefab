@@ -46,18 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Document: {fileID: 0}
   m_ThemeSettings:
-  - theme: Landscape--CelShadedBoldOutline
-    tss: {fileID: -4733365628477956816, guid: 59d3924c7aaf54f43a576299fa8caaf6, type: 3}
-    panelSettings: {fileID: 11400000, guid: 539b9244e896544739ff3e5cc7308f67, type: 2}
-  - theme: Landscape--DarkHandDrawnFantasy
-    tss: {fileID: -4733365628477956816, guid: 2c94513ace97442a1b2a5b46e6b58497, type: 3}
-    panelSettings: {fileID: 11400000, guid: 539b9244e896544739ff3e5cc7308f67, type: 2}
-  - theme: Portrait--CelShadedBoldOutline
-    tss: {fileID: -4733365628477956816, guid: c1305c55a6e5d4958b24d38eedcb00d3, type: 3}
-    panelSettings: {fileID: 11400000, guid: 1166226bbe3064969afe85904336ff31, type: 2}
-  - theme: Portrait--DarkHandDrawnFantasy
-    tss: {fileID: -4733365628477956816, guid: c182582d4f38f41838068fb52f9019e7, type: 3}
-    panelSettings: {fileID: 11400000, guid: 1166226bbe3064969afe85904336ff31, type: 2}
   - theme: Landscape--PixelArtRetro
     tss: {fileID: -4733365628477956816, guid: 2d03d5f8a5dc14b849e372fb719a9ab7, type: 3}
     panelSettings: {fileID: 11400000, guid: 539b9244e896544739ff3e5cc7308f67, type: 2}

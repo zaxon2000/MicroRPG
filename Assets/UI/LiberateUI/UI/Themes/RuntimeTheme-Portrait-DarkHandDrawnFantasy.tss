@@ -1,7 +1,0 @@
-@import url("unity-theme://default");
-
-/* IMPORTANT: Art theme must be imported BEFORE resolution theme
-   because resolution styles use CSS variables (like --primary-color)
-   that are defined in the art theme files */
-@import url("DarkHandDrawnFantasy.tss");
-@import url("RuntimeTheme-Portrait.tss");

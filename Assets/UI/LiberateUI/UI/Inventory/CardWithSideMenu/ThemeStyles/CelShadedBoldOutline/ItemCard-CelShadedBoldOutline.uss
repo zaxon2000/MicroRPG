@@ -1,8 +1,0 @@
-/* ================================
-   Item Card - CelShadedBoldOutline Theme
-   ================================ */
-
-/* Item Card Background */
-.item-card--theme-art {
-    background-image: resource('LiberateUI/CelShadedBoldOutline/Frames/Frame_3');
-}

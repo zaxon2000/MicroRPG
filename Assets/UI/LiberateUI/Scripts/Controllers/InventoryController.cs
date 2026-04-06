@@ -345,8 +345,8 @@ namespace LiberateUI
                 return themeManager.GetCurrentArtStyle();
             }
 
-            Debug.LogWarning("[InventoryController] ThemeManager not found, defaulting to DarkHandDrawnFantasy");
-            return "DarkHandDrawnFantasy";
+            Debug.LogWarning("[InventoryController] ThemeManager not found, defaulting to PixelArtRetro");
+            return "PixelArtRetro";
         }
     }
     public static class StringExtensions
