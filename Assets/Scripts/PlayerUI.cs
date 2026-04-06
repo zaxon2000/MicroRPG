@@ -29,22 +29,25 @@ public class PlayerUI : MonoBehaviour
         levelText.text = "Lvl\n" + player.curLevel;
     }
 
-    // update the health bar fill amount
+    // update the health bar fill
     public void UpdateHealthBar ()
     {
-        healthBarFill.fillAmount = (float)player.curHp / (float)player.maxHp;
+        float pct = Mathf.Clamp01((float)player.curHp / (float)player.maxHp);
+        healthBarFill.transform.localScale = new Vector3(pct, 1f, 1f);
     }
 
-    // update the xp bar fill amount
+    // update the xp bar fill
     public void UpdateXpBar ()
     {
-        xpBarFill.fillAmount = (float)player.curXp / (float)player.xpToNextLevel;
+        float pct = Mathf.Clamp01((float)player.curXp / (float)player.xpToNextLevel);
+        xpBarFill.transform.localScale = new Vector3(pct, 1f, 1f);
     }
-    
-    // update the stamina bar fill amount
+
+    // update the stamina bar fill
     public void UpdateStaminaBar ()
     {
-        staminaBarFill.fillAmount = (float)movement.curStamina / (float)movement.maxStamina;
+        float pct = Mathf.Clamp01((float)movement.curStamina / (float)movement.maxStamina);
+        staminaBarFill.transform.localScale = new Vector3(pct, 1f, 1f);
     }
 
     // called when we can interact with something
