@@ -1,48 +1,55 @@
 # Asset Creation Strategy - MicroRPG
 
-This document outlines the strategy for generating and managing assets for the MicroRPG project, ensuring visual consistency and technical compatibility with the existing Unity setup.
+This document outlines the strategy for generating and managing assets for the MicroRPG project, specifically adhering to the **PixelArtRetro** aesthetic to ensure visual consistency and technical compatibility.
 
-## 1. Visual Style & Aesthetic Goals
-- **Primary Style**: 16-bit/32-bit Pixel Art.
-- **Perspective**: Top-down / Orthographic (consistent with existing Tilemaps).
-- **Consistency**: All new assets must match the clean, vibrant, and tile-based look of the current `RPGpack` and `sokoban` spritesheets.
-- **Palette**: Use vibrant colors with distinct outlines to ensure readability against the stone/dirt tilemaps.
+## 1. Visual Style: PixelArtRetro
+All new assets must strictly follow the **PixelArtRetro** style found in the `Assets/UI/LiberateUI/Resources/LiberateUI/PixelArtRetro` folder.
+
+- **Aesthetic**: Classic 16-bit/32-bit "Retro" pixel art.
+- **Color Palette**: Use the vibrant yet slightly muted "retro" palette consistent with the `PixelArtRetro` sample assets (e.g., the Deep Blue/Teal/Sage tones).
+- **Outlines**: Thick, clean pixel-perfect outlines (often dark or black) to define shapes clearly.
+- **Perspective**: Top-down or "2.5D" isometric-lite (consistent with the character and item previews).
+- **Detailing**: High-contrast shading with distinct pixel clusters; avoid blurry gradients.
 
 ## 2. Asset Generation Workflow
 
-### 2.1 2D Sprites (Characters, Items, Props)
-- **Tool**: `mcp_unity_Unity_AssetGeneration_GenerateAsset` with `command: "GenerateSprite"`.
-- **Prompting**: Use specific keywords: `"16-bit pixel art, top-down RPG style, [Description], clean lines, transparent background, stylized"`.
-- **Post-Processing**: Always call `RemoveSpriteBackground` after generation to ensure perfect alpha transparency.
-- **Refinement**: Use `EditSpriteWithPrompt` if the initial generation needs color adjustments or detail changes to match the existing set.
+### 2.1 2D Sprites & Spritesheets (Characters, Items, Props)
+- **Tool**: `mcp_unity_Unity_AssetGeneration_GenerateAsset` with `command: "GenerateSprite"` or `"GenerateSpritesheet"`.
+- **Prompting**: Use the prefix: `"PixelArtRetro style, 16-bit high-quality pixel art, [Description], clean thick outlines, vibrant retro colors, transparent background, stylized"`.
+- **Specifics for Spritesheets**: When generating animations (walking, attacking), ensure the grid alignment matches the existing `RPGpack` or `sokoban` sheets if they are being replaced or augmented.
 
-### 2.2 UI Elements
-- **Icons**: Generate 64x64 or 128x128 pixel art icons for items (Hammer, Axe, Pan, Coin).
-- **Frames/Buttons**: Use `GenerateSprite` with prompts for UI elements that complement the existing `PlayerUICanvas`.
+### 2.2 Tilesheets & Environments
+- **Tool**: `GenerateSpritesheet` or `GenerateImage` (for large background tiles).
+- **Prompting**: `"PixelArtRetro style, seamless floor/wall tile, top-down RPG, [Material: Stone/Dirt/Grass], 32x32 pixel grid consistency"`.
+- **Note**: Ensure tiles are designed for a grid-based system (e.g., 32x32 or 64x64 pixels per unit).
 
-### 2.3 Audio & SFX
-- **Tool**: `mcp_unity_Unity_AssetGeneration_GenerateAsset` with `command: "GenerateSound"`.
+### 2.3 UI Elements (Icons, Buttons, Frames)
+- **Tool**: `GenerateSprite`.
+- **Icons**: 64x64 or 128x128 for inventory items (match the resolution of `PixelArtRetro/Items`).
+- **Frames/Buttons**: Follow the "heavy border" look of the `PixelArtRetro/Frames` and `PixelArtRetro/Buttons` folders.
+- **Prompting**: `"PixelArtRetro UI style, [Item/Button Name], 16-bit pixel art icon, thick borders, retro aesthetic"`.
+
+### 2.4 Audio & SFX
+- **Tool**: `GenerateSound`.
+- **Style**: "8-bit/16-bit Chiptune" or "Retro Arcade" sounds to match the visual era.
 - **Categories**:
-    - **Actions**: "Mining/Rock hitting", "Axe swing", "Eating/Using item".
-    - **Feedback**: "Coin pickup chime", "Quest completion fanfare", "Health low warning".
-
-### 2.4 3D Meshes (Optional)
-- While the project is primarily 2D, any 3D elements (e.g., for specialized VFX or background elements) should be generated using `GenerateMesh` with a low-poly or voxel-like prompt to maintain stylistic harmony.
+    - **Actions**: "8-bit sword slash", "Classic retro mining tink", "Pixel-collecting chime".
+    - **Feedback**: "Retro quest complete fanfare", "Old-school health low beep".
 
 ## 3. Implementation & Validation
 
 ### 3.1 Organization
-- **Sprites**: `Assets/Sprites/Generated/`
-- **Prefabs**: `Assets/Prefabs/Generated/`
-- **Audio**: `Assets/Audio/Generated/`
-- **Materials**: `Assets/Materials/Generated/`
+- **Sprites**: `Assets/Sprites/Generated/PixelArtRetro/`
+- **Prefabs**: `Assets/Prefabs/Generated/PixelArtRetro/`
+- **Audio**: `Assets/Audio/Generated/Retro/`
+- **UI**: `Assets/Custom UI/PixelArtRetro/`
 
 ### 3.2 Verification
-1. **Visual Check**: Place the new asset in the current scene near existing assets (e.g., near the Player or Boulder).
-2. **Capture**: Use `mcp_unity_Unity_SceneView_Capture2DScene` to capture the area and verify that the asset doesn't "clash" with the background or existing sprites.
-3. **Functional Check**: Ensure the asset is correctly assigned to its intended Prefab or ScriptableObject (e.g., `GroundItem` script).
+1. **Side-by-Side Check**: Place the new asset in a scene next to a `PixelArtRetro` sample asset (e.g., `Starlight_Dagger`).
+2. **Capture**: Use `mcp_unity_Unity_SceneView_Capture2DScene` to verify that the lighting and contrast match the existing environment.
+3. **Integration**: Update `UIDocument` files in `Custom UI` to point to the new PixelArtRetro-styled icons and textures.
 
-## 4. Immediate Asset Needs (Based on Scene Analysis)
-- **Enemy Variations**: New 16-bit pixel art enemy sprites (e.g., Slime, Skeleton).
-- **Interactive Props**: Variation for "Chest", "QuestGiver", and "GroundItem" visuals.
-- **VFX Sprites**: Pixel art particles for "HitEffect" and "Coin pickup".
+## 4. Priority Assets (PixelArtRetro Style)
+- **Enemy Overhaul**: Redesign Slime, Skeleton, and other enemies in the Retro style.
+- **UI Refresh**: Update the `PlayerUICanvas` and `QuestLogUI` with Retro-styled buttons and frames.
+- **Item Icons**: Generate high-quality retro icons for all `GroundItem` types (Hammer, Axe, Pan).
