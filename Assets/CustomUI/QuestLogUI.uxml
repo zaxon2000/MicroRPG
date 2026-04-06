@@ -3,7 +3,7 @@
          noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd"
          editor-extension-mode="False">
 
-    <Style src="project://database/Assets/UI/QuestLogUI.uss" />
+    <Style src="QuestLogUI.uss" />
 
     <!--
         Transparent full-screen root. picking-mode="Ignore" ensures all
