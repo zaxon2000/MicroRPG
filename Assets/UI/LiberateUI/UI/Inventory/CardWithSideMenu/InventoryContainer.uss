@@ -1,0 +1,26 @@
+.inventory-container {
+    padding: 20px;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 10px;
+    border-width: 2px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.inventory-container__grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.inventory-container__scrollview .unity-scroll-view__content-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}

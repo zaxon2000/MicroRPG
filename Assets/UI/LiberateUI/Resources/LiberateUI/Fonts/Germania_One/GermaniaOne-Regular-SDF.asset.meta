@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2fffc7457ab1d42d2a534fc48bf77fb3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 338266
+  packageName: Fantasy RPG UI Toolkit Starter
+  packageVersion: 1.0.0
+  assetPath: Assets/UI/LiberateUI/Resources/LiberateUI/Fonts/Germania_One/GermaniaOne-Regular-SDF.asset
+  uploadId: 800732

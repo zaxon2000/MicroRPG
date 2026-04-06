@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3dae7a087e095414d89500ad48ab5615
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 12385, guid: 0000000000000000e000000000000000, type: 0}
+  disableValidation: 0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 338266
+  packageName: Fantasy RPG UI Toolkit Starter
+  packageVersion: 1.0.0
+  assetPath: Assets/UI/LiberateUI/UI/Components/Button/ThemeStyles/Landscape/ActionButton-Landscape.uss
+  uploadId: 800732

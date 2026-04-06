@@ -1,0 +1,53 @@
+/* ================================
+   Item PopUp - CelShadedBoldOutline Theme
+   ================================ */
+
+/* Main Container Background */
+.item-popup--theme-art {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Frames/Frame_1');
+}
+
+/* Preview Container Background */
+.item-popup__preview-container--theme-art {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Frames/Frame_3');
+}
+
+/* Stats Section Background */
+.item-popup__stats--theme-art {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Frames/Frame_3');
+}
+
+/* Description Section Background */
+.item-popup__description--theme-art {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Frames/Frame_3');
+}
+
+#sell-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Icons/MoneyBag');
+}
+
+#equip-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Icons/GloveClenched');
+}
+
+#close-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Icons/Cross');
+}
+
+
+/* Stat Item Icon Overrides */
+#damage-stat .stat-item__icon {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Icons/Sword');
+}
+
+#armor-stat .stat-item__icon {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Icons/Shield');
+}
+
+#value-stat .stat-item__icon {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Icons/MoneyBag');
+}
+
+#enchantment-stat .stat-item__icon {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Icons/Sword');
+}

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f1823214ee03c4f9599037b30525ee7f
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 12385, guid: 0000000000000000e000000000000000, type: 0}
+  disableValidation: 0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 338266
+  packageName: Fantasy RPG UI Toolkit Starter
+  packageVersion: 1.0.0
+  assetPath: Assets/UI/LiberateUI/UI/Base/Common.uss
+  uploadId: 800732

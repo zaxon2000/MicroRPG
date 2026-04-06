@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: 7a5654ed041bf4d75b7ac463484b81fe
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Germania One
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 338266
+  packageName: Fantasy RPG UI Toolkit Starter
+  packageVersion: 1.0.0
+  assetPath: Assets/UI/LiberateUI/Resources/LiberateUI/Fonts/Germania_One/GermaniaOne-Regular.ttf
+  uploadId: 800732

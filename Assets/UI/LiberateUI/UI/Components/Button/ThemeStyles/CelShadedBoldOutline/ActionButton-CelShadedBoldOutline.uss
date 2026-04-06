@@ -1,0 +1,13 @@
+/* ================================
+   Action Button - CelShadedBoldOutline Theme
+   ================================ */
+
+/* Button Background */
+.action-button__button--theme-art {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Buttons/PrimaryButton');
+}
+
+/* Icon Background */
+.action-button__icon-background--theme-art {
+    background-image: resource('LiberateUI/CelShadedBoldOutline/Icons/PrimaryIconBackground');
+}

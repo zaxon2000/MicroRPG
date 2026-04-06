@@ -1,0 +1,45 @@
+/* ================================
+   Character Preview - PixelArtRetro Theme
+   ================================ */
+
+/* Character Preview Background */
+.character-preview--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/SecondaryFilledFrame');
+}
+
+/* Item Slot Background */
+.item-slot--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/PrimaryFilledFrame');
+}
+
+/* Character Preview Container Background */
+.char-preview-container--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/PrimaryFilledFrame');
+}
+
+/* Character Image */
+.char-preview__image--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Characters/Warrior');
+}
+
+/* Stats Info Container Background */
+.stats-info-container--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/PrimaryFilledFrame');
+}
+
+/* Item Slot Icon Specific Styles */
+.item-slot__icon--dragonfang-claymore {
+    background-image: resource('LiberateUI/PixelArtRetro/Items/Deep_Blue_Boots');
+}
+
+.item-slot__icon--alchemist-goggles {
+    background-image: resource('LiberateUI/PixelArtRetro/Items/Teal_Mage_Robe');
+}
+
+.item-slot__icon--siren-tear-amulet {
+    background-image: resource('LiberateUI/PixelArtRetro/Items/Deep_Sea_Sword');
+}
+
+.item-slot__icon--dragon-scale-belt {
+    background-image: resource("LiberateUI/PixelArtRetro/Items/Knight_Gauntlet");
+}

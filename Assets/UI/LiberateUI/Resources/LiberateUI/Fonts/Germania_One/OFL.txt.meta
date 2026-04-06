@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cf1c5a0c0bd8946059339cc6f57f23b5
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 338266
+  packageName: Fantasy RPG UI Toolkit Starter
+  packageVersion: 1.0.0
+  assetPath: Assets/UI/LiberateUI/Resources/LiberateUI/Fonts/Germania_One/OFL.txt
+  uploadId: 800732

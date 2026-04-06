@@ -1,0 +1,53 @@
+/* ================================
+   Item Pop Up - PixelArtRetro Theme
+   ================================ */
+
+/* Item Pop Up Background */
+.item-popup--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/SecondaryFilledFrame');
+}
+
+/* Preview Container Background */
+.item-popup__preview-container--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/PrimaryFilledFrame');
+}
+
+/* Stats Section Background */
+.item-popup__stats--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/PrimaryFilledFrame');
+}
+
+/* Description Section Background */
+.item-popup__description--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/PrimaryFilledFrame');
+}
+
+
+#sell-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Icons/MoneyBag');
+}
+
+#equip-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Icons/Fist');
+}
+
+#close-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Icons/Cross');
+}
+
+/* Stat Item Icon Overrides */
+#damage-stat .stat-item__icon {
+    background-image: resource('LiberateUI/PixelArtRetro/Icons/Sword');
+}
+
+#armor-stat .stat-item__icon {
+    background-image: resource('LiberateUI/PixelArtRetro/Icons/Shield');
+}
+
+#value-stat .stat-item__icon {
+    background-image: resource('LiberateUI/PixelArtRetro/Icons/MoneyBag');
+}
+
+#enchantment-stat .stat-item__icon {
+    background-image: resource('LiberateUI/PixelArtRetro/Icons/Sword');
+}

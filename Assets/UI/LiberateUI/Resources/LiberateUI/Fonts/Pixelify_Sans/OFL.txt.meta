@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 011aa425edc354bb28f4b84af6f2a58e
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 338266
+  packageName: Fantasy RPG UI Toolkit Starter
+  packageVersion: 1.0.0
+  assetPath: Assets/UI/LiberateUI/Resources/LiberateUI/Fonts/Pixelify_Sans/OFL.txt
+  uploadId: 800732

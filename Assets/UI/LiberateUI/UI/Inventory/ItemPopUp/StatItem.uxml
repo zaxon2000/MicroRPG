@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/LiberateUI/UI/Inventory/ItemPopUp/StatItem.uss?fileID=7433441132597879392&amp;guid=57f0a8ddc8cf54e1586041d53255dcac&amp;type=3#StatItem" />
+    <ui:VisualElement name="stat-item" class="stat-item">
+        <ui:VisualElement name="stat-icon" class="stat-item__icon" />
+        <ui:Label text="Stat: Value" name="stat-text" class="stat-item__text" />
+    </ui:VisualElement>
+</ui:UXML>

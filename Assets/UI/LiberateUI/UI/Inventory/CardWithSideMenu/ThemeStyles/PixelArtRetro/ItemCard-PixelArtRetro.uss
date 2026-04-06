@@ -1,0 +1,8 @@
+/* ================================
+   Item Card - PixelArtRetro Theme
+   ================================ */
+
+/* Item Card Background */
+.item-card--theme-art {
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/PrimaryFilledFrame');
+}

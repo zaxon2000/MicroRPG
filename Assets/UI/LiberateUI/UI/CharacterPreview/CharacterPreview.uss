@@ -1,0 +1,95 @@
+/* Character Preview - Common Styles */
+
+.character-preview--common {
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+}
+
+/* Item Slots - Absolute Positioning */
+.item-slot--common {
+    position: absolute;
+    -unity-background-scale-mode: scale-to-fit;
+    border-radius: var(--border-radius-sm);
+    justify-content: center;
+    align-items: center;
+    transition-property: scale;
+    transition-duration: 0.25s;
+}
+
+.item-slot--common:hover {
+    scale: 1.1;
+}
+
+.item-slot--top-left {
+    top: var(--spacing-xl);
+    left: var(--spacing-xl);
+}
+
+.item-slot--top-right {
+    top: var(--spacing-xl);
+    right: var(--spacing-xl);
+}
+
+.item-slot--bottom-left {
+    bottom: var(--spacing-xl);
+    left: var(--spacing-xl);
+}
+
+.item-slot--bottom-right {
+    bottom: var(--spacing-xl);
+    right: var(--spacing-xl);
+}
+
+.item-slot__icon--common {
+    width: 70%;
+    height: 80%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* Character Preview Container */
+.char-preview-container--common {
+    position: relative;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-width: 2px;
+    justify-content: center;
+    align-items: center;
+}
+
+.char-preview__image--common {
+    width: 60%;
+    height: 60%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* Stats Info Container */
+.stats-info-container--common {
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-xl);
+}
+
+.stats-title--common {
+    font-size: var(--font-size-large);
+    color: var(--primary-color);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    margin-bottom: var(--spacing-xl);
+}
+
+.stat-row--common {
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    justify-content: space-between;
+}
+
+.stat-row__label--common {
+    font-size: var(--font-size-medium);
+    color: var(--primary-color);
+    -unity-font-style: bold;
+}
+
+.stat-row__value--common {
+    font-size: var(--font-size-medium);
+    color: var(--primary-color);
+}

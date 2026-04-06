@@ -1,0 +1,12 @@
+/* IMPORTANT: Do NOT import unity-theme://default here!
+   The default theme import overrides all theme-specific settings due to CSS import precedence.
+   Theme-specific styles must be defined in the imported files below. */
+
+@import url("../Base/ThemeStyles/Portrait/Common-Portrait.uss");
+@import url("../Components/Button/ThemeStyles/Portrait/ActionButton-Portrait.uss");
+@import url("../MainMenu/ThemeStyles/Portrait/MainMenu-Portrait.uss");
+@import url("../Inventory/ThemeStyles/Portrait/InventoryContainer-Portrait.uss");
+@import url("../Inventory/ItemPopUp/ThemeStyles/Portrait/ItemPopUp-Portrait.uss");
+@import url("../CharacterPreview/ThemeStyles/Portrait/CharacterPreview-Portrait.uss");
+@import url("../Settings/ThemeStyles/Portrait/SettingsScreen-Portrait.uss");
+@import url("../Inventory/CardWithSideMenu/ThemeStyles/Portrait/ItemCard-Portrait.uss");

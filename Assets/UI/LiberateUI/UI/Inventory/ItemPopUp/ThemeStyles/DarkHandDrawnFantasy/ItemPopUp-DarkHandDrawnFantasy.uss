@@ -1,0 +1,54 @@
+/* ================================
+   Item PopUp - DarkHandDrawnFantasy Theme
+   ================================ */
+
+/* Main Container Background */
+.item-popup--theme-art {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Frames/ItemDescFrame');
+}
+
+/* Preview Container Background */
+.item-popup__preview-container--theme-art {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Frames/ItemStatsBackground');
+}
+
+/* Stats Section Background */
+.item-popup__stats--theme-art {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Frames/ItemStatsBackground');
+}
+
+/* Description Section Background */
+.item-popup__description--theme-art {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Frames/ItemStatsBackground');
+}
+
+#sell-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Icons/MoneyBag');
+}
+
+#equip-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Icons/GloveClenched');
+}
+
+#close-action .action-button__icon-symbol--theme-art {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Icons/Cross');
+}
+
+
+/* Stat Item Icon Overrides */
+#damage-stat .stat-item__icon {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Icons/DarkGreyIcon/Sword');
+}
+
+#armor-stat .stat-item__icon {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Icons/DarkGreyIcon/Shield');
+}
+
+#value-stat .stat-item__icon {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Icons/DarkGreyIcon/Coin');
+}
+
+#enchantment-stat .stat-item__icon {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Icons/DarkGreyIcon/Sword');
+}
+

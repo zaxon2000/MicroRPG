@@ -1,0 +1,36 @@
+/* Portrait Theme Styles for ItemPopUp */
+.item-popup--theme {
+    width: 80%;
+    height: 65%;
+}
+
+/* Main content layout - column direction for portrait */
+.item-popup__content--theme {
+    flex-direction: column;
+}
+
+/* Preview and Stats Container - horizontal layout in portrait */
+.item-popup__preview-stats-container--theme {
+    flex-direction: row;
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
+
+/* Item Preview - takes half the width in portrait */
+.item-popup__preview--theme {
+    flex-grow: 1;
+    flex-basis: 50%;
+    margin-right: 10px;
+}
+
+/* Stats Section - takes half the width in portrait */
+.item-popup__stats--theme {
+    flex-grow: 1;
+    flex-basis: 50%;
+    margin-left: 10px;
+}
+
+/* Description Section - takes twice the space vertically */
+.item-popup__description--theme {
+    flex-grow: 2;
+}

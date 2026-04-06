@@ -1,0 +1,61 @@
+/* ================================
+   Inventory Container - DarkHandDrawnFantasy Theme
+   ================================ */
+
+/* Inventory Container Background */
+.inventory-container--theme-art {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Frames/SettingsPanel');
+}
+
+ScrollView #unity-low-button {
+    display: none;
+}
+
+ScrollView #unity-high-button {
+    display: none;
+}
+
+ScrollView #unity-drag-container {
+    width: 100%;
+    right: 45%;
+    align-items: auto;
+    justify-content: flex-start;
+    align-self: flex-start;
+}
+
+ScrollView #unity-dragger {
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Frames/Marker');
+    -unity-background-scale-mode: stretch-to-fill;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    flex-shrink: 0;
+    flex-grow: 0;
+    max-width: 60px;
+    max-height: 60px;
+    width: 60px;
+    height: 60px;
+    left: 33%;
+}
+
+ScrollView #unity-tracker {
+    background-color: rgba(0, 0, 0, 0);
+    display: flex;
+    -unity-background-image-tint-color: rgba(12, 13, 17, 0.48);
+    position: absolute;
+    background-image: resource('LiberateUI/DarkHandDrawnFantasy/Buttons/ScrollBackground');
+    -unity-background-scale-mode: stretch-to-fill;
+    border-width: 0px;
+    width: 25%;
+    max-width: 100%;
+    left: 50%;
+    height: 88%;
+    top: 5%;
+}
+
+ScrollView #unity-slider {
+    width: 100px;
+    left: -42%;
+}

@@ -1,0 +1,14 @@
+.inventory_container_instance--theme {
+    flex-grow: 8;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.inventory-container--theme {
+    width: 70%;
+    height: 70%;
+}

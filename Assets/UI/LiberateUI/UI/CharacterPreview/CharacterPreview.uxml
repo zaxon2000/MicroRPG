@@ -1,0 +1,39 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="CharacterPreview.uss" />
+    <ui:VisualElement name="character-preview-root" class="character-preview--common character-preview--theme character-preview--theme-art">
+        <ui:VisualElement name="char-preview-container" class="char-preview-container--common char-preview-container--theme char-preview-container--theme-art">
+            <ui:VisualElement name="char-preview-image" class="char-preview__image--common char-preview__image--theme-art" />
+            <ui:VisualElement name="item-slot-1" class="item-slot--common item-slot--theme item-slot--theme-art item-slot--top-left">
+                <ui:VisualElement class="item-slot__icon--common item-slot__icon--dragonfang-claymore" />
+            </ui:VisualElement>
+            <ui:VisualElement name="item-slot-2" class="item-slot--common item-slot--theme item-slot--theme-art item-slot--top-right">
+                <ui:VisualElement class="item-slot__icon--common item-slot__icon--alchemist-goggles" />
+            </ui:VisualElement>
+            <ui:VisualElement name="item-slot-3" class="item-slot--common item-slot--theme item-slot--theme-art item-slot--bottom-left">
+                <ui:VisualElement class="item-slot__icon--common item-slot__icon--siren-tear-amulet" />
+            </ui:VisualElement>
+            <ui:VisualElement name="item-slot-4" class="item-slot--common item-slot--theme item-slot--theme-art item-slot--bottom-right">
+                <ui:VisualElement class="item-slot__icon--common item-slot__icon--dragon-scale-belt" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="stats-info-container" class="stats-info-container--common stats-info-container--theme stats-info-container--theme-art">
+            <ui:Label text="Stats" class="stats-title--common" />
+            <ui:VisualElement class="stat-row--common stat-row--theme">
+                <ui:Label text="HP:" class="stat-row__label--common" />
+                <ui:Label text="100" class="stat-row__value--common" />
+            </ui:VisualElement>
+            <ui:VisualElement class="stat-row--common stat-row--theme">
+                <ui:Label text="ATK:" class="stat-row__label--common" />
+                <ui:Label text="50" class="stat-row__value--common" />
+            </ui:VisualElement>
+            <ui:VisualElement class="stat-row--common stat-row--theme">
+                <ui:Label text="DEF:" class="stat-row__label--common" />
+                <ui:Label text="30" class="stat-row__value--common" />
+            </ui:VisualElement>
+            <ui:VisualElement class="stat-row--common stat-row--theme">
+                <ui:Label text="SPD:" class="stat-row__label--common" />
+                <ui:Label text="20" class="stat-row__value--common" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

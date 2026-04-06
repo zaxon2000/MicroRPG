@@ -1,0 +1,23 @@
+.menu__container--theme {
+    position: absolute;
+    left: 0;
+    bottom: 5%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 15%;
+    width: 90%;
+    margin-left: 5%;
+}
+
+.menu__button--theme {
+    font-size: var(--font-size-large);
+    height: var(--button-height-extra-large);
+    width: var(--button-min-width-extra-large);
+}
+
+.inventory_container_instance--theme {
+}
+
+.settings_instance--theme {
+}

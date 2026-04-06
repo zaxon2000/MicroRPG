@@ -1,0 +1,18 @@
+/* ================================
+   Dropdown - PixelArtRetro Theme
+   ================================ */
+
+/* Dropdown ScrollView Background */
+VisualElement.unity-base-dropdown__container-outer {
+    border-width: 0;
+}
+
+VisualElement.unity-base-dropdown ScrollView {
+    background-image: resource('LiberateUI/PixelArtRetro/Buttons/SecondaryButton');
+    background-color: transparent;
+}
+
+Label.unity-base-dropdown__label {
+    color: var(--on-secondary-color);
+    font-size: var(--font-size-medium);
+}

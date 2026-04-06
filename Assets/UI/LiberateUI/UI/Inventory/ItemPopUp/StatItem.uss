@@ -1,0 +1,29 @@
+/* Stat Item Container */
+.stat-item {
+    flex-direction: row;
+    align-self: flex-start;
+    align-items: stretch;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+/* Stat Icon */
+.stat-item__icon {
+    height: 32px;
+    width: 32px;
+    -unity-background-scale-mode: scale-to-fit;
+    border-radius: 8px;
+    margin-right: 12px;
+    border-width: 2px;
+    flex-shrink: 0;
+}
+
+/* Stat Text */
+.stat-item__text {
+    color: var(--primary-color);
+    font-size: var(--font-size-medium);
+    -unity-font-style: bold;
+    flex-grow: 1;
+    -unity-text-align: middle-left;
+}

@@ -1,0 +1,17 @@
+/* ================================
+   Common - CelShadedBoldOutline Theme Colors
+   ================================ */
+
+:root {
+    -unity-font-definition: url('project://database/Assets/UI/LiberateUI/Resources/LiberateUI/Fonts/Bangers/Bangers-Regular-SDF.asset?fileID=11400000&guid=3c33efd1c78d9459ba44d58dd11d6ab6&type=2#Bangers-Regular-SDF');
+
+    --primary-color: #e67e22;
+    --secondary-color: #FAA533;
+    --tertiary-color: #0BA6DF;
+    --on-primary-color: #0BA6DF;
+    --on-secondary-color: #0BA6DF;
+    --on-surface-color: #e67e22;
+
+    --toggle-check-off-image: resource('LiberateUI/CelShadedBoldOutline/Frames/CheckOff');
+    --toggle-check-on-image: resource('LiberateUI/CelShadedBoldOutline/Frames/CheckOn');
+}

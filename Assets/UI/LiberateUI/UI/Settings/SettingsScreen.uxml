@@ -1,0 +1,67 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/LiberateUI/UI/Settings/SettingsScreen.uss?fileID=7433441132597879392&amp;guid=2b33cd3c0481b465290ed70f3ddb223c&amp;type=3#SettingsScreen" />
+    <ui:Template name="ActionButton" src="project://database/Assets/UI/LiberateUI/UI/Components/Button/ActionButton.uxml?fileID=9197481963319205126&amp;guid=ad955895436ca46c78f754c24deaae0e&amp;type=3#ActionButton" />
+    <ui:VisualElement class="settings-screen settings-screen--theme settings-screen--theme-art">
+        <ui:VisualElement name="tab-header-container" class="tab-header-container">
+            <ui:Button text="Graphics" name="graphics-tab-button" class="tab-button tab-button--theme-art" />
+            <ui:Button text="Audio" name="audio-tab-button" class="tab-button tab-button--theme-art" />
+            <ui:Button text="Controls" name="controls-tab-button" class="tab-button tab-button--theme-art" />
+            <ui:Button text="Gameplay" name="gameplay-tab-button" class="tab-button tab-button--theme-art" />
+        </ui:VisualElement>
+        <ui:VisualElement name="tab-content-container" class="tab-content-container">
+            <ui:VisualElement name="graphics-content" class="tab-content graphics-content">
+                <ui:DropdownField choices="FHD,QHD,4K" label="Resolution" name="liberate-dropdown" class="dropdown--theme-art" />
+                <ui:Slider label="Quality Preset" name="liberate-slider" low-value="0" high-value="5" value="2.5" class="slider--theme-art" />
+                <ui:Toggle label="Fullscreen" name="liberate-toggle" class="toggle--theme-art" />
+                <ui:Toggle label="VSync" name="liberate-toggle" class="toggle--theme-art" />
+                <ui:DropdownField choices="CelShadedBoldOutline,DarkHandDrawnFantasy,PixelArtRetro" label="Art Style" name="liberate-dropdown" class="dropdown--theme-art art-style-dropdown" />
+            </ui:VisualElement>
+            <ui:VisualElement name="audio-content" class="tab-content audio-content unselected-content">
+                <ui:Slider label="Master Volume" name="liberate-slider" low-value="0" high-value="100" value="50" class="slider--theme-art" />
+                <ui:Toggle label="Mute Master" name="liberate-toggle" class="toggle--theme-art" />
+                <ui:Slider label="SFX Volume" name="liberate-slider" low-value="0" high-value="100" value="50" class="slider--theme-art" />
+                <ui:Toggle label="Mute SFX" name="liberate-toggle" class="toggle--theme-art" />
+                <ui:Slider label="Music Volume" name="liberate-slider" low-value="0" high-value="100" value="50" class="slider--theme-art" />
+                <ui:Toggle label="Mute Music" name="liberate-toggle" class="toggle--theme-art" />
+            </ui:VisualElement>
+            <ui:VisualElement name="controls-content" class="tab-content controls-content unselected-content">
+                <ui:VisualElement class="keybinding-row">
+                    <ui:Label text="Forward" />
+                    <ui:Label text="W" class="key-binding key-binding--theme-art" />
+                </ui:VisualElement>
+                <ui:VisualElement class="keybinding-row">
+                    <ui:Label text="Backward" />
+                    <ui:Label text="S" class="key-binding key-binding--theme-art" />
+                </ui:VisualElement>
+                <ui:VisualElement class="keybinding-row">
+                    <ui:Label text="Left" />
+                    <ui:Label text="A" class="key-binding key-binding--theme-art" />
+                </ui:VisualElement>
+                <ui:VisualElement class="keybinding-row">
+                    <ui:Label text="Right" />
+                    <ui:Label text="D" class="key-binding key-binding--theme-art" />
+                </ui:VisualElement>
+                <ui:VisualElement class="keybinding-row">
+                    <ui:Label text="Jump" />
+                    <ui:Label text="Space" class="key-binding key-binding--theme-art" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="gameplay-content" class="tab-content gameplay-content unselected-content">
+                <ui:Slider label="Difficulty" name="liberate-slider" low-value="0" high-value="2" value="1" class="slider--theme-art" />
+                <ui:Toggle label="Auto-save" name="liberate-toggle" class="toggle--theme-art" />
+                <ui:Toggle label="Subtitles" name="liberate-toggle" class="toggle--theme-art" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="footer" class="footer">
+            <ui:Instance template="ActionButton" name="apply-action">
+                <ui:AttributeOverrides element-name="button" text="Apply" />
+            </ui:Instance>
+            <ui:Instance template="ActionButton" name="reset-action">
+                <ui:AttributeOverrides element-name="button" text="Reset" />
+            </ui:Instance>
+            <ui:Instance template="ActionButton" name="back-action">
+                <ui:AttributeOverrides element-name="button" text="Back" />
+            </ui:Instance>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

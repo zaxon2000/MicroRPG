@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 59d3924c7aaf54f43a576299fa8caaf6
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 12388, guid: 0000000000000000e000000000000000, type: 0}
+  disableValidation: 0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 338266
+  packageName: Fantasy RPG UI Toolkit Starter
+  packageVersion: 1.0.0
+  assetPath: Assets/UI/LiberateUI/UI/Themes/RuntimeTheme-Landscape-CelShadedBoldOutline.tss
+  uploadId: 800732

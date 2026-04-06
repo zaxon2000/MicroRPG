@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1166226bbe3064969afe85904336ff31
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 338266
+  packageName: Fantasy RPG UI Toolkit Starter
+  packageVersion: 1.0.0
+  assetPath: Assets/UI/LiberateUI/PanelSettings/MainMenuPanelSettingsPortrait.asset
+  uploadId: 800732
