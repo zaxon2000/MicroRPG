@@ -54,7 +54,7 @@
                     </ui:VisualElement>
                     <ui:ScrollView style="flex-grow: 1;">
                         <ui:VisualElement name="StorageContent" style="padding: 10px; align-items: center;">
-                            <GDS.Core.ListBagView name="StorageView" preview-slots="20" itemsPerRow="10" />
+                            <GDS.Core.ListBagView name="StorageView" preview-slots="45" itemsPerRow="9" />
                         </ui:VisualElement>
                     </ui:ScrollView>
                 </ui:VisualElement>

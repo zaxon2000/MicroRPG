@@ -4,7 +4,7 @@ using GDS.Core;
 namespace GDS.Demos.Backpack {
     [Serializable]
     public class Storage : DenseListBag {
-        public Storage() => Size = 40;
+        public Storage() => Size = 45;
     }
 
 }

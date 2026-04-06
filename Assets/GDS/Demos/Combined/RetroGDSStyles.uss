@@ -63,6 +63,24 @@
     height: 32px;
 }
 
+/* ── Inventory HUD Button ── */
+#InventoryBtn {
+    background-color: #19183B;
+    border-width: 3px;
+    border-color: #708993;
+    border-radius: 4px;
+    color: #A1C2BD;
+    font-size: 18px;
+    -unity-font-style: bold;
+    padding: 12px 40px;
+}
+
+#InventoryBtn:hover {
+    background-color: #708993;
+    border-color: #A1C2BD;
+    color: #19183B;
+}
+
 /* ── Sell Area ── */
 #SellArea {
     background-color: rgba(112, 137, 147, 0.2) !important;

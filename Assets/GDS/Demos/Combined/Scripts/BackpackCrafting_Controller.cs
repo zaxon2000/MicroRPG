@@ -89,7 +89,7 @@ namespace GDS.Demos.Combined {
 
             // Storage flat grid.
             var storageView = _root.Q<ListBagView>("StorageView");
-            storageView.Init(_storage, 10);
+            storageView.Init(_storage, 9);
 
             // Shop panel (own window).
             var shopPanel = _root.Q<VisualElement>("ShopPanel");
