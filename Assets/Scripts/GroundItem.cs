@@ -15,6 +15,11 @@ public class GroundItem : MonoBehaviour
 
     PlayerInventory _inventory;
 
+    /// <summary>
+    /// The display name of this item (used by QuestManager for respawning).
+    /// </summary>
+    public string ItemName => _itemBase != null ? _itemBase.Name : "";
+
     void Awake()
     {
         _inventory = FindFirstObjectByType<PlayerInventory>();
@@ -26,7 +31,7 @@ public class GroundItem : MonoBehaviour
         GetComponent<Interactable>().onInteract.AddListener(Pickup);
     }
 
-    /// <summary>Adds this item to the player's backpack and removes it from the world.</summary>
+    /// <summary>Adds this item to the player's backpack and deactivates the object.</summary>
     public void Pickup()
     {
         if (_inventory == null || _itemBase == null) return;
@@ -41,6 +46,6 @@ public class GroundItem : MonoBehaviour
         }
 
         QuestEvents.RaiseItemCollected(_itemBase.Name);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

@@ -62,4 +62,17 @@ public static class QuestEvents
     {
         OnQuestItemRewarded?.Invoke(itemBase);
     }
+
+    /// <summary>
+    /// Fired when the player takes damage. Parameter is the amount of damage taken.
+    /// </summary>
+    public static event Action<float> OnPlayerDamaged;
+
+    /// <summary>
+    /// Raises the player damaged event.
+    /// </summary>
+    public static void RaisePlayerDamaged(float damage)
+    {
+        OnPlayerDamaged?.Invoke(damage);
+    }
 }

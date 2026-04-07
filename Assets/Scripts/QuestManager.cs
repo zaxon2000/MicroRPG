@@ -59,6 +59,7 @@ public class QuestManager : MonoBehaviour
         QuestEvents.OnEnemyKilled += HandleEnemyKilled;
         QuestEvents.OnPlayerLeveledUp += HandlePlayerLeveledUp;
         QuestEvents.OnItemCollected += HandleItemCollected;
+        QuestEvents.OnPlayerDamaged += HandlePlayerDamaged;
     }
 
     private void OnDisable()
@@ -66,6 +67,7 @@ public class QuestManager : MonoBehaviour
         QuestEvents.OnEnemyKilled -= HandleEnemyKilled;
         QuestEvents.OnPlayerLeveledUp -= HandlePlayerLeveledUp;
         QuestEvents.OnItemCollected -= HandleItemCollected;
+        QuestEvents.OnPlayerDamaged -= HandlePlayerDamaged;
     }
 
     private void Start()
@@ -186,9 +188,10 @@ public class QuestManager : MonoBehaviour
         if (quest == null) return;
         string id = quest.questId;
 
-        if (GetQuestState(id) != QuestState.Unavailable && GetQuestState(id) != QuestState.Available)
+        QuestState currentState = GetQuestState(id);
+        if (currentState != QuestState.Unavailable && currentState != QuestState.Available && currentState != QuestState.Failed)
         {
-            Debug.LogWarning($"[QuestManager] Cannot accept quest '{id}' in state {GetQuestState(id)}.");
+            Debug.LogWarning($"[QuestManager] Cannot accept quest '{id}' in state {currentState}.");
             return;
         }
 
@@ -247,6 +250,90 @@ public class QuestManager : MonoBehaviour
         Debug.Log($"[QuestManager] Quest completed: {quest.questTitle}");
     }
 
+    /// <summary>
+    /// Fails an active quest, moving it to the Failed state.
+    /// </summary>
+    public void FailQuest(QuestData quest)
+    {
+        if (quest == null) return;
+        string id = quest.questId;
+
+        QuestState state = GetQuestState(id);
+        if (state != QuestState.Active && state != QuestState.ReadyToComplete)
+        {
+            Debug.LogWarning($"[QuestManager] Cannot fail quest '{id}' in state {state}.");
+            return;
+        }
+
+        _activeObjectives.Remove(id);
+        SetQuestState(id, QuestState.Failed);
+        Debug.Log($"[QuestManager] Quest failed: {quest.questTitle}");
+    }
+
+    /// <summary>
+    /// Retries a failed quest by re-accepting it with fresh objectives.
+    /// Also respawns any deactivated GroundItems that match the quest's CollectItem objectives.
+    /// </summary>
+    public void RetryQuest(QuestData quest)
+    {
+        if (quest == null) return;
+        string id = quest.questId;
+
+        if (GetQuestState(id) != QuestState.Failed)
+        {
+            Debug.LogWarning($"[QuestManager] Cannot retry quest '{id}' — it is not in Failed state.");
+            return;
+        }
+
+        // Respawn ground items matching CollectItem objectives
+        RespawnQuestGroundItems(quest);
+
+        // Re-accept the quest
+        AcceptQuest(quest);
+    }
+
+    /// <summary>
+    /// Abandons a quest permanently, removing it without granting rewards.
+    /// </summary>
+    public void AbandonQuest(QuestData quest)
+    {
+        if (quest == null) return;
+        string id = quest.questId;
+
+        _activeObjectives.Remove(id);
+        SetQuestState(id, QuestState.Completed);
+        Debug.Log($"[QuestManager] Quest abandoned: {quest.questTitle}");
+    }
+
+    /// <summary>
+    /// Re-enables any deactivated GroundItem GameObjects whose item name matches
+    /// a CollectItem objective in the given quest.
+    /// </summary>
+    private void RespawnQuestGroundItems(QuestData quest)
+    {
+        HashSet<string> targetNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (QuestObjective obj in quest.objectives)
+        {
+            if (obj.objectiveType == QuestObjectiveType.CollectItem)
+                targetNames.Add(obj.targetName);
+        }
+
+        if (targetNames.Count == 0) return;
+
+        // FindObjectsByType with Include finds components on inactive GameObjects
+        GroundItem[] allItems = FindObjectsByType<GroundItem>(
+            FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        foreach (GroundItem gi in allItems)
+        {
+            if (!gi.gameObject.activeSelf && targetNames.Contains(gi.ItemName))
+            {
+                gi.gameObject.SetActive(true);
+                Debug.Log($"[QuestManager] Respawned ground item: {gi.ItemName}");
+            }
+        }
+    }
+
     private void SetQuestState(string questId, QuestState newState)
     {
         _questStates[questId] = newState;
@@ -275,6 +362,27 @@ public class QuestManager : MonoBehaviour
     private void HandleItemCollected(string itemName)
     {
         ProgressObjectives(QuestObjectiveType.CollectItem, itemName);
+    }
+
+    private void HandlePlayerDamaged(float damage)
+    {
+        // Fail any active or ready-to-complete quests that have failOnDamage enabled
+        List<string> toFail = new List<string>();
+
+        foreach (KeyValuePair<string, QuestState> kvp in _questStates)
+        {
+            if (kvp.Value != QuestState.Active && kvp.Value != QuestState.ReadyToComplete)
+                continue;
+
+            if (_registeredQuests.TryGetValue(kvp.Key, out QuestData data) && data.failOnDamage)
+                toFail.Add(kvp.Key);
+        }
+
+        foreach (string questId in toFail)
+        {
+            if (_registeredQuests.TryGetValue(questId, out QuestData data))
+                FailQuest(data);
+        }
     }
 
     /// <summary>

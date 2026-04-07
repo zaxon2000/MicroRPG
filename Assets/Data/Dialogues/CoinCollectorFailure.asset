@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab2cf9fb3e824481a885f82853c8482, type: 3}
+  m_Name: CoinCollectorFailure
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  nodes:
+  - speakerName: Coin Master
+    text: "You took a hit! The deal was no damage. Want to try again?"
+    responses:
+    - responseText: "1) Yes, let me try again."
+      nextNodeIndex: 1
+    - responseText: "2) No, I give up."
+      nextNodeIndex: 2
+    editorPosition: {x: 100, y: 200}
+  - speakerName: Coin Master
+    text: "That's the spirit! Go collect 2 coins without getting hurt. I believe
+      in you!"
+    responses: []
+    editorPosition: {x: 600, y: 100}
+  - speakerName: Coin Master
+    text: "Too bad. Not everyone has what it takes."
+    responses: []
+    editorPosition: {x: 600, y: 350}

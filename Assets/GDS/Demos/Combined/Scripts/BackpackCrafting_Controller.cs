@@ -17,7 +17,7 @@ namespace GDS.Demos.Combined {
     [RequireComponent(typeof(UIDocument))]
     public class BackpackCrafting_Controller : MonoBehaviour {
 
-        enum ScreenMode { HUD, Inventory, Equipment, Settings }
+        enum ScreenMode { HUD, Inventory, Character, Settings }
 
         // ── Bag & observable references — set by PlayerInventory.Start() via Initialize() ──────
         PlayerInventoryStore  _invStore;
@@ -30,12 +30,15 @@ namespace GDS.Demos.Combined {
 
         VisualElement _root;
         VisualElement _inventoryUI;
-        VisualElement _equipmentUI;
+        VisualElement _characterUI;
         VisualElement _settingsUI;
         VisualElement _hudBar;
+        Label _coinCountLabel;
 
         ScreenMode _currentScreen = ScreenMode.HUD;
         bool _initialized = false;
+        bool _characterVisible = false;
+        bool _characterPositioned = false;
 
         // LiberateUI controllers for Settings panel.
         TabbedMenuController  _tabbedMenuController;
@@ -45,28 +48,36 @@ namespace GDS.Demos.Combined {
         void Awake() {
             _root        = GetComponent<UIDocument>().rootVisualElement;
             _inventoryUI = _root.Q<VisualElement>("InventoryUI");
-            _equipmentUI = _root.Q<VisualElement>("EquipmentUI");
+            _characterUI = _root.Q<VisualElement>("CharacterUI");
             _settingsUI  = _root.Q<VisualElement>("SettingsUI");
             _hudBar      = _root.Q<VisualElement>("HUDBar");
 
             // HUD bar buttons.
             _root.Q<Button>("InventoryBtn").RegisterCallback<ClickEvent>(_ => ShowScreen(ScreenMode.Inventory));
-            _root.Q<Button>("EquipmentBtn").RegisterCallback<ClickEvent>(_ => ShowScreen(ScreenMode.Equipment));
+            _root.Q<Button>("CharacterBtn").RegisterCallback<ClickEvent>(_ => ShowScreen(ScreenMode.Character));
             _root.Q<Button>("SettingsBtn").RegisterCallback<ClickEvent>(_ => ShowScreen(ScreenMode.Settings));
 
             // Inventory close buttons.
             WireCloseButton("CloseBackpackBtn",  "BackpackWindow");
             WireCloseButton("CloseStorageBtn",   "StorageWindow");
-            WireCloseButton("CloseCenterBtn",    "CenterWindow");
             WireCloseButton("CloseShopBtn",      "ShopWindow");
             WireCloseButton("CloseCraftingBtn",  "CraftingWindow");
 
             // Inventory window drag.
             AttachDragManipulator("BackpackHeader",  "BackpackWindow");
             AttachDragManipulator("StorageHeader",   "StorageWindow");
-            AttachDragManipulator("CenterHeader",    "CenterWindow");
             AttachDragManipulator("ShopHeader",      "ShopWindow");
             AttachDragManipulator("CraftingHeader",  "CraftingWindow");
+
+            // Coin count label in Character panel.
+            _coinCountLabel = _root.Q<Label>("CoinCountLabel");
+
+            // Character panel drag — grab anywhere on the panel to drag.
+            if (_characterUI != null) {
+                var charHandle = _characterUI.Q<VisualElement>("character-preview-root");
+                if (charHandle != null)
+                    charHandle.AddManipulator(new WindowDragManipulator(charHandle, _characterUI));
+            }
 
             // Settings panel — tabbed menu & key binding.
             if (_settingsUI != null) {
@@ -136,36 +147,41 @@ namespace GDS.Demos.Combined {
                 piggyIcon.TriggerClassAnimation("scale-150");
             });
 
-            // Gold display + reset button.
-            var goldLabel = _root.Q<Label>("PlayerGoldText");
-            _root.Q<Button>("ResetPlayerGoldButton").RegisterCallback<ClickEvent>(_ => _resetGold?.Invoke());
-            _root.Observe(_playerGold, value => {
-                goldLabel.text = value.ToString();
-                goldLabel.TriggerClassAnimation("scale-150");
-            });
+            // Track coin count — update whenever backpack or storage changes.
+            _backpack.CollectionChanged += UpdateCoinCount;
+            _storage.CollectionChanged  += UpdateCoinCount;
+            UpdateCoinCount();
 
             _initialized = true;
         }
 
-        /// <summary>Keyboard shortcuts: I = Inventory, E = Equipment, Escape = close current screen.</summary>
+        /// <summary>Keyboard shortcuts: I = Inventory, C = Character, Escape = close current screen.</summary>
         void Update() {
             if (!_initialized) return;
 
             if (Keyboard.current.iKey.wasPressedThisFrame)
                 ShowScreen(_currentScreen == ScreenMode.Inventory ? ScreenMode.HUD : ScreenMode.Inventory);
             else if (Keyboard.current.cKey.wasPressedThisFrame)
-                ShowScreen(_currentScreen == ScreenMode.Equipment ? ScreenMode.HUD : ScreenMode.Equipment);
-            else if (Keyboard.current.escapeKey.wasPressedThisFrame && _currentScreen != ScreenMode.HUD)
-                ShowScreen(ScreenMode.HUD);
+                ShowScreen(ScreenMode.Character);
+            else if (Keyboard.current.escapeKey.wasPressedThisFrame) {
+                if (_characterVisible) ToggleCharacterPanel();
+                if (_currentScreen != ScreenMode.HUD) ShowScreen(ScreenMode.HUD);
+            }
         }
 
         void ShowScreen(ScreenMode mode) {
+            // Character panel toggles independently of other screens.
+            if (mode == ScreenMode.Character) {
+                ToggleCharacterPanel();
+                return;
+            }
+
             // If toggling the same screen, go back to HUD.
             if (_currentScreen == mode && mode != ScreenMode.HUD) {
                 mode = ScreenMode.HUD;
             }
 
-            // Cancel key binding listening when leaving settings.
+            // Cancel key binding listening when leaving Settings.
             if (_currentScreen == ScreenMode.Settings && mode != ScreenMode.Settings)
                 _keyBindingController?.CancelListening();
 
@@ -175,19 +191,59 @@ namespace GDS.Demos.Combined {
             if (mode == ScreenMode.Inventory) RestoreAllPanels();
         }
 
+        void ToggleCharacterPanel() {
+            _characterVisible = !_characterVisible;
+            if (_characterUI == null) return;
+
+            _characterUI.style.display = _characterVisible ? DisplayStyle.Flex : DisplayStyle.None;
+
+            if (_characterVisible) {
+                UpdateCoinCount();
+                if (!_characterPositioned) {
+                    _characterUI.RegisterCallback<GeometryChangedEvent>(PositionCharacterPanel);
+                }
+            }
+        }
+
+        void PositionCharacterPanel(GeometryChangedEvent evt) {
+            _characterUI.UnregisterCallback<GeometryChangedEvent>(PositionCharacterPanel);
+            var parent = _characterUI.parent;
+            float parentWidth  = parent.resolvedStyle.width;
+            float parentHeight = parent.resolvedStyle.height;
+            float panelWidth   = _characterUI.resolvedStyle.width;
+            float panelHeight  = _characterUI.resolvedStyle.height;
+            _characterUI.style.left = parentWidth  - panelWidth  - 10;
+            _characterUI.style.top  = parentHeight - panelHeight - 80;
+            _characterPositioned = true;
+        }
+
         void SyncVisibility() {
             _hudBar.style.display      = DisplayStyle.Flex;
             _inventoryUI.style.display = _currentScreen == ScreenMode.Inventory  ? DisplayStyle.Flex : DisplayStyle.None;
 
-            if (_equipmentUI != null)
-                _equipmentUI.style.display = _currentScreen == ScreenMode.Equipment ? DisplayStyle.Flex : DisplayStyle.None;
+            // Character panel is toggled independently — not managed here.
             if (_settingsUI != null)
                 _settingsUI.style.display  = _currentScreen == ScreenMode.Settings  ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         void RestoreAllPanels() {
-            foreach (var name in new[] { "BackpackWindow", "StorageWindow", "CenterWindow", "ShopWindow", "CraftingWindow" })
+            foreach (var name in new[] { "BackpackWindow", "StorageWindow", "ShopWindow", "CraftingWindow" })
                 SetPanelVisible(name, true);
+        }
+
+        /// <summary>Counts all Coin items across backpack and storage, updating the Character panel label.</summary>
+        void UpdateCoinCount() {
+            if (_coinCountLabel == null) return;
+
+            int total = 0;
+            foreach (var item in _backpack.Items)
+                if (item != null && string.Equals(item.Name, "Coin", System.StringComparison.OrdinalIgnoreCase))
+                    total += item.StackSize;
+            foreach (var item in _storage.Items)
+                if (item != null && string.Equals(item.Name, "Coin", System.StringComparison.OrdinalIgnoreCase))
+                    total += item.StackSize;
+
+            _coinCountLabel.text = total.ToString();
         }
 
         void WireCloseButton(string buttonName, string windowName) =>

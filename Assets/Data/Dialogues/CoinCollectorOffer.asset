@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab2cf9fb3e824481a885f82853c8482, type: 3}
+  m_Name: CoinCollectorOffer
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  nodes:
+  - speakerName: Coin Master
+    text: "I need someone nimble to collect 2 coins for me. The catch? You can't take
+      a single hit while doing it. Think you're up for the challenge?"
+    responses:
+    - responseText: "1) I'll do it!"
+      nextNodeIndex: 1
+    - responseText: "2) No thanks."
+      nextNodeIndex: 2
+    editorPosition: {x: 100, y: 200}
+  - speakerName: Coin Master
+    text: "Excellent! Remember \u2014 collect 2 coins and don't get hurt. Good luck!"
+    responses: []
+    editorPosition: {x: 600, y: 100}
+  - speakerName: Coin Master
+    text: "Suit yourself. Come back if you change your mind."
+    responses: []
+    editorPosition: {x: 600, y: 350}

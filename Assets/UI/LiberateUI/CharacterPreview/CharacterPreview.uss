@@ -2,15 +2,15 @@
 
 .character-preview--common {
     -unity-background-scale-mode: stretch-to-fill;
-    border-radius: 6px;
-    padding: 24px;
+    border-radius: 3px;
+    padding: 12px;
 }
 
 /* Item Slots - Absolute Positioning */
 .item-slot--common {
     position: absolute;
     -unity-background-scale-mode: scale-to-fit;
-    border-radius: 2px;
+    border-radius: 1px;
     justify-content: center;
     align-items: center;
     transition-property: scale;
@@ -22,23 +22,23 @@
 }
 
 .item-slot--top-left {
-    top: 24px;
-    left: 24px;
+    top: 12px;
+    left: 12px;
 }
 
 .item-slot--top-right {
-    top: 24px;
-    right: 24px;
+    top: 12px;
+    right: 12px;
 }
 
 .item-slot--bottom-left {
-    bottom: 24px;
-    left: 24px;
+    bottom: 12px;
+    left: 12px;
 }
 
 .item-slot--bottom-right {
-    bottom: 24px;
-    right: 24px;
+    bottom: 12px;
+    right: 12px;
 }
 
 .item-slot__icon--common {
@@ -51,7 +51,7 @@
 .char-preview-container--common {
     position: relative;
     -unity-background-scale-mode: stretch-to-fill;
-    border-width: 2px;
+    border-width: 1px;
     justify-content: center;
     align-items: center;
 }
@@ -62,34 +62,59 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+/* Coin Count Row */
+.coin-count-row--common {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 6px;
+}
+
+.coin-count-icon--common {
+    width: 12px;
+    height: 12px;
+    margin-right: 3px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.coin-count-label--common {
+    font-size: 22px;
+    color: #FFD700;
+    -unity-font-style: bold;
+}
+
 /* Stats Info Container */
 .stats-info-container--common {
     -unity-background-scale-mode: stretch-to-fill;
-    border-radius: 4px;
-    padding: 24px;
+    border-radius: 2px;
+    padding: 12px;
 }
 
 .stats-title--common {
-    font-size: 24px;
+    font-size: 28px;
     color: #19183B;
     -unity-text-align: middle-center;
     -unity-font-style: bold;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
 }
 
 .stat-row--common {
-    padding: 8px;
-    margin-bottom: 4px;
+    padding: 4px;
+    margin-bottom: 2px;
     justify-content: space-between;
 }
 
 .stat-row__label--common {
-    font-size: 18px;
+    font-size: 22px;
     color: #19183B;
     -unity-font-style: bold;
 }
 
 .stat-row__value--common {
-    font-size: 18px;
+    font-size: 22px;
     color: #19183B;
 }

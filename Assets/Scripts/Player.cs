@@ -104,13 +104,16 @@ public class Player : MonoBehaviour
 
         if (runDebugs)
             Debug.Log($"[Player] TakeDamage: damageTaken={damageTaken}, curHp={curHp}");
-        
+
+        // Notify quest system about damage taken
+        QuestEvents.RaisePlayerDamaged(damageTaken);
+
         if(curHp <= 0)
             Die();
 
         // update health bar UI
         _playerUI.UpdateHealthBar();
-        
+
     }
 
     // called when our hp reaches 0

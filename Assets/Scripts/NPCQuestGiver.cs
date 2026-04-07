@@ -105,6 +105,10 @@ public class NPCQuestGiver : MonoBehaviour
                     StartInProgressDialogue(quest);
                     return;
 
+                case QuestState.Failed:
+                    StartFailureDialogue(quest);
+                    return;
+
                 case QuestState.Unavailable:
                 case QuestState.Available:
                     if (_questManager.ArePrerequisitesMet(quest))
@@ -191,5 +195,39 @@ public class NPCQuestGiver : MonoBehaviour
     {
         // Note: lambda subscription; only fires once because dialogue ends.
         _questManager.CompleteQuest(quest);
+    }
+
+    private void StartFailureDialogue(QuestData quest)
+    {
+        if (quest.failureDialogue != null)
+        {
+            _pendingOfferQuest = quest; // reuse field to track which quest we're handling
+            _dialogueManager.StartDialogue(quest.failureDialogue);
+            _dialogueManager.OnDialogueEnded += HandleFailureDialogueEnded;
+        }
+        else
+        {
+            // No failure dialogue; auto-retry
+            _questManager.RetryQuest(quest);
+        }
+    }
+
+    private void HandleFailureDialogueEnded()
+    {
+        _dialogueManager.OnDialogueEnded -= HandleFailureDialogueEnded;
+
+        if (_pendingOfferQuest == null) return;
+
+        QuestData quest = _pendingOfferQuest;
+        _pendingOfferQuest = null;
+
+        // Check if the player chose to retry based on which node they ended on
+        bool retry = quest.failureRetryNodeIndex < 0 ||
+                     _dialogueManager.LastNodeIndex == quest.failureRetryNodeIndex;
+
+        if (retry)
+            _questManager.RetryQuest(quest);
+        else
+            _questManager.AbandonQuest(quest);
     }
 }

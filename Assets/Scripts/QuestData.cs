@@ -42,7 +42,8 @@ public enum QuestState
     Available,
     Active,
     ReadyToComplete,
-    Completed
+    Completed,
+    Failed
 }
 
 /// <summary>
@@ -145,6 +146,10 @@ public class QuestData : ScriptableObject
     [Header("Rewards")]
     public QuestReward reward;
 
+    [Header("Failure Conditions")]
+    [Tooltip("If true, the quest fails immediately when the player takes any damage.")]
+    public bool failOnDamage;
+
     [Header("Dialogue Integration")]
     [Tooltip("Dialogue shown when offering the quest.")]
     public DialogueData offerDialogue;
@@ -159,4 +164,12 @@ public class QuestData : ScriptableObject
 
     [Tooltip("Dialogue shown when quest is ready to turn in.")]
     public DialogueData completionDialogue;
+
+    [Tooltip("Dialogue shown when the quest has been failed (e.g., took damage).")]
+    public DialogueData failureDialogue;
+
+    [Tooltip(
+        "Index of the node in failureDialogue that means the player wants to retry. " +
+        "Use -1 to always retry on any ending.")]
+    public int failureRetryNodeIndex = -1;
 }

@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="project://database/Assets/UI/LiberateUI/Base/Common-PixelArtRetro.uss" />
     <ui:Style src="CharacterPreview.uss" />
+    <ui:Style src="ThemeStyles/Portrait/CharacterPreview-Portrait.uss" />
     <ui:Style src="ThemeStyles/PixelArtRetro/CharacterPreview-PixelArtRetro.uss" />
     <ui:VisualElement name="character-preview-root" class="character-preview--common character-preview--theme character-preview--theme-art">
         <ui:VisualElement name="char-preview-container" class="char-preview-container--common char-preview-container--theme char-preview-container--theme-art">
@@ -16,6 +17,10 @@
             </ui:VisualElement>
             <ui:VisualElement name="item-slot-4" class="item-slot--common item-slot--theme item-slot--theme-art item-slot--bottom-right">
                 <ui:VisualElement class="item-slot__icon--common item-slot__icon--dragon-scale-belt" />
+            </ui:VisualElement>
+            <ui:VisualElement name="coin-count-row" class="coin-count-row--common coin-count-row--theme">
+                <ui:VisualElement class="coin-count-icon--common" />
+                <ui:Label name="CoinCountLabel" text="0" class="coin-count-label--common" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="stats-info-container" class="stats-info-container--common stats-info-container--theme stats-info-container--theme-art">

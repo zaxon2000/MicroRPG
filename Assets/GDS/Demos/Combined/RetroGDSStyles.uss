@@ -25,7 +25,7 @@
 }
 
 /* ── Headers ── */
-#BackpackHeader, #StorageHeader, #CenterHeader, #ShopHeader, #CraftingHeader {
+#BackpackHeader, #StorageHeader, #ShopHeader, #CraftingHeader {
     background-color: #708993;
     border-bottom-width: 2px;
     border-bottom-color: #A1C2BD;
@@ -86,6 +86,16 @@
 
 .hud-button:active {
     scale: 0.95 0.95;
+}
+
+/* ── Item Stack Count (bottom-right corner of slot) ── */
+.item-view .item-quant {
+    font-size: 11px;
+    color: #FFD700;
+    -unity-font-style: bold;
+    background-color: rgba(25, 24, 59, 0.85);
+    padding: 0 3px;
+    border-radius: 2px;
 }
 
 /* ── Sell Area ── */

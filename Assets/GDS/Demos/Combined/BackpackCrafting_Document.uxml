@@ -9,7 +9,7 @@
 
         <ui:VisualElement name="HUDBar" style="position: absolute; bottom: 20px; left: 0; right: 0; align-items: center; justify-content: center; flex-direction: row; display: flex;">
             <ui:Button name="InventoryBtn" text="Inventory" class="hud-button" />
-            <ui:Button name="EquipmentBtn" text="Equipment" class="hud-button" />
+            <ui:Button name="CharacterBtn" text="Character" class="hud-button" />
             <ui:Button name="SettingsBtn" text="Settings" class="hud-button" />
         </ui:VisualElement>
 
@@ -30,28 +30,9 @@
                 </ui:VisualElement>
             </ui:VisualElement>
 
-            <!-- Center Column (Character & Storage) -->
-            <ui:VisualElement name="CenterWindow" style="position: absolute; left: 300px; top: 10px; width: 340px; flex-direction: column;">
-                
-                <!-- Character Window -->
-                <ui:VisualElement class="section-border" style="margin-bottom: 10px; padding: 0; background-color: #19183B;">
-                    <ui:VisualElement name="CenterHeader" class="row place-items-center" style="height: 40px; padding: 0 10px; background-color: #708993; border-bottom-width: 2px; border-bottom-color: #A1C2BD;">
-                        <ui:Label text="Character" class="big-text" style="color: #19183B; flex-grow: 1;" />
-                        <ui:Button name="CloseCenterBtn" text="X" class="unity-button" style="width: 24px; height: 24px; padding: 0;" />
-                    </ui:VisualElement>
-                    
-                    <ui:VisualElement name="CharacterSheetInstance" style="padding: 10px;">
-                        <ui:VisualElement class="row place-items-center" style="background-color: rgba(112, 137, 147, 0.1); padding: 8px; border-radius: 4px; border-width: 1px; border-color: #708993;">
-                            <ui:Label tabindex="-1" text="Gold:" style="font-size: 18px; color: #A1C2BD;" />
-                            <ui:Label tabindex="-1" text="99" name="PlayerGoldText" class="has-transition" style="font-size: 24px; -unity-font-style: bold; color: #FFD700;" />
-                            <ui:VisualElement name="PlayerGoldIcon" style="background-image: url(&quot;project://database/Assets/GDS/Common/Sprites/ui/icon_coin.png&quot;); width: 24px; height: 24px;" />
-                        </ui:VisualElement>
-                        <ui:Button text="Reset to 50g" name="ResetPlayerGoldButton" class="unity-button" style="margin-top: 8px;" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-
-                <!-- Storage Window -->
-                <ui:VisualElement name="StorageWindow" class="section-border" style="flex-grow: 1; background-color: #19183B; padding: 0;">
+            <!-- Storage Window -->
+            <ui:VisualElement name="StorageWindow" style="position: absolute; left: 300px; top: 10px; width: 340px; flex-direction: column;">
+                <ui:VisualElement class="section-border" style="flex-grow: 1; background-color: #19183B; padding: 0;">
                     <ui:VisualElement name="StorageHeader" class="row place-items-center" style="height: 40px; padding: 0 10px; cursor: move; background-color: #708993; border-bottom-width: 2px; border-bottom-color: #A1C2BD;">
                         <ui:Label text="Storage" class="big-text" style="color: #19183B; flex-grow: 1;" />
                         <ui:Button name="CloseStorageBtn" text="X" class="unity-button" style="width: 24px; height: 24px; padding: 0;" />
@@ -101,9 +82,9 @@
 
         </ui:VisualElement>
 
-        <!-- Equipment Panel (LiberateUI CharacterPreview) -->
-        <ui:VisualElement name="EquipmentUI" class="cover" picking-mode="Ignore" style="display: none; align-items: center; justify-content: center;">
-            <ui:Instance template="CharacterPreview" name="EquipmentInstance" />
+        <!-- Character Panel (LiberateUI CharacterPreview) -->
+        <ui:VisualElement name="CharacterUI" style="position: absolute; display: none;">
+            <ui:Instance template="CharacterPreview" name="CharacterInstance" />
         </ui:VisualElement>
 
         <!-- Settings Panel (LiberateUI SettingsScreen) -->

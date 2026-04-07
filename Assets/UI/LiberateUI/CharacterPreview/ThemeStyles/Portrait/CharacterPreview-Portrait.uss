@@ -2,24 +2,24 @@
 
 .character-preview--theme {
     flex-direction: column;
-    width: 80%;
-    height: 65%;
+    width: 350px;
+    height: 420px;
     justify-content: space-between;
 }
 
 /* Item Slots - Absolute positioned at corners */
 .item-slot--theme {
-    width: 120px;
-    height: 120px;
+    width: 60px;
+    height: 60px;
 }
 
-/* Character Preview Container - Center area */
+/* Character Preview Container - Top half */
 .char-preview-container--theme {
     width: 100%;
     height: 55%;
 }
 
-/* Stats Info Container - Vertical layout */
+/* Stats Info Container - Bottom half */
 .stats-info-container--theme {
     flex-direction: column;
     width: 100%;

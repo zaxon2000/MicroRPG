@@ -27,6 +27,11 @@
     background-image: resource('LiberateUI/PixelArtRetro/Frames/PrimaryFilledFrame');
 }
 
+/* Coin Count Icon */
+.coin-count-icon--common {
+    background-image: resource('LiberateUI/PixelArtRetro/Icons/Coin');
+}
+
 /* Item Slot Icon Specific Styles */
 .item-slot__icon--dragonfang-claymore {
     background-image: resource('LiberateUI/PixelArtRetro/Items/Deep_Blue_Boots');
