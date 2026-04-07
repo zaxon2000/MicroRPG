@@ -153,7 +153,7 @@ namespace GDS.Demos.Combined {
 
             if (Keyboard.current.iKey.wasPressedThisFrame)
                 ShowScreen(_currentScreen == ScreenMode.Inventory ? ScreenMode.HUD : ScreenMode.Inventory);
-            else if (Keyboard.current.eKey.wasPressedThisFrame)
+            else if (Keyboard.current.cKey.wasPressedThisFrame)
                 ShowScreen(_currentScreen == ScreenMode.Equipment ? ScreenMode.HUD : ScreenMode.Equipment);
             else if (Keyboard.current.escapeKey.wasPressedThisFrame && _currentScreen != ScreenMode.HUD)
                 ShowScreen(ScreenMode.HUD);

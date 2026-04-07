@@ -115,6 +115,7 @@ public class DialogueManager : MonoBehaviour
     {
         UpdateClosestPromptCandidate();
         UpdatePromptPosition();
+        HandleInteractInput();
         HandleNumberKeyInput();
     }
 
@@ -210,6 +211,41 @@ public class DialogueManager : MonoBehaviour
 
         _interactPrompt.style.left = panelPos.x;
         _interactPrompt.style.top = panelPos.y;
+    }
+
+    /// <summary>
+    /// Checks for the interact key (E) and triggers dialogue on the closest NPC.
+    /// Centralised here so only one NPC responds even when multiple are in range.
+    /// </summary>
+    private void HandleInteractInput()
+    {
+        if (IsDialogueActive) return;
+        if (_promptTarget == null) return;
+        if (Keyboard.current == null || !Keyboard.current[Key.E].wasPressedThisFrame) return;
+
+        TriggerInteractOnTarget();
+    }
+
+    /// <summary>
+    /// Returns true if the given transform is the current interact-prompt target.
+    /// NPC scripts can use this to avoid duplicate handling.
+    /// </summary>
+    public bool IsCurrentPromptTarget(Transform t) => _promptTarget == t;
+
+    private void TriggerInteractOnTarget()
+    {
+        if (_promptTarget == null) return;
+
+        var questGiver = _promptTarget.GetComponent<NPCQuestGiver>();
+        if (questGiver != null)
+        {
+            questGiver.StartDialogue();
+            return;
+        }
+
+        var npcDialogue = _promptTarget.GetComponent<NPCDialogue>();
+        if (npcDialogue != null)
+            npcDialogue.StartDialogue();
     }
 
     private void OnPromptClicked(ClickEvent evt)

@@ -75,10 +75,8 @@ public class NPCQuestGiver : MonoBehaviour
             _dialogueManager.UnregisterPromptCandidate(transform);
         }
 
-        if (_playerInRange && Keyboard.current != null && Keyboard.current[interactKey].wasPressedThisFrame)
-        {
-            Interact();
-        }
+        // Key input is now handled centrally by DialogueManager to prevent
+        // race conditions when multiple NPCs are in range simultaneously.
     }
 
     /// <summary>
