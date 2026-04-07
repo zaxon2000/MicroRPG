@@ -3,6 +3,7 @@ using System.Linq;
 using GDS.Core;
 using GDS.Demos.Backpack;
 using GDS.Examples;
+using LiberateUI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -16,6 +17,8 @@ namespace GDS.Demos.Combined {
     [RequireComponent(typeof(UIDocument))]
     public class BackpackCrafting_Controller : MonoBehaviour {
 
+        enum ScreenMode { HUD, Inventory, Equipment, Settings }
+
         // ── Bag & observable references — set by PlayerInventory.Start() via Initialize() ──────
         PlayerInventoryStore  _invStore;
         BackpackBag           _backpack;
@@ -27,33 +30,59 @@ namespace GDS.Demos.Combined {
 
         VisualElement _root;
         VisualElement _inventoryUI;
+        VisualElement _equipmentUI;
+        VisualElement _settingsUI;
         VisualElement _hudBar;
-        bool _uiVisible = false;
+
+        ScreenMode _currentScreen = ScreenMode.HUD;
         bool _initialized = false;
+
+        // LiberateUI controllers for Settings panel.
+        TabbedMenuController  _tabbedMenuController;
+        KeyBindingController  _keyBindingController;
 
         /// <summary>Sets up the UI toggle infrastructure only. Bag wiring happens in Initialize().</summary>
         void Awake() {
             _root        = GetComponent<UIDocument>().rootVisualElement;
             _inventoryUI = _root.Q<VisualElement>("InventoryUI");
+            _equipmentUI = _root.Q<VisualElement>("EquipmentUI");
+            _settingsUI  = _root.Q<VisualElement>("SettingsUI");
             _hudBar      = _root.Q<VisualElement>("HUDBar");
 
-            _root.Q<Button>("InventoryBtn").RegisterCallback<ClickEvent>(_ => ToggleUI());
+            // HUD bar buttons.
+            _root.Q<Button>("InventoryBtn").RegisterCallback<ClickEvent>(_ => ShowScreen(ScreenMode.Inventory));
+            _root.Q<Button>("EquipmentBtn").RegisterCallback<ClickEvent>(_ => ShowScreen(ScreenMode.Equipment));
+            _root.Q<Button>("SettingsBtn").RegisterCallback<ClickEvent>(_ => ShowScreen(ScreenMode.Settings));
 
-            // Close buttons.
+            // Inventory close buttons.
             WireCloseButton("CloseBackpackBtn",  "BackpackWindow");
             WireCloseButton("CloseStorageBtn",   "StorageWindow");
             WireCloseButton("CloseCenterBtn",    "CenterWindow");
             WireCloseButton("CloseShopBtn",      "ShopWindow");
             WireCloseButton("CloseCraftingBtn",  "CraftingWindow");
 
-            // Window drag.
+            // Inventory window drag.
             AttachDragManipulator("BackpackHeader",  "BackpackWindow");
             AttachDragManipulator("StorageHeader",   "StorageWindow");
             AttachDragManipulator("CenterHeader",    "CenterWindow");
             AttachDragManipulator("ShopHeader",      "ShopWindow");
             AttachDragManipulator("CraftingHeader",  "CraftingWindow");
 
-            SyncUIVisibility();
+            // Settings panel — tabbed menu & key binding.
+            if (_settingsUI != null) {
+                _tabbedMenuController = new TabbedMenuController(_settingsUI);
+                _tabbedMenuController.RegisterTabCallbacks();
+                _tabbedMenuController.SelectFirstTab();
+
+                _keyBindingController = new KeyBindingController(_settingsUI);
+                _keyBindingController.RegisterKeyBindingCallbacks();
+
+                // Wire the Back action button to close settings.
+                var backAction = _settingsUI.Q<VisualElement>("back-action");
+                backAction?.Q<Button>("button")?.RegisterCallback<ClickEvent>(_ => ShowScreen(ScreenMode.HUD));
+            }
+
+            SyncVisibility();
         }
 
         /// <summary>
@@ -118,20 +147,42 @@ namespace GDS.Demos.Combined {
             _initialized = true;
         }
 
-        /// <summary>Pressing I toggles the entire inventory UI open or closed.</summary>
+        /// <summary>Keyboard shortcuts: I = Inventory, E = Equipment, Escape = close current screen.</summary>
         void Update() {
-            if (_initialized && Keyboard.current.iKey.wasPressedThisFrame) ToggleUI();
+            if (!_initialized) return;
+
+            if (Keyboard.current.iKey.wasPressedThisFrame)
+                ShowScreen(_currentScreen == ScreenMode.Inventory ? ScreenMode.HUD : ScreenMode.Inventory);
+            else if (Keyboard.current.eKey.wasPressedThisFrame)
+                ShowScreen(_currentScreen == ScreenMode.Equipment ? ScreenMode.HUD : ScreenMode.Equipment);
+            else if (Keyboard.current.escapeKey.wasPressedThisFrame && _currentScreen != ScreenMode.HUD)
+                ShowScreen(ScreenMode.HUD);
         }
 
-        void ToggleUI() {
-            _uiVisible = !_uiVisible;
-            SyncUIVisibility();
-            if (_uiVisible) RestoreAllPanels();
+        void ShowScreen(ScreenMode mode) {
+            // If toggling the same screen, go back to HUD.
+            if (_currentScreen == mode && mode != ScreenMode.HUD) {
+                mode = ScreenMode.HUD;
+            }
+
+            // Cancel key binding listening when leaving settings.
+            if (_currentScreen == ScreenMode.Settings && mode != ScreenMode.Settings)
+                _keyBindingController?.CancelListening();
+
+            _currentScreen = mode;
+            SyncVisibility();
+
+            if (mode == ScreenMode.Inventory) RestoreAllPanels();
         }
 
-        void SyncUIVisibility() {
-            _inventoryUI.style.display = _uiVisible ? DisplayStyle.Flex : DisplayStyle.None;
-            _hudBar.style.display      = _uiVisible ? DisplayStyle.None : DisplayStyle.Flex;
+        void SyncVisibility() {
+            _hudBar.style.display      = DisplayStyle.Flex;
+            _inventoryUI.style.display = _currentScreen == ScreenMode.Inventory  ? DisplayStyle.Flex : DisplayStyle.None;
+
+            if (_equipmentUI != null)
+                _equipmentUI.style.display = _currentScreen == ScreenMode.Equipment ? DisplayStyle.Flex : DisplayStyle.None;
+            if (_settingsUI != null)
+                _settingsUI.style.display  = _currentScreen == ScreenMode.Settings  ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         void RestoreAllPanels() {

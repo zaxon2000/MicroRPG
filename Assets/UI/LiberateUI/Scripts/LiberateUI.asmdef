@@ -1,15 +1,7 @@
 {
-    "name": "GDS.Demos.Combined",
-    "rootNamespace": "",
-    "references": [
-        "GDS.Core",
-        "GDS.Common",
-        "GDS.Examples",
-        "GDS.Demos.Backpack",
-        "GDS.Demos.Basic",
-        "Unity.InputSystem",
-        "LiberateUI"
-    ],
+    "name": "LiberateUI",
+    "rootNamespace": "LiberateUI",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
