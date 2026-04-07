@@ -1,12 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="CharacterPreview" src="project://database/Assets/UI/LiberateUI/CharacterPreview/CharacterPreview.uxml#CharacterPreview" />
+    <ui:Template name="SettingsScreen" src="project://database/Assets/UI/LiberateUI/Settings/SettingsScreen.uxml#SettingsScreen" />
     <ui:Style src="project://database/Assets/UI/LiberateUI/Base/Common.uss" />
     <ui:Style src="project://database/Assets/GDS/Demos/Combined/BackpackCrafting_Styles.uss" />
     <ui:Style src="project://database/Assets/GDS/Demos/Combined/RetroGDSStyles.uss" />
-    
+
     <ui:VisualElement class="cover" picking-mode="Ignore">
 
-        <ui:VisualElement name="HUDBar" style="position: absolute; bottom: 20px; left: 0; right: 0; align-items: center; display: flex;">
-            <ui:Button name="InventoryBtn" text="Inventory  [I]" class="unity-button" style="padding: 10px 32px;" />
+        <ui:VisualElement name="HUDBar" style="position: absolute; bottom: 20px; left: 0; right: 0; align-items: center; justify-content: center; flex-direction: row; display: flex;">
+            <ui:Button name="InventoryBtn" text="Inventory" class="hud-button" />
+            <ui:Button name="EquipmentBtn" text="Equipment" class="hud-button" />
+            <ui:Button name="SettingsBtn" text="Settings" class="hud-button" />
         </ui:VisualElement>
 
         <ui:VisualElement name="InventoryUI" class="cover" picking-mode="Ignore" style="display: none;">
@@ -54,7 +58,7 @@
                     </ui:VisualElement>
                     <ui:ScrollView style="flex-grow: 1;">
                         <ui:VisualElement name="StorageContent" style="padding: 10px; align-items: center;">
-                            <GDS.Core.ListBagView name="StorageView" preview-slots="20" itemsPerRow="10" />
+                            <GDS.Core.ListBagView name="StorageView" preview-slots="45" itemsPerRow="9" />
                         </ui:VisualElement>
                     </ui:ScrollView>
                 </ui:VisualElement>
@@ -96,5 +100,16 @@
             </ui:VisualElement>
 
         </ui:VisualElement>
+
+        <!-- Equipment Panel (LiberateUI CharacterPreview) -->
+        <ui:VisualElement name="EquipmentUI" class="cover" picking-mode="Ignore" style="display: none; align-items: center; justify-content: center;">
+            <ui:Instance template="CharacterPreview" name="EquipmentInstance" />
+        </ui:VisualElement>
+
+        <!-- Settings Panel (LiberateUI SettingsScreen) -->
+        <ui:VisualElement name="SettingsUI" class="cover" picking-mode="Ignore" style="display: none; align-items: center; justify-content: center;">
+            <ui:Instance template="SettingsScreen" name="SettingsInstance" />
+        </ui:VisualElement>
+
     </ui:VisualElement>
 </ui:UXML>

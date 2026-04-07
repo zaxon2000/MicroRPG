@@ -13,25 +13,25 @@
 /* ── Interact Prompt ("E") ── */
 .interact-prompt {
     position: absolute;
-    width: 36px;
-    height: 36px;
-    border-radius: 4px; /* Blocky */
-    background-color: #19183B;
-    border-width: 2px;
-    border-color: #A1C2BD;
+    width: 44px;
+    height: 44px;
+    border-radius: 0;
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/PrimaryFilledFrame');
+    -unity-background-scale-mode: stretch-to-fill;
+    border-width: 0;
     align-items: center;
     justify-content: center;
-    translate: -18px -18px;
+    translate: -22px -22px;
     display: none;
 }
 
 .interact-prompt:hover {
-    background-color: #708993;
+    scale: 1.1 1.1;
 }
 
 .interact-prompt__label {
-    font-size: 18px;
-    color: #A1C2BD;
+    font-size: 20px;
+    color: #19183B;
     -unity-font-style: bold;
     -unity-text-align: middle-center;
 }
@@ -50,29 +50,29 @@
 }
 
 .dialogue-panel {
-    width: 520px;
-    min-height: 140px;
-    background-color: #19183B;
-    border-radius: 4px; /* Blocky */
-    border-width: 3px;
-    border-color: #708993;
-    padding: 16px 20px;
+    width: 560px;
+    min-height: 160px;
+    background-image: resource('LiberateUI/PixelArtRetro/Frames/SecondaryFilledFrame');
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 0;
+    border-width: 0;
+    padding: 24px 28px;
 }
 
 /* Speaker name */
 .dialogue-speaker {
-    font-size: 18px;
-    color: #A1C2BD;
+    font-size: 20px;
+    color: #19183B;
     -unity-font-style: bold;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 /* NPC dialogue text */
 .dialogue-text {
-    font-size: 15px;
-    color: #FFFFFF;
+    font-size: 16px;
+    color: #19183B;
     white-space: normal;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 /* Response buttons container */
@@ -82,38 +82,42 @@
 
 /* Individual response button */
 .dialogue-response-btn {
-    background-color: #708993;
-    border-radius: 2px;
-    border-width: 1px;
-    border-color: #A1C2BD;
-    padding: 8px 14px;
+    background-image: resource('LiberateUI/PixelArtRetro/Buttons/SecondaryButton');
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 0;
+    border-width: 0;
+    padding: 10px 16px;
     margin-bottom: 6px;
     color: #19183B;
-    font-size: 14px;
+    font-size: 15px;
     -unity-text-align: middle-left;
     -unity-font-style: bold;
+    background-color: transparent;
 }
 
 .dialogue-response-btn:hover {
-    background-color: #A1C2BD;
+    scale: 1.02 1.02;
+    -unity-background-image-tint-color: #A1C2BD;
     color: #19183B;
 }
 
 /* Continue button */
 .dialogue-continue-btn {
-    background-color: rgba(112, 137, 147, 0.3);
-    border-radius: 2px;
-    border-width: 1px;
-    border-color: #708993;
-    padding: 8px 14px;
+    background-image: resource('LiberateUI/PixelArtRetro/Buttons/SecondaryButton');
+    -unity-background-scale-mode: stretch-to-fill;
+    border-radius: 0;
+    border-width: 0;
+    padding: 10px 16px;
     margin-top: 4px;
-    color: #A1C2BD;
-    font-size: 13px;
+    color: #19183B;
+    font-size: 14px;
     -unity-text-align: middle-center;
     -unity-font-style: italic;
+    background-color: transparent;
 }
 
 .dialogue-continue-btn:hover {
-    background-color: #708993;
+    scale: 1.02 1.02;
+    -unity-background-image-tint-color: #A1C2BD;
     color: #19183B;
 }

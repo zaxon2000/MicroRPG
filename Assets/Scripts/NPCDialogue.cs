@@ -55,11 +55,8 @@ public class NPCDialogue : MonoBehaviour
             _dialogueManager.UnregisterPromptCandidate(transform);
         }
 
-        // Check for interact input
-        if (_playerInRange && Keyboard.current != null && Keyboard.current[interactKey].wasPressedThisFrame)
-        {
-            StartDialogue();
-        }
+        // Key input is now handled centrally by DialogueManager to prevent
+        // race conditions when multiple NPCs are in range simultaneously.
     }
 
     /// <summary>

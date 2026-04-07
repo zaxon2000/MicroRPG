@@ -1,13 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="width: 696px; height: 632px;">
-        <ui:VisualElement name="Reroll" style="position: absolute; top: 74px; left: 82px;">
-            <ui:Button text="Reroll: 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RerollButton" style="width: 220px; height: 78px; font-size: 28px; -unity-text-align: middle-left; padding-left: 36px;" />
-            <ui:VisualElement name="Icon" picking-mode="Ignore" style="background-image: url(&quot;project://database/Assets/GDS/Common/Sprites/ui/icon_coins.png?fileID=2800000&amp;guid=215af4b4c17fb9f4199284fb7ebb386d&amp;type=3#icon_coins&quot;); width: 30px; height: 30px; position: absolute; top: 30px; left: 140px;" />
+    <ui:VisualElement style="width: 290px;">
+        <ui:VisualElement name="Reroll" style="margin-bottom: 4px;">
+            <ui:Button text="Reroll:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RerollButton" style="width: 80px; height: 22px; font-size: 11px; -unity-text-align: middle-left; padding-left: 8px;" />
+            <ui:VisualElement name="Icon" picking-mode="Ignore" style="background-image: url(&quot;project://database/Assets/GDS/Common/Sprites/ui/icon_coins.png?fileID=2800000&amp;guid=215af4b4c17fb9f4199284fb7ebb386d&amp;type=3#icon_coins&quot;); width: 12px; height: 12px; position: absolute; top: 5px; left: 54px;" />
         </ui:VisualElement>
-        <GDS.Demos.Backpack.ShopSlotView name="Slot1" class="shop-slot" style="position: absolute; top: 16px; left: 350px;" />
-        <GDS.Demos.Backpack.ShopSlotView name="Slot2" class="shop-slot" style="position: absolute; top: 225px; left: 20px;" />
-        <GDS.Demos.Backpack.ShopSlotView name="Slot3" class="shop-slot" style="position: absolute; top: 225px; left: 350px;" />
-        <GDS.Demos.Backpack.ShopSlotView name="Slot4" class="shop-slot" style="position: absolute; top: 440px; left: 10px;" />
-        <GDS.Demos.Backpack.ShopSlotView name="Slot5" class="shop-slot" style="position: absolute; top: 440px; left: 350px;" />
+        <ui:VisualElement class="row" style="flex-wrap: wrap; gap: 3px;">
+            <GDS.Demos.Backpack.ShopSlotView name="Slot1" class="shop-slot" />
+            <GDS.Demos.Backpack.ShopSlotView name="Slot2" class="shop-slot" />
+            <GDS.Demos.Backpack.ShopSlotView name="Slot3" class="shop-slot" />
+            <GDS.Demos.Backpack.ShopSlotView name="Slot4" class="shop-slot" />
+            <GDS.Demos.Backpack.ShopSlotView name="Slot5" class="shop-slot" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

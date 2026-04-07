@@ -26,7 +26,7 @@ namespace GDS.Demos.Backpack {
         List<ShopSlotView> slots;
         Shop Shop;
         Store Store;
-        int CellSize = 80;
+        int CellSize = 24;
 
         public void Init(Shop shop, Store store) {
             Shop = shop;
