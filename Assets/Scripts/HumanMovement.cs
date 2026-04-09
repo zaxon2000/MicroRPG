@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -347,6 +348,10 @@ public class HumanMovement : MonoBehaviour
     
     private void HandleGrapple()
     {
+        // Don't fire the hook when clicking on UI elements (inventory, character panel, etc.)
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             if (!ropeActive)
