@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f26aed0be1f32c4418a3e1b13e0a9b84
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/Assets_/EasyRopes2D/Examples/OtherExtras/Scripts/AutoDestroyParticle.cs
+  uploadId: 242289

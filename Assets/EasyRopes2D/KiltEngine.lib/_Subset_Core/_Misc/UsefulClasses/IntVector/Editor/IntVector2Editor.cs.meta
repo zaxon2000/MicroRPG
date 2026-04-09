@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 742f7edd3bd8ab74699e910499babb57
+timeCreated: 1481235867
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/KiltEngine.lib/_Subset_Core/_Misc/UsefulClasses/IntVector/Editor/IntVector2Editor.cs
+  uploadId: 242289

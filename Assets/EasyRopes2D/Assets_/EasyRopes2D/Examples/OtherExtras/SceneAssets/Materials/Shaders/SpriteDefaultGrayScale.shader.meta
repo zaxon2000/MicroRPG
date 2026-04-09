@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: a238e98df2d93784eadb2d7786929250
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/Assets_/EasyRopes2D/Examples/OtherExtras/SceneAssets/Materials/Shaders/SpriteDefaultGrayScale.shader
+  uploadId: 242289

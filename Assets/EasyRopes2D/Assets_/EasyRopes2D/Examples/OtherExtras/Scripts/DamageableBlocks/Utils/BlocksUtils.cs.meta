@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 52f90d27c2e19e8449065e40576c5aef
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/Assets_/EasyRopes2D/Examples/OtherExtras/Scripts/DamageableBlocks/Utils/BlocksUtils.cs
+  uploadId: 242289

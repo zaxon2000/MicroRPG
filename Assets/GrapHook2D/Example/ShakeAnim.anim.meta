@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ade7363eb5a5ab04abf5c56473dbe733
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169421
+  packageName: Grapple Hook 2D
+  packageVersion: 1.0
+  assetPath: Assets/GrapHook2D/Example/ShakeAnim.anim
+  uploadId: 374453

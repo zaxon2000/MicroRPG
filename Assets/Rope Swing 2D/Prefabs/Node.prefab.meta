@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a02635807ba30044b8200e489d8cbdb9
+timeCreated: 1473346424
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 73762
+  packageName: Rope Swing 2D
+  packageVersion: 1.2
+  assetPath: Assets/Rope Swing 2D/Prefabs/Node.prefab
+  uploadId: 369227

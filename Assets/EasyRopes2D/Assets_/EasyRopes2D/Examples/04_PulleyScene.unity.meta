@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e41aca0f135184949b0b8c776b5d64e8
+timeCreated: 1460959282
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/Assets_/EasyRopes2D/Examples/04_PulleyScene.unity
+  uploadId: 242289

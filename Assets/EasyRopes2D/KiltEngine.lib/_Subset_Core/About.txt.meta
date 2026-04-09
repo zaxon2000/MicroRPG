@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 892d5910afb81c548a492fdaf2378473
+timeCreated: 1467413526
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/KiltEngine.lib/_Subset_Core/About.txt
+  uploadId: 242289

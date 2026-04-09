@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9e1fdca4789c40647b50aaba8ca46546
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/KiltEngine.lib/_Subset_Core/_Misc/Extensions/ObjectExtension.cs
+  uploadId: 242289

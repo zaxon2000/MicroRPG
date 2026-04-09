@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f6224062874d6184f900bcc9e628f604
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/Assets_/EasyRopes2D/Examples/OtherExtras/Scripts/MouseDraggerSystem/Generic/DragController.cs
+  uploadId: 242289

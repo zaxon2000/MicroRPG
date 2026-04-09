@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ddbf897f9a3f2a04c82360e94d84e7d1
+timeCreated: 1473345852
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 73762
+  packageName: Rope Swing 2D
+  packageVersion: 1.2
+  assetPath: Assets/Rope Swing 2D/Prefabs/Hook.prefab
+  uploadId: 369227

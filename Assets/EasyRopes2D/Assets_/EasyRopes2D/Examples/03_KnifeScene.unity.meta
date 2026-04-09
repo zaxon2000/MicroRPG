@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9fad8200941ea1248b8e81da6aba0689
+timeCreated: 1441223401
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/Assets_/EasyRopes2D/Examples/03_KnifeScene.unity
+  uploadId: 242289

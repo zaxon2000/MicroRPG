@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 53904026dc4e8884c92287985731528a
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/Assets_/EasyRopes2D/Script/RopeSystem/Editor/TackRopeInspector.cs
+  uploadId: 242289

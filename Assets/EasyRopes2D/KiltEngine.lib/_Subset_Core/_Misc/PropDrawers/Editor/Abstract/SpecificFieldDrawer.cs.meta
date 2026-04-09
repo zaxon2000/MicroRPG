@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bb509eba1e4e44a4bbf8b8c49ad49192
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/KiltEngine.lib/_Subset_Core/_Misc/PropDrawers/Editor/Abstract/SpecificFieldDrawer.cs
+  uploadId: 242289

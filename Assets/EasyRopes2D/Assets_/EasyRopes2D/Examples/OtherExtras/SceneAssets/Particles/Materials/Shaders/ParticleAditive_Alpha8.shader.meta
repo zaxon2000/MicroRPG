@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: bccaaca1f83315c4aad8d95e28fd9149
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/Assets_/EasyRopes2D/Examples/OtherExtras/SceneAssets/Particles/Materials/Shaders/ParticleAditive_Alpha8.shader
+  uploadId: 242289

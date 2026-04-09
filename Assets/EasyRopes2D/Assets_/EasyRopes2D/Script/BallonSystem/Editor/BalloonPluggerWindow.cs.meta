@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 181ebec7cef9a424cae50a633b1d5770
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/Assets_/EasyRopes2D/Script/BallonSystem/Editor/BalloonPluggerWindow.cs
+  uploadId: 242289

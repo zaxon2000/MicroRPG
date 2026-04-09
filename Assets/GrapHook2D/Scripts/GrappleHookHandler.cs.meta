@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 7840a062443107e4dabb4778b04756f9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169421
+  packageName: Grapple Hook 2D
+  packageVersion: 1.0
+  assetPath: Assets/GrapHook2D/Scripts/GrappleHookHandler.cs
+  uploadId: 374453

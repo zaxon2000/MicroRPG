@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b0452256f4dd9ec489ef0e3903f776d3
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169421
+  packageName: Grapple Hook 2D
+  packageVersion: 1.0
+  assetPath: Assets/GrapHook2D/Prefabs/Hook.prefab
+  uploadId: 374453

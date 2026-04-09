@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e224e510d03cd03468ea7bc2c17cedc4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169421
+  packageName: Grapple Hook 2D
+  packageVersion: 1.0
+  assetPath: Assets/GrapHook2D/Example/Shake.controller
+  uploadId: 374453

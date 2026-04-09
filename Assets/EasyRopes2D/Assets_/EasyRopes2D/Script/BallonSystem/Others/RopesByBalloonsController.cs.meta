@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: fc6171d985c71d84a83676123b76c9f6
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/Assets_/EasyRopes2D/Script/BallonSystem/Others/RopesByBalloonsController.cs
+  uploadId: 242289

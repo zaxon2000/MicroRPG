@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 12f19f6d25697b6479bb9412372ea429
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169421
+  packageName: Grapple Hook 2D
+  packageVersion: 1.0
+  assetPath: Assets/GrapHook2D/Sprites/RopeMaterial.mat
+  uploadId: 374453

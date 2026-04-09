@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4297aee7b86e0cb4294a46d496cd257d
+timeCreated: 1444339137
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/Assets_/EasyRopes2D/Examples/KnifeSceneExtras/SceneAssets/Prefabs/Sword.prefab
+  uploadId: 242289

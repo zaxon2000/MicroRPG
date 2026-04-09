@@ -89,7 +89,15 @@ public class HumanMovement : MonoBehaviour
     private bool _isClimbJumping;
     private float _climbJumpTimer = 0f;
     private Vector2 _climbJumpVel;            // computed constant velocity for jump arc
-    private float _climbJumpCooldown = 0f; 
+    private float _climbJumpCooldown = 0f;
+
+    [Header("Grappling Hook")]
+    public GameObject hookPrefab;
+    private GameObject curHook;
+    private bool ropeActive;
+    public float swingForce = 10f;
+    [Tooltip("Gravity scale used when the grappling hook is active.")]
+    public float ropeGravityScale = 3f;
     private void Awake()
     {
         // get components
@@ -133,13 +141,13 @@ public class HumanMovement : MonoBehaviour
         HandleSprint();
         HandleClimbing();
         HandleDropping();
+        HandleGrapple();
         
         if (_climbJumpCooldown > 0f)
             _climbJumpCooldown -= Time.deltaTime;
         
         HandleClimbJumpInput();   
         HandleClimbJumpTick();
-        HandleStaminaRegeneration();
         HandleStaminaRegeneration();
         Move();
         playerUI.UpdateStaminaBar();
@@ -304,10 +312,10 @@ public class HumanMovement : MonoBehaviour
         _dropDurationElapsed = 0f;
         _dropCooldownTimer = DropCooldown; // Start cooldown period
         
-        // Disable gravity back to normal 2D top-down
+        // Disable gravity back to normal 2D top-down, unless rope is active
         if (rig != null)
         {
-            rig.gravityScale = 0f;
+            rig.gravityScale = ropeActive ? ropeGravityScale : 0f;
         }
         
         // Recover some stamina while dropping
@@ -337,10 +345,49 @@ public class HumanMovement : MonoBehaviour
     }
 
     
+    private void HandleGrapple()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!ropeActive)
+            {
+                Vector2 destiny = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                curHook = Instantiate(hookPrefab, transform.position, Quaternion.identity);
+
+                // Link the hook to this player
+                var rope = curHook.GetComponent<RopeScript>();
+                rope.destiny = destiny;
+                rope.player = this.gameObject;
+
+                ropeActive = true;
+
+                // A grappling hook requires gravity to swing.
+                if (rig != null)
+                {
+                    rig.gravityScale = ropeGravityScale;
+                }
+            }
+            else
+            {
+                Destroy(curHook);
+                ropeActive = false;
+
+                // Return to top-down physics (no gravity) if not dropping
+                if (rig != null && !isDropping)
+                {
+                    rig.gravityScale = 0f;
+                    // Optionally clear velocity to stop the swing instantly, 
+                    // or let it bleed out via linear drag if you have any.
+                    rig.linearVelocity = Vector2.zero;
+                }
+            }
+        }
+    }
+
     private void HandleStaminaRegeneration()
     {
         // Only regenerate stamina if not currently exerting
-        if (!_isSprinting && !isClimbing && !isDropping && !_isPushing)
+        if (!_isSprinting && !isClimbing && !isDropping && !_isPushing && !ropeActive)
         {
             _staminaRegenTimer += Time.deltaTime;
             
@@ -359,13 +406,41 @@ public class HumanMovement : MonoBehaviour
 
     private void Move()
     {
-        // Don't process movement input while dropping
+        // Don't process normal movement input while dropping
         if (isDropping) return;
-        
+
         // --- INPUT ---
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
         MoveInput = new Vector2(x, y);
+
+        if (ropeActive)
+        {
+            // SWING PHYSICS
+            if (rig)
+            {
+                // Apply force for swinging
+                rig.AddForce(Vector2.right * x * swingForce);
+                
+                // Allow vertical climbing movement if we are in climbing state
+                if (isClimbing)
+                {
+                    // This allows the player to still move up/down while hooked if they are on a climbable surface
+                    // Note: This might feel a bit weird with a hinge joint, but the user requested it.
+                    rig.linearVelocity = new Vector2(rig.linearVelocity.x, y * climbSpeed);
+                    
+                    // Facing up while climbing
+                    FacingDirection = Vector2.up;
+                }
+                else if (Mathf.Abs(x) > 0.1f)
+                {
+                    FacingDirection = (x > 0f) ? Vector2.right : Vector2.left;
+                }
+                
+                UpdateSpriteDirection();
+            }
+            return;
+        }
 
         // normalize diagonals for consistent speed
         if (MoveInput.sqrMagnitude > 1f) MoveInput.Normalize();

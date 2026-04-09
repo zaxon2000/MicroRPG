@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runDebugs: 1
-  rig: {fileID: 0}
+  rig: {fileID: 2837799147170561389}
   spriteRendererComponent: {fileID: 4821336623805724684}
   playerUI: {fileID: 0}
   player: {fileID: 305240333953387334}
@@ -165,11 +165,14 @@ MonoBehaviour:
   staminaThresholdStartSprinting: 20
   staminaThresholdStopSprinting: 5
   staminaDegenRateSprinting: 20
+  staminaDegenRatePushing: 12
   climbJumpKey: 32
   climbJumpHeight: 2.5
   climbJumpDuration: 0.25
   climbJumpStaminaCost: 10
   climbJumpRecoveryTime: 0.75
+  hookPrefab: {fileID: 1000012688847204, guid: ddbf897f9a3f2a04c82360e94d84e7d1, type: 3}
+  swingForce: 10
 --- !u!114 &4649825598105366291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +204,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -211,7 +214,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &324285270788263432
 CapsuleCollider2D:

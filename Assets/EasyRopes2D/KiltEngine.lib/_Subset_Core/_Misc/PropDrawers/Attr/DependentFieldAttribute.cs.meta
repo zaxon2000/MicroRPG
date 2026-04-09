@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: d9083becf6b36ee49b94592f54fde553
+timeCreated: 1465618954
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 40202
+  packageName: Easy Ropes 2D
+  packageVersion: 2.2.1
+  assetPath: Assets/_KILT/KiltEngine.lib/_Subset_Core/_Misc/PropDrawers/Attr/DependentFieldAttribute.cs
+  uploadId: 242289
