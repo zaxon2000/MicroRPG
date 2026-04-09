@@ -360,6 +360,7 @@ public class HumanMovement : MonoBehaviour
                 rope.player = this.gameObject;
 
                 ropeActive = true;
+                isClimbing = false; // Disable wall climbing while rope is active
 
                 // A grappling hook requires gravity to swing.
                 if (rig != null)
@@ -419,22 +420,25 @@ public class HumanMovement : MonoBehaviour
             // SWING PHYSICS
             if (rig)
             {
-                // Apply force for swinging
-                rig.AddForce(Vector2.right * x * swingForce);
-                
-                // Allow vertical climbing movement if we are in climbing state
-                if (isClimbing)
+                if (Mathf.Abs(x) > 0.1f)
                 {
-                    // This allows the player to still move up/down while hooked if they are on a climbable surface
-                    // Note: This might feel a bit weird with a hinge joint, but the user requested it.
-                    rig.linearVelocity = new Vector2(rig.linearVelocity.x, y * climbSpeed);
-                    
-                    // Facing up while climbing
+                    // SWINGING: Apply horizontal force, disable climbing state
+                    isClimbing = false;
+                    rig.AddForce(Vector2.right * x * swingForce);
+                    FacingDirection = (x > 0f) ? Vector2.right : Vector2.left;
+                }
+                else if (Mathf.Abs(y) > 0.1f)
+                {
+                    // CLIMBING THE ROPE: Move vertically, zero horizontal velocity, enable climbing state for stamina
+                    isClimbing = true;
+                    rig.linearVelocity = new Vector2(0f, y * climbSpeed);
                     FacingDirection = Vector2.up;
                 }
-                else if (Mathf.Abs(x) > 0.1f)
+                else
                 {
-                    FacingDirection = (x > 0f) ? Vector2.right : Vector2.left;
+                    // HANGING: Enable climbing state to face the rope, but no vertical velocity override
+                    isClimbing = true;
+                    FacingDirection = Vector2.up;
                 }
                 
                 UpdateSpriteDirection();
@@ -554,7 +558,7 @@ public class HumanMovement : MonoBehaviour
         
         yield return new WaitForSeconds(layerTransitionDelay);
         
-        if(other == null)
+        if(other == null || ropeActive) // Disable wall interaction while rope is active
             yield break;
         
         int layer = other.gameObject.layer;
@@ -592,6 +596,8 @@ public class HumanMovement : MonoBehaviour
     
     private void HandleContinuousSurface(Collider2D other)
     {
+        if (ropeActive) return; // Disable wall interaction while rope is active
+        
         int layer = other.gameObject.layer;
         if (layer == LayerMask.NameToLayer("Ground"))
         {
