@@ -126,6 +126,14 @@ public class HumanMovement : MonoBehaviour
              "the wall. Set ~half the player's collider height. Pure walk-on " +
              "from above is unaffected (the snap only fires when player.y <= bw.y).")]
     public float bridgeSnapOffset = 0.5f;
+    [Tooltip("Grace period (seconds) for the bridge fall detector. Once the " +
+             "player has had no live BridgeWalkable contact for this long, " +
+             "the bridge is considered broken / the player has fallen off, " +
+             "and the drop system kicks in so landing on Ground deals fall " +
+             "damage. Long enough to absorb the brief plank-to-plank gaps a " +
+             "sagging bridge produces during normal walking; short enough to " +
+             "respond to a real break.")]
+    public float bridgeFallGracePeriod = 0.3f;
 
     // Tracks which BridgeWalkable surfaces the player is CURRENTLY in contact
     // with. Used only by the snap-to-top logic on initial engagement (we need
@@ -151,6 +159,13 @@ public class HumanMovement : MonoBehaviour
     // y-velocity on a true→false transition (otherwise inertia from the fall
     // would drift the player in top-down mode after leaving the bridge).
     private bool _lastGravityOn;
+    // Last time the player had at least one LIVE BridgeWalkable in
+    // _bridgesWalkingOn. Used by HandleBridgeFallDetection: if too much
+    // time elapses without any live plank, the bridge is broken (or the
+    // player walked off the end into mid-air) and we transition into
+    // isDropping so the existing fall-damage system picks up the landing.
+    // -1 means "no baseline yet" (bridge not currently engaged).
+    private float _bridgeLastAliveTime = -1f;
     private void Awake()
     {
         // get components
@@ -205,9 +220,63 @@ public class HumanMovement : MonoBehaviour
         HandleClimbJumpTick();
         HandleStaminaRegeneration();
         HandleBridgeStaminaRefill();
+        HandleBridgeFallDetection();
         Move();
         SyncGravityScale();
         playerUI.UpdateStaminaBar();
+    }
+
+    /// <summary>
+    /// Catches the case where the bridge breaks beneath the player (planks
+    /// fragment under boulder hits, etc.) or the player walks off the end of
+    /// the bridge into open air. In both cases gravity stays on (sticky
+    /// engagement), the player keeps falling, but isDropping is never armed
+    /// — so the existing landing-damage code in HandleEnterSurface never
+    /// fires. This bridges that gap: when no live BridgeWalkable has been in
+    /// contact for <see cref="bridgeFallGracePeriod"/> seconds, transition
+    /// into the drop state with velocity preserved (we're already falling).
+    /// CauseFallDamage then runs on Ground impact like a normal fall.
+    /// </summary>
+    private void HandleBridgeFallDetection()
+    {
+        if (!_isOnBridge || isDropping || ropeActive) return;
+
+        // Sweep destroyed planks. Removing nulls is essential: the bridge
+        // fragmentation system Destroy()s planks under hits, and the stale
+        // entries would otherwise keep _bridgeLastAliveTime pinned to "now"
+        // and the fall would never be detected.
+        _bridgesWalkingOn.RemoveWhere(bw => bw == null);
+
+        if (_bridgesWalkingOn.Count > 0)
+        {
+            _bridgeLastAliveTime = Time.time;
+            return;
+        }
+
+        if (_bridgeLastAliveTime < 0f)
+        {
+            // Just engaged this frame and snap-to-top hasn't landed us on a
+            // plank yet. Seed the baseline; next Update will measure from here.
+            _bridgeLastAliveTime = Time.time;
+            return;
+        }
+
+        float elapsed = Time.time - _bridgeLastAliveTime;
+        if (elapsed < bridgeFallGracePeriod) return;
+
+        // Bridge contact lost long enough to count as a fall. Transition to
+        // isDropping with gravity STILL on and velocity PRESERVED — the
+        // player is mid-air and we want the in-progress fall to continue
+        // unbroken. Seed _dropDurationElapsed with the elapsed grace so the
+        // damage formula reflects total time-since-contact-was-lost, not
+        // just time-since-detection.
+        _isOnBridge = false;
+        _bridgesWalkingOn.Clear();
+        _bridgeLastAliveTime = -1f;
+        isDropping = true;
+        _dropDurationElapsed = elapsed;
+        isClimbing = false;
+        if (runDebugs) Debug.Log($"[HumanMovement] Bridge fall detected; entering drop with elapsed={elapsed:F2}");
     }
 
     /// <summary>
@@ -774,6 +843,9 @@ public class HumanMovement : MonoBehaviour
         _isOnBridge = true;
         gravityOn = true;
         isClimbing = false;
+        // Seed the fall-detector baseline so the grace-period clock starts
+        // ticking from a known good state.
+        _bridgeLastAliveTime = Time.time;
         if (rig == null) return;
 
         // Snap-to-top: if engagement happened from BESIDE or BELOW the closest
@@ -825,6 +897,7 @@ public class HumanMovement : MonoBehaviour
         if (!_isOnBridge) return;
         _bridgesWalkingOn.Clear();
         _isOnBridge = false;
+        _bridgeLastAliveTime = -1f;
         gravityOn = ropeActive;   // rope swings keep gravity on for swing physics.
         if (rig != null) rig.linearVelocity = Vector2.zero;
         if (runDebugs) Debug.Log("[HumanMovement] Bridge released");
