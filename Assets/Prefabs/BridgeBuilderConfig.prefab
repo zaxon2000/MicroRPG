@@ -46,8 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BridgeBuilderConfig
   independentTackPrefab: {fileID: 113616, guid: 097d4e5a5d0081c42a0b5e517fda6efd,
     type: 3}
-  bridgeBlockPrefab: {fileID: 100000, guid: 0e91cafa57e3ba74ea256d863b5d63be, type: 3}
+  bridgeBlockPrefab: {fileID: 129374, guid: d799516129b203f429cff88e1b088a2a, type: 3}
   bridgeRopePrefab: {fileID: 107500, guid: 21182005b84b74c4781f8ff10f5df50c, type: 3}
-  maxBlockDistance: 0.6
+  maxBlockDistance: 0.8
   bridgeRootScale: 0.0025
-  popupSize: {x: 220, y: 220}
+  ropeCanBreak: 1
+  ropeMaxDistanceOnly: 1
+  ropeSpringFrequency: 20
+  ropeSpringDamping: 0.3
