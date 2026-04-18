@@ -40,6 +40,18 @@ public class Enemy : MonoBehaviour
     private bool _isKnockedBack;
     private float _knockbackTimer;
 
+    [Header("Bridge Walking")]
+    [Tooltip("Gravity scale applied while standing on top of a bridge block " +
+             "(see BridgeWalkable). Mirrors the player's bridge behaviour so " +
+             "enemies also walk across rope bridges instead of floating.")]
+    public float bridgeGravityScale = 3f;
+
+    // Tracks which BridgeWalkable surfaces are currently supporting the enemy.
+    // Same multi-contact pattern as HumanMovement — straddling two blocks is
+    // common while walking, so we keep a set rather than a single flag.
+    private readonly HashSet<BridgeWalkable> _bridgesWalkingOn = new();
+    private bool _isOnBridge;
+
     void Awake ()
     {
         // get the player target
@@ -146,6 +158,59 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Climbable"))
             isClimbing = false;
+    }
+
+    // ----- Bridge engagement --------------------------------------------------
+    // Same pattern as HumanMovement: contact from above engages gravity so the
+    // enemy stands on the planks; exiting the last block restores the top-down
+    // floating behaviour. No "press up to release" — enemies don't have an
+    // explicit climb-input axis; if they need to climb away, the existing
+    // Climbable-layer trigger handlers above will fire as normal.
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (_isKnockedBack) return; // physics-driven; don't override
+
+        var bw = collision.gameObject.GetComponent<BridgeWalkable>();
+        if (bw == null) return;
+
+        // Only engage when the enemy is on TOP of the block (standing surface).
+        if (transform.position.y > bw.transform.position.y)
+        {
+            _bridgesWalkingOn.Add(bw);
+            UpdateBridgeState();
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        var bw = collision.gameObject.GetComponent<BridgeWalkable>();
+        if (bw == null) return;
+        _bridgesWalkingOn.Remove(bw);
+        UpdateBridgeState();
+    }
+
+    private void UpdateBridgeState()
+    {
+        bool wasOn = _isOnBridge;
+        _isOnBridge = _bridgesWalkingOn.Count > 0;
+        if (_isOnBridge == wasOn) return;
+
+        if (rig == null) return;
+
+        if (_isOnBridge)
+        {
+            // Engaged: gravity holds the enemy on the planks. Drop climb state
+            // since the enemy is now standing on a horizontal surface.
+            rig.gravityScale = bridgeGravityScale;
+            isClimbing = false;
+        }
+        else
+        {
+            // Disengaged: back to top-down (no gravity, no residual fall vel).
+            rig.gravityScale = 0f;
+            rig.linearVelocity = Vector2.zero;
+        }
     }
 
     // damage the player

@@ -27560,6 +27560,7 @@ MonoBehaviour:
     type: 3}
   rightSprite: {fileID: 3208027462701797463, guid: 9d2fef81000f5d3499f8ee2969737d52,
     type: 3}
+  bridgeGravityScale: 3
 --- !u!1 &589956423
 GameObject:
   m_ObjectHideFlags: 0
@@ -31964,6 +31965,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 415783339}
+  minZoom: 2
+  maxZoom: 10
+  zoomSpeed: 1
+  zoomSmoothSpeed: 8
 --- !u!114 &1473115387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33016,6 +33021,84 @@ Transform:
   - {fileID: 86644972}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2557124838914678833
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1211390451442943218, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.976
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211390451442943218, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.52591
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211390451442943218, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211390451442943218, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211390451442943218, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211390451442943218, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211390451442943218, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211390451442943218, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211390451442943218, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211390451442943218, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3272941154036865027, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: maxBlockDistance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3272941154036865027, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: ropeSpringFrequency
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721863380910886866, guid: a6d8e534ebf81487aa00b74a817078a1,
+        type: 3}
+      propertyPath: m_Name
+      value: BridgeBuilderConfig
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a6d8e534ebf81487aa00b74a817078a1, type: 3}
 --- !u!1001 &3236721509880971438
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33281,3 +33364,4 @@ SceneRoots:
   - {fileID: 222333002}
   - {fileID: 1937875790}
   - {fileID: 785948223}
+  - {fileID: 2557124838914678833}

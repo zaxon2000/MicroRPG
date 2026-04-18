@@ -527,6 +527,16 @@ public class BridgeBuilder : MonoBehaviour
         }
         chain.Add(tackB);
 
+        // Tag every piece (anchors + intermediates) as a walkable bridge surface
+        // so HumanMovement / Enemy can engage gravity on top-contact. Marker is
+        // idempotent — AddComponent only runs if not already present (the user
+        // could end up rebuilding/reusing pieces in a future revision).
+        foreach (var piece in chain)
+        {
+            if (piece != null && piece.GetComponent<BridgeWalkable>() == null)
+                piece.AddComponent<BridgeWalkable>();
+        }
+
         // Wire ropes between every consecutive pair. Setting ObjectA/ObjectB
         // flags Rope2D._needUpdateRope; the next Rope2D.Update tick rebuilds
         // the rope's nodes, joints, and renderers from scratch.
