@@ -20,6 +20,11 @@ using Kilt.EasyRopes2D.Examples;
 /// Sprites/Default so we don't need any prefab/material from the Easy Ropes 2D
 /// package present in the scene.
 ///
+/// The bridge-construction tool (<see cref="BridgeBuilder"/>) is a sibling
+/// system, also gated on Ropes mode, that handles RMB on EMPTY space (i.e.
+/// raycast misses RopeInteractable) by opening a popup. It auto-bootstraps
+/// independently — RopeToolController doesn't need to wire it.
+///
 /// Auto-bootstrapped — no scene placement required.
 /// </summary>
 public class RopeToolController : MonoBehaviour
