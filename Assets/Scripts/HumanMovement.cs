@@ -352,6 +352,22 @@ public class HumanMovement : MonoBehaviour
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
 
+        // Only respond to mouse clicks while the player has the grapple hook tool selected.
+        // (Switching modes mid-swing also tears down any active rope — see below.)
+        bool grappleToolActive = ToolModeManager.Instance == null
+            || ToolModeManager.Instance.Mode == ToolModeManager.ToolMode.GrappleHook;
+
+        // If the tool was switched off mid-swing, retract the active rope so the
+        // player isn't left dangling on a hook they can no longer control.
+        if (!grappleToolActive && ropeActive)
+        {
+            DetachGrapple();
+            return;
+        }
+
+        if (!grappleToolActive)
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             if (!ropeActive)
@@ -375,18 +391,31 @@ public class HumanMovement : MonoBehaviour
             }
             else
             {
-                Destroy(curHook);
-                ropeActive = false;
-
-                // Return to top-down physics (no gravity) if not dropping
-                if (rig != null && !isDropping)
-                {
-                    rig.gravityScale = 0f;
-                    // Optionally clear velocity to stop the swing instantly, 
-                    // or let it bleed out via linear drag if you have any.
-                    rig.linearVelocity = Vector2.zero;
-                }
+                DetachGrapple();
             }
+        }
+    }
+
+    /// <summary>
+    /// Tear down the active grappling hook (if any) and restore top-down physics.
+    /// Called both from a normal player click-to-release and when the user switches
+    /// the active tool away from "Grapple Hook" mid-swing.
+    /// </summary>
+    private void DetachGrapple()
+    {
+        if (!ropeActive) return;
+
+        if (curHook != null)
+            Destroy(curHook);
+        curHook = null;
+        ropeActive = false;
+
+        // Return to top-down physics (no gravity) if not dropping
+        if (rig != null && !isDropping)
+        {
+            rig.gravityScale = 0f;
+            // Stop the swing instantly so the player doesn't drift after release.
+            rig.linearVelocity = Vector2.zero;
         }
     }
 

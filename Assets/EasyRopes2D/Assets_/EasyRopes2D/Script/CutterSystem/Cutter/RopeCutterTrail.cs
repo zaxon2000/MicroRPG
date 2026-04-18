@@ -162,6 +162,15 @@ namespace Kilt.EasyRopes2D
 
         protected virtual void HandleOnGlobalPress(bool p_isPressed)
         {
+            // Respect MonoBehaviour.enabled / GameObject active state so external systems
+            // (e.g. ToolModeManager / RopeToolController) can disable cutting cleanly
+            // by toggling the component. Mirrors the gating in DragController.
+            if (!enabled || !gameObject.activeInHierarchy)
+            {
+                if (IsGrabbing()) ResetToNonPressingState();
+                return;
+            }
+
             if (p_isPressed && Input.GetMouseButton(0))
                 GrabTouch();
             else if (!p_isPressed && IsTouchReferenceEqualsCurrentTouch(CameraInputController.currentTouch))

@@ -19,9 +19,9 @@ TagManager:
   - Ground
   - Obstacle
   - Grappleable
-  - 
-  - 
-  - 
+  - RopeInteractable
+  -
+  -
   - 
   - 
   - 
